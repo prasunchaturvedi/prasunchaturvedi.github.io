@@ -1,0 +1,83 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//prasunchaturvedi.in//Daily quiz//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Algorithm Analysis daily quiz
+X-WR-TIMEZONE:Asia/Kolkata
+BEGIN:VEVENT
+UID:aa-quiz-day1@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261125T033000Z
+DTEND:20261125T034500Z
+SUMMARY:Algorithm Analysis Quiz #1 is live
+DESCRIPTION:Algorithm Analysis daily quiz #1 (30 questions) is now open: ht
+ tps://prasunchaturvedi.in/quiz/aa/
+URL:https://prasunchaturvedi.in/quiz/aa/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Algorithm Analysis Quiz #1 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:aa-quiz-day2@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261126T033000Z
+DTEND:20261126T034500Z
+SUMMARY:Algorithm Analysis Quiz #2 is live
+DESCRIPTION:Algorithm Analysis daily quiz #2 (30 questions) is now open: ht
+ tps://prasunchaturvedi.in/quiz/aa/
+URL:https://prasunchaturvedi.in/quiz/aa/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Algorithm Analysis Quiz #2 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:aa-quiz-day3@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261127T033000Z
+DTEND:20261127T034500Z
+SUMMARY:Algorithm Analysis Quiz #3 is live
+DESCRIPTION:Algorithm Analysis daily quiz #3 (30 questions) is now open: ht
+ tps://prasunchaturvedi.in/quiz/aa/
+URL:https://prasunchaturvedi.in/quiz/aa/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Algorithm Analysis Quiz #3 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:aa-quiz-day4@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261128T033000Z
+DTEND:20261128T034500Z
+SUMMARY:Algorithm Analysis Quiz #4 is live
+DESCRIPTION:Algorithm Analysis daily quiz #4 (30 questions) is now open: ht
+ tps://prasunchaturvedi.in/quiz/aa/
+URL:https://prasunchaturvedi.in/quiz/aa/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Algorithm Analysis Quiz #4 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:aa-quiz-day5@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261129T033000Z
+DTEND:20261129T034500Z
+SUMMARY:Algorithm Analysis Quiz #5 is live
+DESCRIPTION:Algorithm Analysis daily quiz #5 (30 questions) is now open: ht
+ tps://prasunchaturvedi.in/quiz/aa/
+URL:https://prasunchaturvedi.in/quiz/aa/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Algorithm Analysis Quiz #5 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+END:VCALENDAR

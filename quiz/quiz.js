@@ -107,7 +107,7 @@
   var preview = params.get("preview") === "all";
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function getJSON(url) {
-    return fetch(url, { credentials: "same-origin" }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
+    return fetch(url, { credentials: "same-origin" }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (j) { return Array.isArray(j) ? { questions: j } : j; });
   }
 
   // ---------- hub (quiz/index.html) ----------
@@ -318,7 +318,7 @@
       '<div class="quiz-model"><h3>Model answer</h3><p>' + esc(q.explanation) + "</p>" +
       '<p class="quiz-concept"><strong>Key concept:</strong> ' + esc(q.concept) + "</p>" +
       (q.source ? '<p class="quiz-source">' + esc(q.source) + "</p>" : "") +
-      '<p><a href="' + esc(q.ref) + '">Revise this topic in the notes</a></p></div>' +
+      (q.ref ? '<p><a href="' + esc(q.ref) + '">Revise this topic in the notes</a></p>' : "") + '</div>' +
       '<button type="button" class="btn btn-primary" data-next>' + (last ? "See my score" : "Next question") + "</button>";
     var next = panel.querySelector("[data-next]");
     next.addEventListener("click", goNext);
@@ -414,7 +414,7 @@
       (!state.sample ? "<p>Quizzes completed on this device: " + Object.keys(daysDone).length + " of " + subj.days + "; current streak: " + streak + " day" + (streak === 1 ? "" : "s") + ".</p>" : "") +
       (missed.length ? "<h3>Questions to revisit (" + missed.length + ")</h3><ol class=\"missed\">" + missed.map(function (q) {
         return '<li><span class="quiz-id">' + esc(q.id) + "</span> " + esc(q.stem) + '<br><strong>Answer:</strong> ' + esc(q.options[q.answer]) +
-          ' · <a href="' + esc(q.ref) + '">notes</a></li>';
+          (q.ref ? ' · <a href="' + esc(q.ref) + '">notes</a>' : "") + '</li>';
       }).join("") + "</ol>" : "<p>No misses. Excellent work.</p>") +
       '<div class="actions"><button type="button" class="btn btn-primary" data-retry>Retry ' + dayLabel + "</button>" +
       '<button type="button" class="btn btn-outline" data-share>Share my score</button></div>' +
