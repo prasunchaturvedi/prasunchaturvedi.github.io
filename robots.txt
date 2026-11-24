@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /drafts/
+Disallow: /thanks.html
+
+Sitemap: https://prasunchaturvedi.in/sitemap.xml
