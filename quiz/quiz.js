@@ -4,8 +4,11 @@
   "use strict";
 
   // ---------- configuration ----------
-  // Release dates live in /quiz/schedule.json: quiz #N unlocks at 09:00 IST on the Nth date.
-  var UNLOCK_TIME = "T09:00:00+05:30";
+  // Release dates live in /quiz/schedule.json: quiz #N unlocks on the Nth date at the subject's
+  // release time (IST). Default 09:00; subjects listed in RELEASE override it.
+  var RELEASE = { BCA: "11:00" };
+  function releaseTime(code) { return RELEASE[code] || "09:00"; }
+  function releaseLabel(code) { var t = releaseTime(code).split(":"), h = +t[0]; return (h % 12 || 12) + ":" + t[1] + (h < 12 ? " AM" : " PM") + " IST"; }
   var DAY_MS = 86400000;
   var SUBJECTS = {
     NET: { code: "NET", folder: "net", label: "Networking", title: "Network & Systems Security" },
@@ -44,7 +47,7 @@
 
   // ---------- pure helpers (exported for tests) ----------
   // subj.dates = ["YYYY-MM-DD", ...] from schedule.json
-  function unlockMs(subj, n) { return Date.parse(subj.dates[n - 1] + UNLOCK_TIME); }
+  function unlockMs(subj, n) { return Date.parse(subj.dates[n - 1] + "T" + releaseTime(subj.code) + ":00+05:30"); }
   function isUnlocked(subj, n, now, preview) { return n >= 1 && n <= subj.dates.length && (preview || now >= unlockMs(subj, n)); }
   function currentDay(subj, now) {
     var d = 0;
@@ -87,7 +90,7 @@
   // Hook for a future anonymous leaderboard. Returns null until a real data source exists.
   function getPeerStats(day, score) { return null; }
 
-  var api = { SUBJECTS: SUBJECTS, unlockMs: unlockMs, isUnlocked: isUnlocked, currentDay: currentDay, nextUnlock: nextUnlock, withSchedule: withSchedule,
+  var api = { SUBJECTS: SUBJECTS, releaseTime: releaseTime, releaseLabel: releaseLabel, unlockMs: unlockMs, isUnlocked: isUnlocked, currentDay: currentDay, nextUnlock: nextUnlock, withSchedule: withSchedule,
     tierFor: tierFor, benchmark: benchmark, istDate: istDate, countdown: countdown, getPeerStats: getPeerStats, QUOTES: QUOTES };
   if (typeof module !== "undefined" && module.exports) { module.exports = api; }
   if (typeof document === "undefined") return;
@@ -136,8 +139,8 @@
         body = '<p class="hub-status">Coming soon</p><p>This subject\u2019s questions are being prepared.</p>';
       } else {
         body = (today ? '<p class="hub-status live">Live today: Quiz #' + today + "</p><p>" + esc(istDate(unlockMs(s, today))) +
-          '</p><p><a class="btn btn-primary" href="' + url + "&n=" + today + '">Take Quiz #' + today + "</a></p>"
-          : '<p class="hub-status">Starts ' + esc(istDate(unlockMs(s, 1))) + '</p><p><a class="btn btn-primary" href="' + url + '">Try the free sample</a></p>') +
+          ' · ' + releaseLabel(s.code) + '</p><p><a class="btn btn-primary" href="' + url + "&n=" + today + '">Take Quiz #' + today + "</a></p>"
+          : '<p class="hub-status">Starts ' + esc(istDate(unlockMs(s, 1))) + ', ' + releaseLabel(s.code) + '</p><p><a class="btn btn-primary" href="' + url + '">Try the free sample</a></p>') +
           (next ? '<p class="hub-next">Quiz #' + next + ' opens in <strong data-until="' + unlockMs(s, next) + '"></strong></p>' : "<p class=\"hub-next\">All quizzes released.</p>") +
           (today > 1 ? '<p class="hub-archive">Archive: ' + Array.apply(null, Array(today - 1)).map(function (_, k) {
             return '<a href="' + url + "&n=" + (k + 1) + '">#' + (k + 1) + "</a>"; }).join(" ") + "</p>" : "");
@@ -210,7 +213,7 @@
   }
 
   function setHeadline(day, sample) {
-    if (sample) { headline.textContent = subj.label + " Quiz — free sample (Quiz #1 opens " + istDate(unlockMs(subj, 1)) + ", 9:00 AM IST)"; return; }
+    if (sample) { headline.textContent = subj.label + " Quiz — free sample (Quiz #1 opens " + istDate(unlockMs(subj, 1)) + ", " + releaseLabel(subj.code) + ")"; return; }
     headline.textContent = subj.label + " Quiz #" + day + " — " + istDate(unlockMs(subj, day));
   }
 
@@ -232,7 +235,7 @@
     setHeadline(day, false);
     if (!isUnlocked(subj, day, now, preview)) {
       panel.innerHTML = '<div class="quiz-locked"><h2>Quiz #' + day + ' is locked</h2><p>It opens on ' + esc(istDate(unlockMs(subj, day))) +
-        ' at 9:00 AM IST.</p><p class="quiz-count" aria-live="off">Opens in <strong data-count></strong></p></div>';
+        ' at ' + releaseLabel(subj.code) + '.</p><p class="quiz-count" aria-live="off">Opens in <strong data-count></strong></p></div>';
       var el = panel.querySelector("[data-count]");
       var tick = function () {
         var left = unlockMs(subj, day) - Date.now();

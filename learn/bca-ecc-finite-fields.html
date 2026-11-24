@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ECC over prime fields, quadratic residues, EC-ElGamal and RSA vs ECC | Prasun Chaturvedi</title>
+  <meta name="description" content="Elliptic curves modulo a prime, quadratic residues and Euler&#x27;s criterion, all points and multiples of a generator on y² = x³ + x + 6 over Z₁₁, an EC-ElGamal round trip, and why ECC beats RSA on key size.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/bca-ecc-finite-fields.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="ECC over prime fields, quadratic residues, EC-ElGamal and RSA vs ECC">
+  <meta property="og:description" content="Elliptic curves modulo a prime, quadratic residues and Euler&#x27;s criterion, all points and multiples of a generator on y² = x³ + x + 6 over Z₁₁, an EC-ElGamal round trip, and why ECC beats RSA on key size.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/bca-ecc-finite-fields.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Blockchain &amp; Access Control &rsaquo; Module 2 · Public-key cryptography</p>
+        <h1>ECC over prime fields, quadratic residues, EC-ElGamal and RSA vs ECC</h1>
+        <p>Elliptic curves modulo a prime, quadratic residues and Euler&#x27;s criterion, all points and multiples of a generator on y² = x³ + x + 6 over Z₁₁, an EC-ElGamal round trip, and why ECC beats RSA on key size.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Blockchain &amp; Access Control &mdash; revision notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#zp">Curves over Z<sub>p</sub></a></li><li><a href="#qr">Quadratic residues</a></li><li><a href="#ex">Worked curve over Z₁₁</a></li><li><a href="#ecelg">EC-ElGamal</a></li><li><a href="#cmp">RSA vs ECC</a></li></ol></nav>
+<h2 id="zp">Curves over Z<sub>p</sub></h2>
+<p>Real-number curves suffer rounding; cryptography uses exact arithmetic over a prime field (p &gt; 3). E is the set of (x, y) &isin; Z<sub>p</sub> &times; Z<sub>p</sub> with y<sup>2</sup> &equiv; x<sup>3</sup> + ax + b, 4a<sup>3</sup> + 27b<sup>2</sup> &#8802; 0 (mod p), plus O.</p>
+<div class="formula"><p>&lambda; = (y<sub>2</sub> &minus; y<sub>1</sub>)(x<sub>2</sub> &minus; x<sub>1</sub>)<sup>&minus;1</sup> (addition) or (3x<sub>1</sub><sup>2</sup> + a)(2y<sub>1</sub>)<sup>&minus;1</sup> (doubling), mod p.</p><p>x<sub>3</sub> = &lambda;<sup>2</sup> &minus; x<sub>1</sub> &minus; x<sub>2</sub>; y<sub>3</sub> = &lambda;(x<sub>1</sub> &minus; x<sub>3</sub>) &minus; y<sub>1</sub>; &minus;(x, y) = (x, p &minus; y).</p></div>
+<p>Division becomes multiplication by a modular inverse.</p>
+
+<h2 id="qr">Quadratic residues and Euler&rsquo;s criterion</h2>
+<p>z is a <strong>quadratic residue</strong> mod p if y<sup>2</sup> &equiv; z has a solution. Exactly (p &minus; 1)/2 non-zero values are residues: mod 11 they are {1, 3, 4, 5, 9}.</p>
+<div class="formula"><p>Euler: z is a QR &hArr; z<sup>(p&minus;1)/2</sup> &equiv; 1 (otherwise &equiv; &minus;1).</p><p>If p &equiv; 3 (mod 4): the roots are &plusmn;z<sup>(p+1)/4</sup> mod p.</p></div>
+
+<h2 id="ex">Worked curve: y<sup>2</sup> = x<sup>3</sup> + x + 6 over Z<sub>11</sub></h2>
+<p>4 + 27&middot;36 = 976 &equiv; 8 &#8802; 0, so non-singular. Since 11 &equiv; 3 (mod 4), roots are &plusmn;z<sup>3</sup>.</p>
+<table><thead><tr><th>x</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr></thead><tbody>
+<tr><td>z</td><td>6</td><td>8</td><td>5</td><td>3</td><td>8</td><td>4</td><td>8</td><td>4</td><td>9</td><td>7</td><td>4</td></tr>
+<tr><td>y</td><td>&ndash;</td><td>&ndash;</td><td>4, 7</td><td>5, 6</td><td>&ndash;</td><td>2, 9</td><td>&ndash;</td><td>2, 9</td><td>3, 8</td><td>&ndash;</td><td>2, 9</td></tr></tbody></table>
+<p>12 affine points + O = <strong>13 points</strong>. Because 13 is prime, every point except O generates the group.</p>
+<div class="worked"><h3>Multiples of &alpha; = (2, 7)</h3><p>2&alpha;: &lambda; = (3&middot;4 + 1)(14)<sup>&minus;1</sup> = 2&middot;3<sup>&minus;1</sup> = 2&middot;4 = 8; x = 64 &minus; 4 = 60 &equiv; 5; y = 8(2 &minus; 5) &minus; 7 = &minus;31 &equiv; 2 &rArr; (5, 2).<br>3&alpha; = (5, 2) + (2, 7): &lambda; = 5&middot;(&minus;3)<sup>&minus;1</sup> = 5&middot;7 = 35 &equiv; 2; x = 4 &minus; 7 &equiv; 8; y = 2(5 &minus; 8) &minus; 2 &equiv; 3 &rArr; (8, 3).</p>
+<table><thead><tr><th>k</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th></tr></thead><tbody><tr><td>k&alpha;</td><td>(2,7)</td><td>(5,2)</td><td>(8,3)</td><td>(10,2)</td><td>(3,6)</td><td>(7,9)</td><td>(7,2)</td><td>(3,5)</td><td>(10,9)</td><td>(8,8)</td><td>(5,9)</td><td>(2,4)</td><td>O</td></tr></tbody></table></div>
+
+<h2 id="ecelg">EC-ElGamal</h2>
+<table><thead><tr><th>ElGamal in Z<sub>p</sub>*</th><th>EC-ElGamal</th></tr></thead><tbody>
+<tr><td>&beta; = &alpha;<sup>a</sup></td><td>&beta; = a&alpha;</td></tr><tr><td>y<sub>1</sub> = &alpha;<sup>k</sup></td><td>y<sub>1</sub> = k&alpha;</td></tr><tr><td>y<sub>2</sub> = x&beta;<sup>k</sup></td><td>y<sub>2</sub> = P<sub>m</sub> + k&beta;</td></tr><tr><td>x = y<sub>2</sub>(y<sub>1</sub><sup>a</sup>)<sup>&minus;1</sup></td><td>P<sub>m</sub> = y<sub>2</sub> &minus; a&middot;y<sub>1</sub></td></tr></tbody></table>
+<div class="worked"><h3>Worked example</h3><p>Bob: a = 7, &beta; = 7&alpha; = (7, 2). Alice sends P<sub>m</sub> = (10, 9) with k = 3: y<sub>1</sub> = 3&alpha; = (8, 3); 3&beta; = 21&alpha; = 8&alpha; = (3, 5); y<sub>2</sub> = (10, 9) + (3, 5) = (10, 2).<br>Bob: 7y<sub>1</sub> = 21&alpha; = (3, 5); subtract by adding (3, 6): (10, 2) + (3, 6) = <strong>(10, 9)</strong>.</p></div>
+
+<h2 id="cmp">RSA vs ECC</h2>
+<table><thead><tr><th></th><th>RSA</th><th>ECC</th></tr></thead><tbody>
+<tr><td>Hard problem</td><td>Factoring n = pq</td><td>ECDLP</td></tr>
+<tr><td>Best known attack</td><td>Sub-exponential (number field sieve)</td><td>Generic O(&radic;n) only</td></tr>
+<tr><td>128-bit security</td><td>3,072-bit key</td><td>256-bit key</td></tr>
+<tr><td>256-bit security</td><td>15,360-bit key</td><td>512-bit key</td></tr>
+<tr><td>Performance</td><td>Fast verify with e = 65537; slow keygen and signing; large signatures</td><td>Small keys and signatures, low bandwidth and memory</td></tr></tbody></table>
+<p>Hence ECC in TLS 1.3 (X25519, P-256), messaging apps, IoT devices and blockchains, where signature size multiplies across millions of transactions.</p>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>A new Blockchain &amp; Access Control quiz opens every day at 11:00 AM IST: 30 questions from recall to evaluation, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/play.html?s=bca">Take today&rsquo;s Blockchain quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/bca-elgamal-ecc.html" rel="prev">&larr; ElGamal and elliptic-curve foundations</a><a href="/learn/bca-consensus.html" rel="next">Distributed consensus, fault models and consensus families &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

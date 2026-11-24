@@ -176,7 +176,7 @@ form .btn-primary:focus-visible { outline: 3px solid #fff; outline-offset: 3px; 
 .btn-outline { border-color: var(--navy); color: var(--navy); background: transparent; }
 .btn-outline:hover { background: var(--navy); color: #fff; }
 .page-head .crumb { font-size: .9375rem; margin: 0 0 .5rem; }
-.page-head .crumb a { color: #fff; }
+.page-head .crumb a, .page-head p a { color: #fff; }
 
 /* ---------- Articles list ---------- */
 .article-list { list-style: none; margin: 0; padding: 0; max-width: 48rem; }

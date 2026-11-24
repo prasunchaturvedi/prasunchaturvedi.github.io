@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Number theory: Fermat, inverses, Euclid and CRT | Prasun Chaturvedi</title>
+  <meta name="description" content="Fermat&#x27;s little theorem with four worked reductions, linear congruences and modular inverses, the extended Euclidean algorithm step by step, and the Chinese remainder theorem.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/bca-number-theory.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="Number theory: Fermat, inverses, Euclid and CRT">
+  <meta property="og:description" content="Fermat&#x27;s little theorem with four worked reductions, linear congruences and modular inverses, the extended Euclidean algorithm step by step, and the Chinese remainder theorem.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/bca-number-theory.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Blockchain &amp; Access Control &rsaquo; Module 2 · Public-key cryptography</p>
+        <h1>Number theory: Fermat, inverses, Euclid and CRT</h1>
+        <p>Fermat&#x27;s little theorem with four worked reductions, linear congruences and modular inverses, the extended Euclidean algorithm step by step, and the Chinese remainder theorem.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Blockchain &amp; Access Control &mdash; revision notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#flt">Fermat's little theorem</a></li><li><a href="#inv">Linear congruences and inverses</a></li><li><a href="#eea">Extended Euclidean algorithm</a></li><li><a href="#crt">Chinese remainder theorem</a></li></ol></nav>
+<h2 id="flt">Fermat&rsquo;s little theorem</h2>
+<div class="formula"><p>p prime, gcd(a, p) = 1 &rArr; a<sup>p&minus;1</sup> &equiv; 1 (mod p). For any a: a<sup>p</sup> &equiv; a (mod p).</p></div>
+<p>Reduce the exponent modulo p &minus; 1, then compute a small power.</p>
+<div class="worked"><h3>Worked examples</h3><ol class="plain">
+<li>128<sup>129</sup> mod 17: 129 = 8&middot;16 + 1 &rArr; 128 mod 17 = <strong>9</strong>.</li>
+<li>2<sup>1000</sup> mod 13: 1000 = 83&middot;12 + 4 &rArr; 2<sup>4</sup> = 16 &equiv; <strong>3</strong>.</li>
+<li>(2<sup>20</sup> + 3<sup>30</sup> + 4<sup>40</sup> + 5<sup>50</sup> + 6<sup>60</sup>) mod 7: exponents mod 6 give 2<sup>2</sup> + 3<sup>0</sup> + 4<sup>4</sup> + 5<sup>2</sup> + 6<sup>0</sup> &equiv; 4 + 1 + 4 + 4 + 1 = 14 &equiv; <strong>0</strong>.</li>
+<li>x<sup>103</sup> &equiv; 4 (mod 11): 103 &equiv; 3 (mod 10), so x<sup>3</sup> &equiv; 4; trying values gives 5<sup>3</sup> = 125 &equiv; 4, so <strong>x &equiv; 5</strong>.</li></ol></div>
+
+<h2 id="inv">Linear congruences and modular inverses</h2>
+<p>a&prime; is the inverse of a mod m if a&prime;a &equiv; 1 (mod m). It exists (and is unique mod m) exactly when gcd(a, m) = 1. Proof by B&eacute;zout: sa + tm = 1 &rArr; sa &equiv; 1 (mod m). To solve ax &equiv; b (mod m), multiply by a<sup>&minus;1</sup>: x &equiv; a<sup>&minus;1</sup>b.</p>
+<div class="worked"><h3>Worked examples</h3><ul class="plain">
+<li>3<sup>&minus;1</sup> mod 7 = 5, since 3&middot;5 + 7&middot;(&minus;2) = 1. Then 3x &equiv; 4 (mod 7) &rArr; x &equiv; 20 &equiv; <strong>6</strong>.</li>
+<li>19<sup>&minus;1</sup> mod 141: 141 = 7&middot;19 + 8; 19 = 2&middot;8 + 3; 8 = 2&middot;3 + 2; 3 = 2 + 1. Back-substituting gives 1 = 52&middot;19 &minus; 7&middot;141, so the inverse is <strong>52</strong>.</li>
+<li>32<sup>&minus;1</sup> mod 17: 32 &equiv; &minus;2, and (&minus;2)(&minus;9) = 18 &equiv; 1, so &minus;9 &equiv; <strong>8</strong> (check 32&middot;8 = 256 = 15&middot;17 + 1).</li></ul></div>
+
+<h2 id="eea">Extended Euclidean algorithm</h2>
+<p>Run Euclid forward until the remainder is 1, then substitute back to write 1 = s&middot;a + t&middot;m; s mod m is the inverse.</p>
+<div class="worked"><h3>Worked example: 13<sup>&minus;1</sup> mod 2436</h3>
+<p>Forward: 2436 = 187&middot;13 + 5; 13 = 2&middot;5 + 3; 5 = 1&middot;3 + 2; 3 = 1&middot;2 + 1.</p>
+<p>Back: 1 = 3 &minus; 2 = 3 &minus; (5 &minus; 3) = 2&middot;3 &minus; 5 = 2(13 &minus; 2&middot;5) &minus; 5 = 2&middot;13 &minus; 5&middot;5 = 2&middot;13 &minus; 5(2436 &minus; 187&middot;13) = 937&middot;13 &minus; 5&middot;2436.</p>
+<p>Inverse = <strong>937</strong>. Check: 13&middot;937 = 12,181 = 5&middot;2436 + 1. (The source notes gave 947 after a slip in the forward step; 13&middot;947 leaves remainder 131.)</p></div>
+<p>OpenSSL runs this to compute the RSA private exponent d = e<sup>&minus;1</sup> mod &phi;(n).</p>
+
+<h2 id="crt">Chinese remainder theorem</h2>
+<p>If m<sub>1</sub>, &hellip;, m<sub>n</sub> are pairwise coprime, the system x &equiv; a<sub>k</sub> (mod m<sub>k</sub>) has a unique solution mod M = &prod;m<sub>k</sub>.</p>
+<div class="formula"><p>M<sub>k</sub> = M/m<sub>k</sub>; y<sub>k</sub> = M<sub>k</sub><sup>&minus;1</sup> mod m<sub>k</sub>; x = &Sigma; a<sub>k</sub>M<sub>k</sub>y<sub>k</sub> mod M.</p></div>
+<p>It works because every other term contains m<sub>j</sub> as a factor and vanishes mod m<sub>j</sub>.</p>
+<div class="worked"><h3>Worked example</h3><p>x &equiv; 2 (mod 3), 3 (mod 5), 2 (mod 7). M = 105; M<sub>k</sub> = 35, 21, 15; y<sub>k</sub> = 2, 1, 1. x = 2&middot;35&middot;2 + 3&middot;21&middot;1 + 2&middot;15&middot;1 = 233 &equiv; <strong>23</strong> (mod 105). Check: 23 leaves 2, 3, 2.</p></div>
+<p><strong>RSA-CRT</strong>: computing C<sup>d</sup> mod p and mod q with half-size moduli and recombining makes decryption and signing about four times faster.</p>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>A new Blockchain &amp; Access Control quiz opens every day at 11:00 AM IST: 30 questions from recall to evaluation, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/play.html?s=bca">Take today&rsquo;s Blockchain quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/bca-iterated-hash-mac.html" rel="prev">&larr; Merkle–Damgård, MD5, SHA-1, CBC-MAC and authenticated encryption</a><a href="/learn/bca-pkc-knapsack.html" rel="next">Public-key principles, trapdoors and the Merkle–Hellman knapsack &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

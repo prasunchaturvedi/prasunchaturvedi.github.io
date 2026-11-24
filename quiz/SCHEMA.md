@@ -2,8 +2,9 @@
 
 One engine (`/quiz/quiz.js`) serves every subject. Each subject lives in a lowercase folder
 (`net`, `aa`, `bca`, `ml`, `iot`) containing `bank.json` and `bank.csv`. Release dates come
-from `/quiz/schedule.json`: quiz #N of a subject unlocks at 09:00 IST on the Nth date listed
-under its code.
+from `/quiz/schedule.json`: quiz #N of a subject unlocks on the Nth date listed
+under its code, at 09:00 IST by default. BCA releases at 11:00 IST (`RELEASE` in quiz.js,
+`RELEASE_UTC` in scripts/build_ics.py; keep both in step).
 
 ## Subject codes
 
@@ -92,5 +93,5 @@ UTF-8, header row, one row per question, columns in this order:
 { "NET": ["2026-11-25", "2026-11-26"], "AA": ["2026-11-25"] }
 ```
 
-Dates are `YYYY-MM-DD`; each unlocks at 09:00 IST (03:30 UTC). After editing, run
+Dates are `YYYY-MM-DD`; each unlocks at the subject's release time (default 09:00 IST / 03:30 UTC; BCA 11:00 IST / 05:30 UTC). After editing, run
 `python3 scripts/build_ics.py` to regenerate `quiz/<code>/reminders.ics` and `quiz/all.ics`.

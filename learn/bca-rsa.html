@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RSA: key generation, square-and-multiply, Miller–Rabin and attacks | Prasun Chaturvedi</title>
+  <meta name="description" content="RSA key generation with a full numeric example, left-to-right square-and-multiply traced step by step, Fermat and Miller–Rabin primality tests on 561, factoring by congruence of squares, and timing attacks.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/bca-rsa.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="RSA: key generation, square-and-multiply, Miller–Rabin and attacks">
+  <meta property="og:description" content="RSA key generation with a full numeric example, left-to-right square-and-multiply traced step by step, Fermat and Miller–Rabin primality tests on 561, factoring by congruence of squares, and timing attacks.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/bca-rsa.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Blockchain &amp; Access Control &rsaquo; Module 2 · Public-key cryptography</p>
+        <h1>RSA: key generation, square-and-multiply, Miller–Rabin and attacks</h1>
+        <p>RSA key generation with a full numeric example, left-to-right square-and-multiply traced step by step, Fermat and Miller–Rabin primality tests on 561, factoring by congruence of squares, and timing attacks.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Blockchain &amp; Access Control &mdash; revision notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#rsa">The RSA algorithm</a></li><li><a href="#sqm">Square-and-multiply</a></li><li><a href="#prime">Primality testing and Miller–Rabin</a></li><li><a href="#fact">Factoring by congruence of squares</a></li><li><a href="#timing">Timing side channels</a></li></ol></nav>
+<h2 id="rsa">The RSA algorithm (Rivest, Shamir, Adleman, 1977)</h2>
+<div class="formula"><p>Pick primes p, q; n = pq; &phi;(n) = (p &minus; 1)(q &minus; 1); choose e with gcd(e, &phi;(n)) = 1; d = e<sup>&minus;1</sup> mod &phi;(n).</p><p>Public {e, n}; private d. C = M<sup>e</sup> mod n; M = C<sup>d</sup> mod n (works because ed &equiv; 1 mod &phi;(n), by Euler&rsquo;s theorem).</p></div>
+<div class="worked"><h3>Worked example</h3><p>p = 7, q = 17 &rArr; n = 119, &phi;(n) = 96. e = 5; d = 77 since 5&middot;77 = 385 = 4&middot;96 + 1. M = 19: 19<sup>5</sup> = 2,476,099 &equiv; <strong>66</strong> (mod 119); 66<sup>77</sup> mod 119 = 19.</p></div>
+<p>Security rests on factoring n. Use p and q of at least 1,024 bits (n &ge; 2,048 bits). RSA does encryption, signatures and key transport (TLS certificates, SSH keys).</p>
+
+<h2 id="sqm">Square-and-multiply</h2>
+<p>Reduce mod n after every multiplication, and square repeatedly: x<sup>16</sup> takes 4 squarings, not 15 multiplications.</p>
+<div class="formula"><p>z = 1; for each bit b<sub>i</sub> of the exponent from the most significant: z = z<sup>2</sup> mod n; if b<sub>i</sub> = 1, z = z&middot;a mod n.</p></div>
+<div class="worked"><h3>Worked example: 9726<sup>3533</sup> mod 11413</h3><p>3533 = 110111001101<sub>2</sub>.</p>
+<table><thead><tr><th>Bit</th><th>1</th><th>1</th><th>0</th><th>1</th><th>1</th><th>1</th><th>0</th><th>0</th><th>1</th><th>1</th><th>0</th><th>1</th></tr></thead><tbody><tr><td>z</td><td>9726</td><td>2659</td><td>5634</td><td>9167</td><td>4958</td><td>7783</td><td>6298</td><td>4629</td><td>10185</td><td>105</td><td>11025</td><td><strong>5761</strong></td></tr></tbody></table>
+<p>12 iterations instead of 3,532 multiplications.</p></div>
+
+<h2 id="prime">Primality testing and Miller&ndash;Rabin</h2>
+<p>Key generation needs random large primes; trial division to &radic;n is hopeless for 600-digit numbers. Proving n composite is far easier than factoring it.</p>
+<ul class="plain"><li>If x<sup>2</sup> &equiv; y<sup>2</sup> (mod n) but x &#8802; &plusmn;y, n is composite and gcd(x &minus; y, n) is a factor. Example: 12<sup>2</sup> &equiv; 2<sup>2</sup> (mod 35), gcd(10, 35) = 5.</li>
+<li>Fermat test, n = 35, a = 2: 2<sup>34</sup> &equiv; 9 &#8800; 1, so 35 is composite. Carmichael numbers (561 = 3&middot;11&middot;17) fool the Fermat test for every coprime base.</li></ul>
+<div class="formula"><p>Miller&ndash;Rabin: write n &minus; 1 = 2<sup>k</sup>m (m odd); pick 1 &lt; a &lt; n &minus; 1; b<sub>0</sub> = a<sup>m</sup>. If b<sub>0</sub> = &plusmn;1, &ldquo;probably prime&rdquo;. Square up to k &minus; 1 times: reaching &minus;1 &rArr; probably prime; reaching 1 first &rArr; composite.</p></div>
+<div class="worked"><h3>Worked example: n = 561</h3><p>560 = 2<sup>4</sup>&middot;35. a = 2: b<sub>0</sub> = 2<sup>35</sup> mod 561 = 263; b<sub>1</sub> = 166; b<sub>2</sub> = 67; b<sub>3</sub> = 1. 67 is a non-trivial square root of 1, so 561 is <strong>composite</strong>, and gcd(66, 561) = 33 exposes factors.</p></div>
+<p>One round errs with probability at most 1/4; 40 rounds give at most 2<sup>&minus;80</sup>.</p>
+
+<h2 id="fact">Factoring by congruence of squares</h2>
+<p>Quadratic-sieve idea: collect x<sub>i</sub><sup>2</sup> mod n that factor over a small base, combine them so every exponent is even, and get X<sup>2</sup> &equiv; Y<sup>2</sup>; then gcd(X + Y, n) is a factor.</p>
+<div class="worked"><h3>Worked example: n = 539873</h3><p>735<sup>2</sup> &equiv; 352 = 2<sup>5</sup>&middot;11; 750<sup>2</sup> &equiv; 11<sup>3</sup>&middot;17; 783<sup>2</sup> &equiv; 2<sup>9</sup>&middot;11&middot;13; 801<sup>2</sup> &equiv; 2<sup>5</sup>&middot;11&middot;17<sup>2</sup>.<br>Rows 735 and 801 multiply to 2<sup>10</sup>&middot;11<sup>2</sup>&middot;17<sup>2</sup> = (2<sup>5</sup>&middot;11&middot;17)<sup>2</sup>. X = 735&middot;801 = 588735, Y = 5984.<br>gcd(594719, 539873) = <strong>277</strong>; 539873 = 277 &times; 1949.</p></div>
+
+<h2 id="timing">Timing side channels (Kocher, 1996)</h2>
+<p>In square-and-multiply, a 1 bit of d costs a squaring <em>and</em> a multiplication; a 0 bit only a squaring. Timing many decryptions of chosen ciphertexts reveals d bit by bit. Example: d = 20 = 10100<sub>2</sub> computing 5<sup>20</sup> mod 33 runs exponents 1 &rarr; 2 &rarr; 5 &rarr; 10 &rarr; 20 (values 5, 25, 23, 1, 1), with the slow steps at the 1 bits.</p>
+<p>Brumley and Boneh (2003) extracted an OpenSSL key over a network this way. Countermeasures: constant-time code (Montgomery ladder), and <strong>blinding</strong> &mdash; decrypt C&middot;r<sup>e</sup> and divide out r afterwards.</p>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>A new Blockchain &amp; Access Control quiz opens every day at 11:00 AM IST: 30 questions from recall to evaluation, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/play.html?s=bca">Take today&rsquo;s Blockchain quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/bca-pkc-knapsack.html" rel="prev">&larr; Public-key principles, trapdoors and the Merkle–Hellman knapsack</a><a href="/learn/bca-dh-dlp.html" rel="next">Diffie–Hellman, the discrete logarithm and baby-step giant-step &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

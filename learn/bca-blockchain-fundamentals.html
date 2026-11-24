@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blockchain fundamentals, DLT and block anatomy | Prasun Chaturvedi</title>
+  <meta name="description" content="Ledgers and DLT, counterparty risk and disintermediation, centralised databases versus blockchains, the five building blocks, block header fields and how chaining exposes tampering.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/bca-blockchain-fundamentals.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="Blockchain fundamentals, DLT and block anatomy">
+  <meta property="og:description" content="Ledgers and DLT, counterparty risk and disintermediation, centralised databases versus blockchains, the five building blocks, block header fields and how chaining exposes tampering.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/bca-blockchain-fundamentals.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Blockchain &amp; Access Control &rsaquo; Module 1 · Foundations and hashing</p>
+        <h1>Blockchain fundamentals, DLT and block anatomy</h1>
+        <p>Ledgers and DLT, counterparty risk and disintermediation, centralised databases versus blockchains, the five building blocks, block header fields and how chaining exposes tampering.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Blockchain &amp; Access Control &mdash; revision notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#ledger">Ledgers and blockchain</a></li><li><a href="#why">Why blockchain</a></li><li><a href="#db">Centralised database vs blockchain</a></li><li><a href="#props">Core properties and timeline</a></li><li><a href="#parts">Five building blocks</a></li><li><a href="#block">Anatomy of a block</a></li><li><a href="#flow">Transaction workflow</a></li></ol></nav>
+<h2 id="ledger">Ledgers and blockchain</h2>
+<p>A <strong>ledger</strong> records transactions shared among parties. A <strong>blockchain</strong> is one kind of distributed ledger technology (DLT): an append-only, replicated history in which each record is time-stamped, validated by the network and cryptographically linked to earlier records, so it cannot be altered retroactively without detection.</p>
+<div class="worked"><h3>Worked example: three notebooks</h3><p>Alice, Bob and Charlie each keep an identical copy of the expense notebook. If Bob erases &ldquo;Bob pays Charlie 30&rdquo; in his copy, the other two copies disagree with his and his version is rejected. Replication plus comparison replaces trust in a single record-keeper.</p></div>
+<p>Bitcoin (Nakamoto, 2008) was the first large-scale use: digital cash transferred peer to peer without a central bank.</p>
+
+<h2 id="why">Why blockchain: counterparty risk and disintermediation</h2>
+<p><strong>Counterparty risk</strong> is the risk that the other side defaults. Traditionally it is managed by trusted intermediaries (banks, clearing houses, escrow agents, notaries). Blockchain <strong>disintermediates</strong>: cryptography, shared validation rules and peer-to-peer consensus replace institutional trust, and anyone holding a copy can audit the ledger.</p>
+<p>Example: a buyer in India and an unknown seller in Germany lock funds in an on-chain contract that releases payment once delivery is recorded, instead of paying an escrow bank.</p>
+
+<h2 id="db">Centralised database vs blockchain</h2>
+<table><thead><tr><th>Aspect</th><th>Client&ndash;server database</th><th>Blockchain</th></tr></thead><tbody>
+<tr><td>Control</td><td>One owner/administrator</td><td>Every stakeholder holds a replica</td></tr>
+<tr><td>Integrity threats</td><td>Insiders and intruders can silently edit records; backups can be altered</td><td>Each block holds the previous block&rsquo;s hash; edits break the chain</td></tr>
+<tr><td>Availability</td><td>Single point of failure</td><td>Survives node failures while honest replicas remain reachable</td></tr>
+<tr><td>Assurance</td><td>Hashed backups and paid third-party audits</td><td>Independent verification by any node</td></tr></tbody></table>
+<p><strong>Topologies</strong>: centralised (star &mdash; lose the hub, lose everything), decentralised (several hubs &mdash; lose one region), distributed (peer-to-peer mesh &mdash; any surviving node still holds the full ledger). Real example: Blockcerts anchors diploma hashes on a public chain so employers can verify a degree without contacting the university.</p>
+
+<h2 id="props">Core properties and timeline</h2>
+<ul class="plain"><li><strong>Digital signatures</strong>: every entry is signed, giving authenticity and non-repudiation.</li>
+<li><strong>Immutability</strong>: confirmed data is computationally infeasible to change.</li>
+<li><strong>Cryptographic security</strong>: one-way hashes and public-key infrastructure.</li>
+<li><strong>Pseudonymity</strong>: users act through public-key addresses, not names.</li>
+<li><strong>Trusted computing base</strong>: a platform for smart contracts and dApps.</li></ul>
+<p>2008 Bitcoin white paper &middot; 2009 genesis block &middot; 2014&ndash;15 Ethereum and programmable contracts (&ldquo;Blockchain 2.0&rdquo;) &middot; 2015 Linux Foundation&rsquo;s Hyperledger &middot; 2016 Bitfinex hack (about 120,000 BTC: exchange risk, not protocol failure) &middot; 2018 EOS mainnet &middot; 2020 Ethereum Beacon Chain &middot; 2022 the Merge.</p>
+
+<h2 id="parts">Five building blocks</h2>
+<ol class="plain"><li><strong>Cryptography</strong> &mdash; hashes, Merkle trees, key pairs.</li><li><strong>P2P network</strong> &mdash; node discovery and broadcast without gatekeepers.</li><li><strong>Validity rules</strong> &mdash; what a valid transaction is (signature, balance) and how state updates.</li><li><strong>Ledger</strong> &mdash; transactions grouped into linked blocks.</li><li><strong>Consensus</strong> &mdash; agreement on order and state when some nodes are faulty or dishonest.</li></ol>
+
+<h2 id="block">Anatomy of a block</h2>
+<table><thead><tr><th>Header field</th><th>Purpose</th></tr></thead><tbody>
+<tr><td>Version</td><td>Protocol rules the block follows</td></tr>
+<tr><td>Previous block hash</td><td>Hash of the preceding header &mdash; the chain link (all zeros in the genesis block)</td></tr>
+<tr><td>Merkle root</td><td>Single hash committing to every transaction in the body</td></tr>
+<tr><td>Timestamp</td><td>Approximate creation time (Unix epoch)</td></tr>
+<tr><td>Difficulty target (bits)</td><td>Threshold the header hash must fall below</td></tr>
+<tr><td>Nonce</td><td>32-bit value miners vary to search for a valid hash</td></tr></tbody></table>
+<p>The <strong>body</strong> carries the list of validated transactions.</p>
+<div class="worked"><h3>Worked example: why tampering cascades</h3><p>Block 1 stores &ldquo;Alice &rarr; Bob 10&rdquo;; Block 2 stores Hash(Block 1); Block 3 stores Hash(Block 2). Change Block 1 to &ldquo;100&rdquo; and its hash changes, so Block 2&rsquo;s stored pointer no longer matches. Recomputing Block 2 breaks Block 3, and so on. The attacker must redo every later block faster than the honest network extends the chain.</p></div>
+
+<h2 id="flow">Transaction workflow</h2>
+<ol class="plain"><li>User signs a transaction.</li><li>It is broadcast to peers.</li><li>Nodes check it against the validity rules.</li><li>Miners/validators bundle valid transactions into a candidate block.</li><li>Consensus (for example Proof of Work) selects the block.</li><li>The producer earns the reward; every node appends the block.</li><li>The transaction gains confirmations and becomes practically irreversible.</li></ol>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>A new Blockchain &amp; Access Control quiz opens every day at 11:00 AM IST: 30 questions from recall to evaluation, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/play.html?s=bca">Take today&rsquo;s Blockchain quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><span></span><a href="/learn/bca-hash-functions.html" rel="next">Cryptographic hash functions, MACs and the birthday bound &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

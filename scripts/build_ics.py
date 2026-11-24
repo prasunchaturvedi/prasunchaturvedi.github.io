@@ -2,7 +2,7 @@
 """Generate quiz reminder calendars from quiz/schedule.json.
 
 Writes quiz/<folder>/reminders.ics for each subject and quiz/all.ics (combined).
-Each quiz unlocks at 09:00 IST (03:30 UTC). Re-run after editing schedule.json.
+Each quiz unlocks at 09:00 IST (03:30 UTC) unless RELEASE_UTC overrides it (BCA: 11:00 IST). Re-run after editing schedule.json.
 """
 import json
 import os
@@ -12,6 +12,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LABELS = {"NET": "Networking", "AA": "Algorithm Analysis", "BCA": "Blockchain & Access Control",
           "ML": "Machine Learning", "IOT": "Internet of Things"}
 SITE = "https://prasunchaturvedi.in"
+RELEASE_UTC = {"BCA": (5, 30)}  # 11:00 IST; must match RELEASE in quiz/quiz.js
 
 
 def esc(text):
@@ -35,7 +36,7 @@ def events(code, dates, stamp):
     label, folder = LABELS[code], code.lower()
     url = f"{SITE}/quiz/{folder}/"
     for n, d in enumerate(dates, 1):
-        start = datetime.strptime(d, "%Y-%m-%d").replace(hour=3, minute=30, tzinfo=timezone.utc)
+        start = datetime.strptime(d, "%Y-%m-%d").replace(hour=RELEASE_UTC.get(code, (3, 30))[0], minute=RELEASE_UTC.get(code, (3, 30))[1], tzinfo=timezone.utc)
         end = start + timedelta(minutes=15)
         yield [
             "BEGIN:VEVENT",

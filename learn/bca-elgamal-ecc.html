@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ElGamal and elliptic-curve foundations | Prasun Chaturvedi</title>
+  <meta name="description" content="ElGamal encryption modulo a prime with a full example and why it is randomised, then elliptic curves: the Weierstrass form, non-singularity, the point at infinity, chord-and-tangent addition and the group laws.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/bca-elgamal-ecc.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="ElGamal and elliptic-curve foundations">
+  <meta property="og:description" content="ElGamal encryption modulo a prime with a full example and why it is randomised, then elliptic curves: the Weierstrass form, non-singularity, the point at infinity, chord-and-tangent addition and the group laws.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/bca-elgamal-ecc.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Blockchain &amp; Access Control &rsaquo; Module 2 · Public-key cryptography</p>
+        <h1>ElGamal and elliptic-curve foundations</h1>
+        <p>ElGamal encryption modulo a prime with a full example and why it is randomised, then elliptic curves: the Weierstrass form, non-singularity, the point at infinity, chord-and-tangent addition and the group laws.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Blockchain &amp; Access Control &mdash; revision notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#elg">ElGamal encryption</a></li><li><a href="#ecc">Elliptic curves: intuition</a></li><li><a href="#law">Chord-and-tangent addition</a></li><li><a href="#group">Group properties</a></li></ol></nav>
+<h2 id="elg">ElGamal encryption (1985)</h2>
+<p>Turns Diffie&ndash;Hellman into encryption; security rests on the DLP in Z<sub>p</sub>*. Encryption is <strong>randomised</strong>: a fresh secret k each time means the same plaintext gives different ciphertexts. The ciphertext is twice the plaintext size.</p>
+<div class="formula"><p>Keys: prime p, primitive root &alpha;, secret a, public &beta; = &alpha;<sup>a</sup> mod p.</p><p>Encrypt x with random k: y<sub>1</sub> = &alpha;<sup>k</sup>, y<sub>2</sub> = x&middot;&beta;<sup>k</sup> (mod p).</p><p>Decrypt: x = y<sub>2</sub>&middot;(y<sub>1</sub><sup>a</sup>)<sup>&minus;1</sup> mod p, since y<sub>1</sub><sup>a</sup> = &beta;<sup>k</sup>.</p></div>
+<div class="worked"><h3>Worked example</h3><p>p = 2579, &alpha; = 2, a = 765 &rArr; &beta; = 949. x = 1299, k = 853: y<sub>1</sub> = 435, y<sub>2</sub> = 2396. Bob computes 2396&middot;(435<sup>765</sup>)<sup>&minus;1</sup> mod 2579 = <strong>1299</strong>.</p></div>
+<p>Never reuse k: two ciphertexts with the same k reveal x<sub>1</sub>/x<sub>2</sub>. GnuPG supports ElGamal for wrapping session keys.</p>
+
+<h2 id="ecc">Elliptic curves: intuition</h2>
+<p>A finite set of points with an addition rule that stays on the curve. Scalar multiplication kG = G + &hellip; + G is fast (double-and-add). Recovering k from G and kG is the <strong>elliptic-curve discrete logarithm problem</strong> (ECDLP); no sub-exponential (index-calculus-type) attack is known for well-chosen curves.</p>
+<div class="formula"><p>Weierstrass form: y<sup>2</sup> = x<sup>3</sup> + ax + b, with 4a<sup>3</sup> + 27b<sup>2</sup> &ne; 0.</p></div>
+<p>If the discriminant is zero the curve is <strong>singular</strong> (a cusp such as y<sup>2</sup> = x<sup>3</sup>, or a node such as y<sup>2</sup> = x<sup>3</sup> &minus; 3x + 2) and unsuitable. The <strong>point at infinity O</strong> is the identity; E(a, b) is the curve&rsquo;s points plus O.</p>
+
+<h2 id="law">Chord-and-tangent addition</h2>
+<p>Draw the line through P and Q; it meets the cubic at a third point R&prime;; reflect R&prime; in the x-axis to get P + Q. The inverse of (x, y) is (x, &minus;y).</p>
+<table><thead><tr><th>Case</th><th>Rule</th></tr></thead><tbody>
+<tr><td>P + O</td><td>P</td></tr>
+<tr><td>x<sub>1</sub> &ne; x<sub>2</sub></td><td>&lambda; = (y<sub>2</sub> &minus; y<sub>1</sub>)/(x<sub>2</sub> &minus; x<sub>1</sub>)</td></tr>
+<tr><td>Q = &minus;P (vertical line)</td><td>P + Q = O</td></tr>
+<tr><td>P = Q, y<sub>1</sub> &ne; 0 (tangent)</td><td>&lambda; = (3x<sub>1</sub><sup>2</sup> + a)/(2y<sub>1</sub>)</td></tr>
+<tr><td>Result</td><td>x<sub>3</sub> = &lambda;<sup>2</sup> &minus; x<sub>1</sub> &minus; x<sub>2</sub>; y<sub>3</sub> = &lambda;(x<sub>1</sub> &minus; x<sub>3</sub>) &minus; y<sub>1</sub></td></tr></tbody></table>
+<div class="worked"><h3>Worked example over the reals</h3><p>y<sup>2</sup> = x<sup>3</sup> &minus; 4x (discriminant &minus;256 &ne; 0). P = (&minus;2, 0), Q = (0, 0): &lambda; = 0, x<sub>3</sub> = 2, y<sub>3</sub> = 0, so P + Q = (2, 0) &mdash; all three lie on y = 0. Doubling (2, 0): y = 0 gives a vertical tangent, so 2(2, 0) = O.</p></div>
+
+<h2 id="group">Group properties</h2>
+<p>(E, +) is an <strong>abelian group</strong>: closure, associativity, identity O, inverse (x, &minus;y), commutativity (the line through P and Q is the line through Q and P). Bitcoin and Ethereum use secp256k1, y<sup>2</sup> = x<sup>3</sup> + 7 over a 256-bit prime field: the private key is a random 256-bit k, the public key is kG.</p>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>A new Blockchain &amp; Access Control quiz opens every day at 11:00 AM IST: 30 questions from recall to evaluation, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/play.html?s=bca">Take today&rsquo;s Blockchain quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/bca-dh-dlp.html" rel="prev">&larr; Diffie–Hellman, the discrete logarithm and baby-step giant-step</a><a href="/learn/bca-ecc-finite-fields.html" rel="next">ECC over prime fields, quadratic residues, EC-ElGamal and RSA vs ECC &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

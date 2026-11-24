@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cryptographic hash functions, MACs and the birthday bound | Prasun Chaturvedi</title>
+  <meta name="description" content="Symmetric, asymmetric and hash primitives, integrity checks and the avalanche effect, MACs, the hash-family definition, preimage, second-preimage and collision resistance, the random oracle model and birthday attacks.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/bca-hash-functions.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="Cryptographic hash functions, MACs and the birthday bound">
+  <meta property="og:description" content="Symmetric, asymmetric and hash primitives, integrity checks and the avalanche effect, MACs, the hash-family definition, preimage, second-preimage and collision resistance, the random oracle model and birthday attacks.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/bca-hash-functions.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Blockchain &amp; Access Control &rsaquo; Module 1 · Foundations and hashing</p>
+        <h1>Cryptographic hash functions, MACs and the birthday bound</h1>
+        <p>Symmetric, asymmetric and hash primitives, integrity checks and the avalanche effect, MACs, the hash-family definition, preimage, second-preimage and collision resistance, the random oracle model and birthday attacks.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Blockchain &amp; Access Control &mdash; revision notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#prims">Three primitives</a></li><li><a href="#integrity">Integrity and the avalanche effect</a></li><li><a href="#mac">Message authentication codes</a></li><li><a href="#family">Hash families</a></li><li><a href="#req">Four security requirements</a></li><li><a href="#rom">Random oracle model</a></li><li><a href="#attacks">Attack complexity and the birthday paradox</a></li></ol></nav>
+<h2 id="prims">Three cryptographic primitives</h2>
+<table><thead><tr><th></th><th>Symmetric</th><th>Asymmetric</th><th>Hash</th></tr></thead><tbody>
+<tr><td>Keys</td><td>One shared secret</td><td>Public/private pair</td><td>None (unkeyed)</td></tr>
+<tr><td>Reversible?</td><td>Yes, with the key</td><td>Yes, with the private key</td><td>No &mdash; one-way</td></tr>
+<tr><td>Blockchain role</td><td>Rare in consensus</td><td>Wallets, addresses, signatures</td><td>Block links, Merkle roots, PoW</td></tr></tbody></table>
+<p>A hash maps input of any length to a fixed-length digest: &ldquo;Hi&rdquo; and a 10 GB file both give 256 bits under SHA-256.</p>
+
+<h2 id="integrity">Integrity and the avalanche effect</h2>
+<p>Alice sends x over an insecure channel and y = h(x) over an <em>authentic</em> channel; Bob accepts if h(x&prime;) = y. This detects modification (integrity), not eavesdropping (confidentiality). If Mallory controls both channels she can change x and recompute h &mdash; the unkeyed hash alone is not enough.</p>
+<div class="worked"><h3>Avalanche effect (SHA-256)</h3><p>&ldquo;The quick brown fox jumps over the lazy dog&rdquo; &rarr; d7a8fbb3&hellip;37c9e592<br>Same sentence with a full stop &rarr; ef537f25&hellip;8635fb6c<br>One extra character flips about half of the 256 output bits.</p></div>
+<p>A toy function h(x) = (x + 1) mod 10 fails at once: h(1) = h(11) = 2, and any target is trivially inverted.</p>
+
+<h2 id="mac">Message authentication codes</h2>
+<div class="formula"><p>y = h<sub>K</sub>(x), where K is a secret shared by Alice and Bob.</p></div>
+<p>Both x and the tag y travel on the same insecure channel; without K, Mallory cannot produce a valid tag for x&prime;. A MAC gives <strong>integrity and data-origin authentication</strong> but needs prior key distribution. Real use: HMAC-SHA256 signatures on API requests and payment webhooks.</p>
+
+<h2 id="family">Formal hash family</h2>
+<p>A hash family is a 4-tuple (X, Y, K, H): messages X, digests Y (finite), keys K, and for each k a function h<sub>k</sub>: X &rarr; Y. (x, y) is a <em>valid pair</em> under k if y = h<sub>k</sub>(x). With |X| = N and |Y| = M there are M<sup>N</sup> possible functions (N = 4, M = 2 gives 16). |K| = 1 is an <strong>unkeyed</strong> hash (SHA-256); |K| &gt; 1 is a keyed hash (MAC). Compression requires |X| &ge; 2|Y|.</p>
+
+<h2 id="req">Four security requirements</h2>
+<table><thead><tr><th>Property</th><th>Given</th><th>Must be infeasible to find</th><th>Attack it stops</th></tr></thead><tbody>
+<tr><td>Preimage resistance (one-way)</td><td>y</td><td>any x with h(x) = y</td><td>Recovering passwords from stored hashes</td></tr>
+<tr><td>Second-preimage resistance</td><td>x</td><td>x&prime; &ne; x with h(x&prime;) = h(x)</td><td>Swapping a signed contract for a forged one</td></tr>
+<tr><td>Collision resistance</td><td>nothing</td><td>any pair x &ne; x&prime; with equal hashes</td><td>Rogue CA certificate (MD5, 2008)</td></tr>
+<tr><td>No shortcuts (pseudorandom)</td><td>many pairs (m<sub>i</sub>, h(m<sub>i</sub>))</td><td>h(m<sub>new</sub>) without evaluating h</td><td>Algebraic prediction</td></tr></tbody></table>
+<ul class="plain"><li>By the pigeonhole principle collisions always exist; resistance means they are infeasible to <em>find</em>.</li>
+<li>Collision resistance implies second-preimage resistance (a second preimage <em>is</em> a collision).</li>
+<li>Counter-example to &ldquo;no shortcuts&rdquo;: h(x) = ax mod n gives h(x<sub>1</sub> + x<sub>2</sub>) = h(x<sub>1</sub>) + h(x<sub>2</sub>) mod n without knowing a.</li>
+<li>Git commit IDs rely on these properties: altering an old commit changes every later ID.</li></ul>
+
+<h2 id="rom">Random oracle model (Bellare&ndash;Rogaway, 1993)</h2>
+<p>An oracle secretly picks a uniformly random function h from all functions X &rarr; Y. The only way to learn h(x) is to query it; a repeated query returns the same answer, a new query returns a fresh uniform value. Hence for x<sub>1</sub> &ne; x<sub>2</sub>, Pr[h(x<sub>1</sub>) = h(x<sub>2</sub>)] = 1/M, and knowing one output says nothing about another.</p>
+<p>Attacks are measured as <strong>(&epsilon;, Q) Las Vegas algorithms</strong>: at most Q oracle queries, success probability at least &epsilon;, and never a wrong answer (only success or failure).</p>
+<div class="worked"><h3>Analogy: someone born today</h3><p>Ask Q random people. Pr[success] = 1 &minus; (1 &minus; 1/365)<sup>Q</sup>. Replace 365 by M = 2<sup>n</sup> and this is exactly the preimage attack.</p></div>
+
+<h2 id="attacks">Attack complexity and the birthday paradox</h2>
+<table><thead><tr><th>Attack</th><th>Success with Q queries</th><th>Work</th></tr></thead><tbody>
+<tr><td>Preimage</td><td>1 &minus; (1 &minus; 1/M)<sup>Q</sup> &asymp; Q/M</td><td>O(2<sup>n</sup>)</td></tr>
+<tr><td>Second preimage</td><td>1 &minus; (1 &minus; 1/M)<sup>Q&minus;1</sup></td><td>O(2<sup>n</sup>)</td></tr>
+<tr><td>Collision</td><td>1 &minus; &prod;<sub>i=1</sub><sup>Q&minus;1</sup>(1 &minus; i/M)</td><td>O(&radic;M) = O(2<sup>n/2</sup>)</td></tr></tbody></table>
+<p>Collisions are cheaper because Q queries form Q(Q &minus; 1)/2 candidate pairs.</p>
+<div class="formula"><p>Q &asymp; &radic;(2M ln(1/(1 &minus; &epsilon;))); for &epsilon; = 0.5, Q &asymp; 1.17&radic;M.</p></div>
+<div class="worked"><h3>Worked examples</h3><ul class="plain"><li>Birthdays: 23 people give 50.7% chance of a shared birthday; 50 give 97%. 1.17&radic;365 &asymp; 22.4.</li>
+<li>A 40-bit digest falls to about 2<sup>20</sup> &asymp; one million queries.</li>
+<li>128-bit collision security needs n/2 = 128, so a digest of at least 256 bits (SHA-256).</li>
+<li>MD5&rsquo;s 128-bit output gives only a 2<sup>64</sup> birthday bound, and cryptanalysis makes it far weaker still.</li></ul></div>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>A new Blockchain &amp; Access Control quiz opens every day at 11:00 AM IST: 30 questions from recall to evaluation, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/play.html?s=bca">Take today&rsquo;s Blockchain quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/bca-blockchain-fundamentals.html" rel="prev">&larr; Blockchain fundamentals, DLT and block anatomy</a><a href="/learn/bca-iterated-hash-mac.html" rel="next">Merkle–Damgård, MD5, SHA-1, CBC-MAC and authenticated encryption &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

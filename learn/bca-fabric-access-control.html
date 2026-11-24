@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hyperledger Fabric, chaincode and access control models | Prasun Chaturvedi</title>
+  <meta name="description" content="Fabric&#x27;s permissioned architecture, the execute–order–validate lifecycle, chaincode determinism and lifecycle, the vaccine-batch lab, and MAC, DAC and RBAC access control.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/bca-fabric-access-control.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="Hyperledger Fabric, chaincode and access control models">
+  <meta property="og:description" content="Fabric&#x27;s permissioned architecture, the execute–order–validate lifecycle, chaincode determinism and lifecycle, the vaccine-batch lab, and MAC, DAC and RBAC access control.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/bca-fabric-access-control.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Blockchain &amp; Access Control &rsaquo; Module 3 · Consensus</p>
+        <h1>Hyperledger Fabric, chaincode and access control models</h1>
+        <p>Fabric&#x27;s permissioned architecture, the execute–order–validate lifecycle, chaincode determinism and lifecycle, the vaccine-batch lab, and MAC, DAC and RBAC access control.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Blockchain &amp; Access Control &mdash; revision notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#arch">Permissioned architecture</a></li><li><a href="#eov">Execute–order–validate</a></li><li><a href="#cc">Chaincode</a></li><li><a href="#ac">Access control models</a></li><li><a href="#e2e">End-to-end example</a></li></ol></nav>
+<p class="quiz-note">This page condenses Part 12 of the course map; the full lecture notes for this part are being added.</p>
+<h2 id="arch">Permissioned architecture</h2>
+<ul class="plain"><li><strong>Identity</strong>: each organisation runs a certificate authority; its Membership Service Provider (MSP) validates X.509 certificates.</li>
+<li><strong>Privacy</strong>: channels are separate ledgers for subsets of members; Private Data Collections keep data with authorised peers and put only its hash on the shared ledger.</li>
+<li><strong>Ledger</strong> = immutable block log + a world-state database of current values.</li></ul>
+
+<h2 id="eov">Execute&ndash;order&ndash;validate</h2>
+<ol class="plain"><li>Client proposes a transaction.</li><li>Endorsing peers simulate chaincode and produce a read-write set.</li><li>They sign (endorse) the result.</li><li>Client checks endorsements against the endorsement policy.</li><li>The ordering service sequences transactions into blocks (crash-fault-tolerant Raft by default).</li><li>Committing peers validate: endorsement policy (VSCC) and version conflicts (MVCC).</li><li>Valid transactions are committed with the block.</li><li>World state is updated.</li></ol>
+<p>Executing before ordering lets non-deterministic or conflicting transactions be caught at validation instead of corrupting state.</p>
+
+<h2 id="cc">Chaincode</h2>
+<ul class="plain"><li>Must be <strong>deterministic</strong>: no random numbers, local clocks or external API calls, or endorsers will disagree.</li>
+<li>Lifecycle: package &rarr; install on peers &rarr; approve by each organisation &rarr; commit to the channel.</li>
+<li>Lab case study: a vaccine batch moves CREATED &rarr; QA_RELEASED &rarr; IN_TRANSIT &rarr; RECEIVED, with each transition restricted to the right role.</li></ul>
+
+<h2 id="ac">Access control models</h2>
+<p><strong>Authentication</strong> answers &ldquo;who are you?&rdquo; (X.509 via the MSP); <strong>authorisation</strong> answers &ldquo;what may you do?&rdquo;.</p>
+<table><thead><tr><th>Model</th><th>Who decides</th><th>Basis</th><th>Typical use</th></tr></thead><tbody>
+<tr><td>MAC (mandatory)</td><td>Central authority</td><td>Security labels and clearances</td><td>Classified or clinical data</td></tr>
+<tr><td>DAC (discretionary)</td><td>Resource owner</td><td>Owner grants and shares rights</td><td>Commercial documents, file systems</td></tr>
+<tr><td>RBAC (role-based)</td><td>Administrators via roles</td><td>Permissions attached to roles; least privilege</td><td>Chaincode functions by role</td></tr></tbody></table>
+<p>Immutable ledgers and personal data clash (erasure rights): keep PII off-chain and store only hashes or references; users act through pseudonymous identities.</p>
+
+<h2 id="e2e">End-to-end example: cold-chain vaccines</h2>
+<ol class="plain"><li><strong>Hashing</strong>: sensor readings per leg are rolled into a Merkle root; altering one log breaks the chain.</li>
+<li><strong>Public-key cryptography</strong>: ECDHE secures the gateway connection; the QA officer signs a hash of the lab report.</li>
+<li><strong>Fabric</strong>: invoices live in a Private Data Collection; the endorsement policy AND(&lsquo;PharmaMSP.peer&rsquo;, &lsquo;CargoMSP.peer&rsquo;) gates handovers; RBAC lets only QA call ReleaseBatch() and only the hospital call ReceiveBatch().</li>
+<li><strong>Consensus</strong>: the ordering service fixes custody order so a batch cannot be sold twice; a public chain settles payment.</li>
+<li><strong>Cryptocurrency</strong>: a UTXO payment with ECDSA signatures settles cross-border without correspondent banks.</li></ol>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>A new Blockchain &amp; Access Control quiz opens every day at 11:00 AM IST: 30 questions from recall to evaluation, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/play.html?s=bca">Take today&rsquo;s Blockchain quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/bca-pow-ethereum.html" rel="prev">&larr; PoW difficulty, energy metrics and Ethereum proof of stake</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

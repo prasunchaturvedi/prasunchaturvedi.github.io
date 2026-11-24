@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Merkle–Damgård, MD5, SHA-1, CBC-MAC and authenticated encryption | Prasun Chaturvedi</title>
+  <meta name="description" content="How iterated hashes pad and compress, the MD5 and SHA-1 round structures, the collision history from 2004 to SHAttered, CBC-MAC, EtM/E&amp;M/MtE, and why CBC encryption with CBC-MAC under one key fails.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/bca-iterated-hash-mac.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="Merkle–Damgård, MD5, SHA-1, CBC-MAC and authenticated encryption">
+  <meta property="og:description" content="How iterated hashes pad and compress, the MD5 and SHA-1 round structures, the collision history from 2004 to SHAttered, CBC-MAC, EtM/E&amp;M/MtE, and why CBC encryption with CBC-MAC under one key fails.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/bca-iterated-hash-mac.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Blockchain &amp; Access Control &rsaquo; Module 1 · Foundations and hashing</p>
+        <h1>Merkle–Damgård, MD5, SHA-1, CBC-MAC and authenticated encryption</h1>
+        <p>How iterated hashes pad and compress, the MD5 and SHA-1 round structures, the collision history from 2004 to SHAttered, CBC-MAC, EtM/E&amp;M/MtE, and why CBC encryption with CBC-MAC under one key fails.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Blockchain &amp; Access Control &mdash; revision notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#md">Iterated (Merkle–Damgård) hashing</a></li><li><a href="#std">Hash standards</a></li><li><a href="#md5">MD5</a></li><li><a href="#sha1">SHA-1</a></li><li><a href="#cbcmac">MACs and CBC-MAC</a></li><li><a href="#ae">Authenticated encryption</a></li><li><a href="#flaw">The CBC + CBC-MAC flaw</a></li></ol></nav>
+<h2 id="md">Iterated (Merkle&ndash;Damg&aring;rd) hashing</h2>
+<div class="formula"><p>compress: {0,1}<sup>m+t</sup> &rarr; {0,1}<sup>m</sup> &nbsp; (m-bit chaining state + t-bit block &rarr; new m-bit state)</p><p>z<sub>0</sub> = IV; z<sub>i</sub> = compress(z<sub>i&minus;1</sub> &#8214; y<sub>i</sub>); digest = g(z<sub>r</sub>)</p></div>
+<ol class="plain"><li><strong>Pad</strong>: append a 1 bit, zeros, and the original length so the total is a multiple of t.</li><li><strong>Initialise</strong> with the public IV.</li><li><strong>Iterate</strong> compress over each block.</li><li><strong>Finalise</strong> with an optional output transform g.</li></ol>
+<div class="worked"><h3>Worked example</h3><p>m = 128, t = 512, message 1,200 bits. Append 1 + 271 zeros + 64-bit length &rarr; 1,536 bits = 3 blocks. z<sub>1</sub> = c(IV &#8214; y<sub>1</sub>), z<sub>2</sub> = c(z<sub>1</sub> &#8214; y<sub>2</sub>), z<sub>3</sub> = c(z<sub>2</sub> &#8214; y<sub>3</sub>) = digest.</p></div>
+
+<h2 id="std">Hash standards</h2>
+<table><thead><tr><th>Algorithm</th><th>Year</th><th>Digest</th><th>Status</th></tr></thead><tbody>
+<tr><td>MD5</td><td>1991</td><td>128</td><td>Broken: practical collisions since 2004; checksums only</td></tr>
+<tr><td>SHA-0</td><td>1993</td><td>160</td><td>Withdrawn; collision attack 2<sup>61</sup> (1998)</td></tr>
+<tr><td>SHA-1</td><td>1995</td><td>160</td><td>Broken: 2<sup>69</sup> attack (2005), real collision SHAttered (2017)</td></tr>
+<tr><td>SHA-2</td><td>2001</td><td>224&ndash;512</td><td>Secure; only reduced-round attacks</td></tr>
+<tr><td>SHA-3 (Keccak)</td><td>2015</td><td>224&ndash;512</td><td>Secure; sponge construction, a structural backup to SHA-2</td></tr></tbody></table>
+
+<h2 id="md5">MD5</h2>
+<ul class="plain"><li>Pad to 448 mod 512, then append the 64-bit length.</li>
+<li>Buffer A, B, C, D = 01234567, 89ABCDEF, FEDCBA98, 76543210 (as written byte-wise).</li>
+<li>Each 512-bit block: 4 rounds &times; 16 steps = 64 steps using F = (B&and;C)&or;(&not;B&and;D), G = (B&and;D)&or;(C&and;&not;D), H = B&oplus;C&oplus;D, I = C&oplus;(B&or;&not;D), a message word X[k] and a sine-derived constant T[i]; then add the result to the chaining value mod 2<sup>32</sup>.</li></ul>
+<p><strong>Collision timeline</strong>: 1996 compression-function collisions; 2004 full collisions; 2007 chosen-prefix collisions (two chosen prefixes p<sub>1</sub>, p<sub>2</sub>, suffixes m<sub>1</sub>, m<sub>2</sub> with MD5(p<sub>1</sub>&#8214;m<sub>1</sub>) = MD5(p<sub>2</sub>&#8214;m<sub>2</sub>)); 2008 rogue CA certificate; 2012 Flame malware forged a Microsoft code-signing certificate.</p>
+
+<h2 id="sha1">SHA-1</h2>
+<ul class="plain"><li>Padding: append 1, d = (447 &minus; |x|) mod 512 zeros, 64-bit length.</li>
+<li>Buffer H<sub>0</sub>&hellip;H<sub>4</sub> = 67452301, EFCDAB89, 98BADCFE, 10325476, C3D2E1F0.</li>
+<li>Message schedule: W<sub>t</sub> = ROTL<sup>1</sup>(W<sub>t&minus;3</sub> &oplus; W<sub>t&minus;8</sub> &oplus; W<sub>t&minus;14</sub> &oplus; W<sub>t&minus;16</sub>) for t = 16&hellip;79 (the rotation is what SHA-0 lacked).</li>
+<li>80 steps in 4 rounds: f = Ch (0&ndash;19), Parity (20&ndash;39), Maj (40&ndash;59), Parity (60&ndash;79).</li>
+<li>Step: temp = ROTL<sup>5</sup>(A) + f<sub>t</sub>(B,C,D) + E + W<sub>t</sub> + K<sub>t</sub>; E = D; D = C; C = ROTL<sup>30</sup>(B); B = A; A = temp. K<sub>t</sub> come from &radic;2, &radic;3, &radic;5, &radic;10.</li>
+<li>Feed-forward: add A&hellip;E to H<sub>0</sub>&hellip;H<sub>4</sub>; output 160 bits.</li></ul>
+
+<h2 id="cbcmac">MACs and CBC-MAC</h2>
+<p>A MAC gives integrity and origin authentication but <strong>not non-repudiation</strong>: Bob holds the same key, so a judge cannot tell whether Alice or Bob made the tag. Requirement: even after seeing many valid (m<sub>i</sub>, tag) pairs, a tag for any new message must be infeasible to forge.</p>
+<div class="formula"><p>CBC-MAC (IV = 0): c<sub>0</sub> = E<sub>K</sub>(p<sub>0</sub>), c<sub>i</sub> = E<sub>K</sub>(p<sub>i</sub> &oplus; c<sub>i&minus;1</sub>); tag = last block only.</p></div>
+<p>Used in interbank messaging and card authorisation with HSM-held keys.</p>
+
+<h2 id="ae">Authenticated encryption</h2>
+<table><thead><tr><th>Mode</th><th>Construction</th><th>Seen in</th></tr></thead><tbody>
+<tr><td>Encrypt-then-MAC</td><td>C = E<sub>K1</sub>(P); tag = MAC<sub>K2</sub>(C)</td><td>Strongest generic choice: verify before decrypting</td></tr>
+<tr><td>Encrypt-and-MAC</td><td>C = E<sub>K1</sub>(P); tag = MAC<sub>K2</sub>(P)</td><td>SSH</td></tr>
+<tr><td>MAC-then-Encrypt</td><td>C = E<sub>K1</sub>(P &#8214; MAC<sub>K2</sub>(P))</td><td>Older TLS</td></tr></tbody></table>
+
+<h2 id="flaw">Why CBC encryption + CBC-MAC with the same key fails</h2>
+<div class="worked"><h3>Proof sketch</h3><p>Alice sends c<sub>0</sub>&hellip;c<sub>3</sub> (CBC, IV = 0) and mac = CBC-MAC<sub>K</sub>(p) = c<sub>3</sub>. Mallory replaces c<sub>0</sub>, c<sub>1</sub>, c<sub>2</sub> with garbage c&prime; and keeps c<sub>3</sub> and mac. Bob decrypts p&prime;<sub>i</sub> = D(c&prime;<sub>i</sub>) &oplus; c&prime;<sub>i&minus;1</sub>. Recomputing the MAC: E(p&prime;<sub>0</sub>) = c&prime;<sub>0</sub>, E(p&prime;<sub>1</sub> &oplus; c&prime;<sub>0</sub>) = c&prime;<sub>1</sub>, E(p&prime;<sub>2</sub> &oplus; c&prime;<sub>1</sub>) = c&prime;<sub>2</sub>, E(p&prime;<sub>3</sub> &oplus; c&prime;<sub>2</sub>) = E(D(c<sub>3</sub>)) = c<sub>3</sub> = mac. The check passes although the plaintext is corrupted.</p></div>
+<p>Fix: <strong>CCM</strong> &mdash; CTR-mode encryption (c<sub>i</sub> = p<sub>i</sub> &oplus; E<sub>K</sub>(ctr + i)) with CBC-MAC over the plaintext. CTR does not chain ciphertext into the MAC computation, so any change is caught. WPA2&rsquo;s CCMP uses AES-CCM.</p>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>A new Blockchain &amp; Access Control quiz opens every day at 11:00 AM IST: 30 questions from recall to evaluation, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/play.html?s=bca">Take today&rsquo;s Blockchain quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/bca-hash-functions.html" rel="prev">&larr; Cryptographic hash functions, MACs and the birthday bound</a><a href="/learn/bca-number-theory.html" rel="next">Number theory: Fermat, inverses, Euclid and CRT &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

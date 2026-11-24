@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diffie–Hellman, the discrete logarithm and baby-step giant-step | Prasun Chaturvedi</title>
+  <meta name="description" content="Diffie–Hellman key exchange with primitive roots and two worked examples, why discrete logarithms resist binary search, and Shanks&#x27; baby-step giant-step algorithm traced in full.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/bca-dh-dlp.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="Diffie–Hellman, the discrete logarithm and baby-step giant-step">
+  <meta property="og:description" content="Diffie–Hellman key exchange with primitive roots and two worked examples, why discrete logarithms resist binary search, and Shanks&#x27; baby-step giant-step algorithm traced in full.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/bca-dh-dlp.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Blockchain &amp; Access Control &rsaquo; Module 2 · Public-key cryptography</p>
+        <h1>Diffie–Hellman, the discrete logarithm and baby-step giant-step</h1>
+        <p>Diffie–Hellman key exchange with primitive roots and two worked examples, why discrete logarithms resist binary search, and Shanks&#x27; baby-step giant-step algorithm traced in full.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Blockchain &amp; Access Control &mdash; revision notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#dh">Diffie–Hellman key exchange</a></li><li><a href="#dlp">The discrete logarithm problem</a></li><li><a href="#bsgs">Baby-step giant-step</a></li></ol></nav>
+<h2 id="dh">Diffie&ndash;Hellman key exchange (1976)</h2>
+<p>Two strangers agree a shared secret over a public channel. DH does <em>only</em> key exchange; the result keys a symmetric cipher such as AES.</p>
+<p>Public: prime q and a <strong>primitive root</strong> &alpha; &mdash; its powers &alpha;<sup>1</sup>&hellip;&alpha;<sup>q&minus;1</sup> mod q produce every value 1&hellip;q &minus; 1.</p>
+<div class="formula"><p>Alice: secret X<sub>A</sub>, sends Y<sub>A</sub> = &alpha;<sup>X<sub>A</sub></sup> mod q. Bob: secret X<sub>B</sub>, sends Y<sub>B</sub> = &alpha;<sup>X<sub>B</sub></sup> mod q.</p><p>K = Y<sub>B</sub><sup>X<sub>A</sub></sup> = Y<sub>A</sub><sup>X<sub>B</sub></sup> = &alpha;<sup>X<sub>A</sub>X<sub>B</sub></sup> mod q.</p></div>
+<div class="worked"><h3>Worked example 1</h3><p>q = 353, &alpha; = 3. X<sub>A</sub> = 97 &rArr; Y<sub>A</sub> = 40. X<sub>B</sub> = 233 &rArr; Y<sub>B</sub> = 248. K = 248<sup>97</sup> = 40<sup>233</sup> mod 353 = <strong>160</strong>. Eve sees only 353, 3, 40 and 248.</p></div>
+<div class="worked"><h3>Worked example 2 (corrected whiteboard)</h3><p>n = 11, g = 7; powers of 7: 7, 5, 2, 3, 10, 4, 6, 9, 8, 1. x = 9 &rArr; A = <strong>8</strong>; y = 6 &rArr; B = 4. K = 4<sup>9</sup> = 8<sup>6</sup> &equiv; <strong>3</strong> (mod 11). (The rough notes first wrote A = 2, which mismatches.)</p></div>
+<p>TLS 1.3 and Signal use ephemeral (EC)DHE for every session, which gives <strong>forward secrecy</strong>: a later key theft does not expose past sessions. Unauthenticated DH is open to man-in-the-middle; sign the exchanged values.</p>
+
+<h2 id="dlp">The discrete logarithm problem</h2>
+<p>To get K, Eve must find x with g<sup>x</sup> &equiv; y (mod p). Over the reals 2<sup>x</sup> is monotonic, so binary search finds x = 33 for 8,589,934,592 in a handful of guesses. Modulo a prime the values wrap unpredictably (2<sup>x</sup> mod 11: 2, 4, 8, 5, 10, &hellip;), so there is no &ldquo;too high/too low&rdquo; signal. With p around 2,048 bits, exhaustive search is infeasible.</p>
+
+<h2 id="bsgs">Shanks&rsquo; baby-step giant-step (1971)</h2>
+<p>A time&ndash;memory trade-off solving the DLP in O(&radic;p) time and space instead of O(p).</p>
+<div class="formula"><p>m = &lceil;&radic;p&rceil;; write x = mj + i (0 &le; i, j &lt; m). Then g<sup>mj</sup> &equiv; y&middot;g<sup>&minus;i</sup> (mod p).</p></div>
+<ol class="plain"><li><strong>Giant steps</strong>: tabulate g<sup>mj</sup> mod p for j = 0&hellip;m &minus; 1, sorted by value.</li><li><strong>Baby steps</strong>: for i = 0, 1, &hellip; compute y&middot;(g<sup>&minus;1</sup>)<sup>i</sup> mod p and look it up.</li><li>On a match, x = mj + i.</li></ol>
+<div class="worked"><h3>Worked example: 5<sup>x</sup> &equiv; 20 (mod 47)</h3><p>m = 7; 5<sup>7</sup> &equiv; 11. Giant steps 11<sup>j</sup>: 1, 11, 27, 15, 24, 29, 37 (j = 0&hellip;6).<br>5<sup>&minus;1</sup> &equiv; 19. Baby steps 20&middot;19<sup>i</sup>: 20, 4, <strong>29</strong> &rarr; match at i = 2, j = 5.<br>x = 7&middot;5 + 2 = <strong>37</strong>.</p></div>
+<div class="worked"><h3>Exercise: 5<sup>x</sup> &equiv; 41 (mod 193)</h3><p>m = 14, 5<sup>&minus;1</sup> &equiv; 116. Answer: <strong>x = 151</strong> (j = 10, i = 11). Try it before checking.</p></div>
+<p>Because generic attacks (BSGS, Pollard rho) cost &radic;(group order), a 256-bit group order is needed for 128-bit security.</p>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>A new Blockchain &amp; Access Control quiz opens every day at 11:00 AM IST: 30 questions from recall to evaluation, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/play.html?s=bca">Take today&rsquo;s Blockchain quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/bca-rsa.html" rel="prev">&larr; RSA: key generation, square-and-multiply, Miller–Rabin and attacks</a><a href="/learn/bca-elgamal-ecc.html" rel="next">ElGamal and elliptic-curve foundations &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Learn: Network &amp; Systems Security notes | Prasun Chaturvedi</title>
-  <meta name="description" content="Refresher notes on networks and system security by Prasun Chaturvedi, with a daily quiz.">
+  <title>Learn: Network security and blockchain notes | Prasun Chaturvedi</title>
+  <meta name="description" content="Revision notes by Prasun Chaturvedi on network and systems security and on blockchain and access control, with daily quizzes.">
   <link rel="canonical" href="https://prasunchaturvedi.in/learn/">
   <meta name="theme-color" content="#14213d">
   <meta name="author" content="Prasun Chaturvedi">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Prasun Chaturvedi">
-  <meta property="og:title" content="Learn: Network &amp; Systems Security notes">
-  <meta property="og:description" content="Refresher notes on networks and system security by Prasun Chaturvedi, with a daily quiz.">
+  <meta property="og:title" content="Learn: Network security and blockchain notes">
+  <meta property="og:description" content="Revision notes by Prasun Chaturvedi on network and systems security and on blockchain and access control, with daily quizzes.">
   <meta property="og:url" content="https://prasunchaturvedi.in/learn/">
   <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
   <meta property="og:locale" content="en_IN">
@@ -39,25 +39,33 @@
     <div class="page-head">
       <div class="wrap">
         <h1>Learn</h1>
-        <p>Network &amp; Systems Security &mdash; refresher notes by Prasun Chaturvedi.</p>
+        <p>Revision notes by Prasun Chaturvedi: Network &amp; Systems Security, and Blockchain &amp; Access Control.</p>
       </div>
     </div>
     <section aria-label="Notes and quiz">
       <div class="wrap">
-        <p class="section-intro">Concise, exam-oriented notes on networks and system security: definitions, tables, worked examples and common pitfalls.<br>Revise a topic, then check yourself with the daily quiz.</p>
+        <p class="section-intro">Concise, exam-oriented notes: definitions, tables, worked examples and common pitfalls.<br>Revise a topic, then check yourself with the daily quiz.</p>
         <a class="quiz-card-link" href="/quiz/">
           <strong>Daily quiz</strong>
-          <span>30 questions a day with instant model answers. Networking is live; more subjects are coming.</span>
+          <span>30 questions a day with instant model answers. Most subjects open at 9:00 AM IST; Blockchain &amp; Access Control at 11:00 AM IST.</span>
           <span class="go" aria-hidden="true">Start &rarr;</span>
         </a>
-        <h2>Part 1 · Networking foundations</h2>
+        <h2 id="nss">Network &amp; Systems Security</h2>
+<h3>Part 1 · Networking foundations</h3>
 <ul class="topic-list"><li><a href="/learn/osi-model.html">OSI model and layer-wise threats</a><span>The seven OSI layers, encapsulation hop by hop, and the typical attack and mitigation at each layer.</span></li><li><a href="/learn/ipv4-addressing.html">IPv4 addressing, subnetting and CIDR</a><span>Classful addressing, casting types, subnet masks, bitwise AND routing, CIDR validity rules and worked subnetting.</span></li><li><a href="/learn/application-layer.html">Application layer: HTTP, DNS, e-mail and FTP</a><span>HTTP methods and persistence, DNS hierarchy and resolution, SMTP/POP/IMAP with MIME, and FTP&#x27;s two connections.</span></li><li><a href="/learn/transport-sockets.html">TCP, UDP, sockets and CRC</a><span>Ports and sockets, TCP header, sequence and acknowledgement arithmetic, handshake and teardown, UDP, the C socket API, CRC and NS-2.</span></li><li><a href="/learn/arp-dhcp-icmp.html">ARP, BOOTP, DHCP and ICMP</a><span>Address resolution, host configuration with relay agents, and ICMP error and query messages with their exceptions.</span></li></ul>
-<h2>Part 2 · Network attacks and defence</h2>
+<h3>Part 2 · Network attacks and defence</h3>
 <ul class="topic-list"><li><a href="/learn/security-fundamentals.html">Security goals, attacks and X.800</a><span>CIA and its extensions, passive and active attacks, X.800 services and mechanisms, and the model for network security.</span></li><li><a href="/learn/lan-transport-attacks.html">LAN and transport attacks: ARP, DHCP, SYN flood, hijacking</a><span>Layer 2 attacks mapped to X.800, DHCP starvation and spoofing, SYN floods and SYN cookies, session hijacking and spoofing, and Ettercap.</span></li><li><a href="/learn/dns-attacks-firewalls.html">DNS attacks, amplification and firewalls</a><span>Pharming and glue poisoning, on-path and off-path cache poisoning, DNS hardening, amplification, and stateless, stateful and proxy firewalls.</span></li><li><a href="/learn/security-tools.html">Security tools: tcpdump, httprobe, nmap and Snort 3</a><span>Packet capture with BPF filters and TCP flag masks, web-service discovery, nmap scan types and port states, and Snort 3 IDS/IPS rules and modes.</span></li></ul>
-<h2>Part 3 · Cryptography and secure protocols</h2>
+<h3>Part 3 · Cryptography and secure protocols</h3>
 <ul class="topic-list"><li><a href="/learn/classical-crypto.html">Symmetric cryptography and classical ciphers</a><span>Terminology, Kerckhoffs&#x27; principle, attack models, perfect secrecy, additive, multiplicative and affine ciphers, transposition, and stream versus block ciphers.</span></li><li><a href="/learn/lfsr-rc4.html">Stream ciphers: LFSR and RC4</a><span>How LFSRs work and why they fail alone, RC4&#x27;s KSA and PRGA step by step, its biases, and the RC4 chat lab.</span></li><li><a href="/learn/dh-rsa.html">Diffie–Hellman, RSA and man-in-the-middle</a><span>Diffie-Hellman key agreement, brute-forcing a small discrete log, RSA key generation and use, padding, and why unauthenticated keys invite man-in-the-middle attacks.</span></li><li><a href="/learn/ipsec.html">IPsec: AH, ESP, transport and tunnel modes</a><span>Where IPsec sits compared with TLS, its services, SPD and SAD, mutable header fields, AH and ESP formats, modes, NAT and anti-replay.</span></li></ul>
-<h2>Part 4 · Forensics, attack graphs and blockchain security</h2>
+<h3>Part 4 · Forensics, attack graphs and blockchain security</h3>
 <ul class="topic-list"><li><a href="/learn/forensics.html">File forensics and EnCase</a><span>Magic numbers, metadata, deletion and file carving, steganography, write-blocking, E01 images and the EnCase workflow.</span></li><li><a href="/learn/attack-graphs-blockchain.html">Attack graphs, trust scores and Hyperledger Fabric</a><span>Formal attack graphs, network model inputs, minimum hitting sets, trust-score arithmetic, and the Fabric pharma chaincode lab.</span></li></ul>
+<h2 id="bca">Blockchain &amp; Access Control</h2>
+<h3>Module 1 · Foundations and hashing</h3>
+<ul class="topic-list"><li><a href="/learn/bca-blockchain-fundamentals.html">Blockchain fundamentals, DLT and block anatomy</a><span>Ledgers and DLT, counterparty risk and disintermediation, centralised databases versus blockchains, the five building blocks, block header fields and how chaining exposes tampering.</span></li><li><a href="/learn/bca-hash-functions.html">Cryptographic hash functions, MACs and the birthday bound</a><span>Symmetric, asymmetric and hash primitives, integrity checks and the avalanche effect, MACs, the hash-family definition, preimage, second-preimage and collision resistance, the random oracle model and birthday attacks.</span></li><li><a href="/learn/bca-iterated-hash-mac.html">Merkle–Damgård, MD5, SHA-1, CBC-MAC and authenticated encryption</a><span>How iterated hashes pad and compress, the MD5 and SHA-1 round structures, the collision history from 2004 to SHAttered, CBC-MAC, EtM/E&amp;M/MtE, and why CBC encryption with CBC-MAC under one key fails.</span></li></ul>
+<h3>Module 2 · Public-key cryptography</h3>
+<ul class="topic-list"><li><a href="/learn/bca-number-theory.html">Number theory: Fermat, inverses, Euclid and CRT</a><span>Fermat's little theorem with four worked reductions, linear congruences and modular inverses, the extended Euclidean algorithm step by step, and the Chinese remainder theorem.</span></li><li><a href="/learn/bca-pkc-knapsack.html">Public-key principles, trapdoors and the Merkle–Hellman knapsack</a><span>Origins of public-key cryptography, three misconceptions, secrecy and signature modes, the six Diffie–Hellman requirements, trapdoor one-way functions, subset sum, superincreasing knapsacks and a full Merkle–Hellman example.</span></li><li><a href="/learn/bca-rsa.html">RSA: key generation, square-and-multiply, Miller–Rabin and attacks</a><span>RSA key generation with a full numeric example, left-to-right square-and-multiply traced step by step, Fermat and Miller–Rabin primality tests on 561, factoring by congruence of squares, and timing attacks.</span></li><li><a href="/learn/bca-dh-dlp.html">Diffie–Hellman, the discrete logarithm and baby-step giant-step</a><span>Diffie–Hellman key exchange with primitive roots and two worked examples, why discrete logarithms resist binary search, and Shanks' baby-step giant-step algorithm traced in full.</span></li><li><a href="/learn/bca-elgamal-ecc.html">ElGamal and elliptic-curve foundations</a><span>ElGamal encryption modulo a prime with a full example and why it is randomised, then elliptic curves: the Weierstrass form, non-singularity, the point at infinity, chord-and-tangent addition and the group laws.</span></li><li><a href="/learn/bca-ecc-finite-fields.html">ECC over prime fields, quadratic residues, EC-ElGamal and RSA vs ECC</a><span>Elliptic curves modulo a prime, quadratic residues and Euler's criterion, all points and multiples of a generator on y² = x³ + x + 6 over Z₁₁, an EC-ElGamal round trip, and why ECC beats RSA on key size.</span></li></ul>
+<h3>Module 3 · Consensus</h3>
+<ul class="topic-list"><li><a href="/learn/bca-consensus.html">Distributed consensus, fault models and consensus families</a><span>The consensus problem and its six properties, timing models, crash versus Byzantine faults, permissionless versus permissioned designs, Nakamoto PoW, PoS, DPoS, LPoS, PoET, Tangle and Proof of Burn.</span></li><li><a href="/learn/bca-pow-ethereum.html">PoW difficulty, energy metrics and Ethereum proof of stake</a><span>Six dimensions for judging consensus, target, difficulty, hash rate and retargeting, why kWh per transaction misleads, the Merge, validators, 12-second slots, 32-slot epochs, Casper FFG finality, LMD-GHOST and slashing.</span></li><li><a href="/learn/bca-fabric-access-control.html">Hyperledger Fabric, chaincode and access control models</a><span>Fabric's permissioned architecture, the execute–order–validate lifecycle, chaincode determinism and lifecycle, the vaccine-batch lab, and MAC, DAC and RBAC access control.</span></li></ul>
 
       </div>
     </section>

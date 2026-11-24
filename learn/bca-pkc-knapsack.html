@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Public-key principles, trapdoors and the Merkle–Hellman knapsack | Prasun Chaturvedi</title>
+  <meta name="description" content="Origins of public-key cryptography, three misconceptions, secrecy and signature modes, the six Diffie–Hellman requirements, trapdoor one-way functions, subset sum, superincreasing knapsacks and a full Merkle–Hellman example.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/bca-pkc-knapsack.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="Public-key principles, trapdoors and the Merkle–Hellman knapsack">
+  <meta property="og:description" content="Origins of public-key cryptography, three misconceptions, secrecy and signature modes, the six Diffie–Hellman requirements, trapdoor one-way functions, subset sum, superincreasing knapsacks and a full Merkle–Hellman example.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/bca-pkc-knapsack.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Blockchain &amp; Access Control &rsaquo; Module 2 · Public-key cryptography</p>
+        <h1>Public-key principles, trapdoors and the Merkle–Hellman knapsack</h1>
+        <p>Origins of public-key cryptography, three misconceptions, secrecy and signature modes, the six Diffie–Hellman requirements, trapdoor one-way functions, subset sum, superincreasing knapsacks and a full Merkle–Hellman example.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Blockchain &amp; Access Control &mdash; revision notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#origin">Origins and misconceptions</a></li><li><a href="#modes">Secrecy, authentication and both</a></li><li><a href="#req">Requirements and trapdoor functions</a></li><li><a href="#ss">Subset sum and superincreasing sequences</a></li><li><a href="#mh">Merkle–Hellman cryptosystem</a></li><li><a href="#fate">Cryptanalysis and the PKC landscape</a></li></ol></nav>
+<h2 id="origin">Origins and three misconceptions</h2>
+<p>Diffie and Hellman, &ldquo;New Directions in Cryptography&rdquo; (1976), introduced public-key cryptography to solve two symmetric-key problems: <strong>key distribution</strong> without a prior secret channel and <strong>digital signatures</strong>.</p>
+<table><thead><tr><th>Misconception</th><th>Reality</th></tr></thead><tbody>
+<tr><td>PKC is inherently more secure</td><td>Security depends on key length and the work to break it; AES-256 is far stronger than RSA-512</td></tr>
+<tr><td>PKC replaced symmetric encryption</td><td>PKC is 100&ndash;1,000&times; slower; hybrid systems use PKC to agree an AES session key</td></tr>
+<tr><td>Key management is trivial</td><td>Public keys still need authentication: PKI and certificate authorities</td></tr></tbody></table>
+
+<h2 id="modes">Secrecy, authentication and both</h2>
+<table><thead><tr><th>Goal</th><th>Sender computes</th><th>Receiver computes</th><th>Gives</th></tr></thead><tbody>
+<tr><td>Secrecy</td><td>Y = E<sub>KU<sub>b</sub></sub>(X)</td><td>X = D<sub>KR<sub>b</sub></sub>(Y)</td><td>Confidentiality only (anyone can encrypt to B)</td></tr>
+<tr><td>Authentication</td><td>Y = E<sub>KR<sub>a</sub></sub>(X)</td><td>X = D<sub>KU<sub>a</sub></sub>(Y)</td><td>Origin and non-repudiation; no secrecy</td></tr>
+<tr><td>Both</td><td>Z = E<sub>KU<sub>b</sub></sub>[E<sub>KR<sub>a</sub></sub>(X)]</td><td>X = D<sub>KU<sub>a</sub></sub>[D<sub>KR<sub>b</sub></sub>(Z)]</td><td>Both, at four public-key operations</td></tr></tbody></table>
+<p>In practice one signs a <strong>hash</strong> of the document (hash-then-sign), not the whole document. Applications: encryption, signatures, key exchange. RSA does all three; Diffie&ndash;Hellman only key exchange; DSA only signatures.</p>
+
+<h2 id="req">Requirements and trapdoor one-way functions</h2>
+<ol class="plain"><li>Key-pair generation is easy.</li><li>Encryption with KU<sub>b</sub> is easy.</li><li>Decryption with KR<sub>b</sub> is easy.</li><li>Deriving KR<sub>b</sub> from KU<sub>b</sub> is infeasible.</li><li>Recovering M from KU<sub>b</sub> and C is infeasible.</li><li>(Useful) either key can be applied first.</li></ol>
+<p>&ldquo;Easy&rdquo; = polynomial in the input bit-length; &ldquo;infeasible&rdquo; = super-polynomial. A <strong>one-way function</strong> is easy to compute and infeasible to invert for everyone. A <strong>trapdoor one-way function</strong> f<sub>k</sub> becomes easy to invert for whoever knows the trapdoor k.</p>
+
+<h2 id="ss">Subset sum and superincreasing sequences</h2>
+<p>Given weights a<sub>1</sub>&hellip;a<sub>n</sub> and target S, find x &isin; {0,1}<sup>n</sup> with &Sigma;a<sub>i</sub>x<sub>i</sub> = S. The general problem is NP-complete. Toy: (455, 341, 284, 132, 82, 56), S = 821 &rArr; 455 + 284 + 82, x = (1,0,1,0,1,0).</p>
+<p>A sequence is <strong>superincreasing</strong> if each term exceeds the sum of all earlier ones. Then a greedy pass from the largest term solves it in O(n): take a<sub>i</sub> if S &ge; a<sub>i</sub> and subtract.</p>
+<div class="worked"><h3>Worked example</h3><p>a&prime; = (171, 197, 459, 1191, 2410), S = 3798: take 2410 (1388 left), take 1191 (197), skip 459, take 197 (0), skip 171 &rArr; x = (0, 1, 0, 1, 1).</p></div>
+
+<h2 id="mh">Merkle&ndash;Hellman knapsack (1978)</h2>
+<ol class="plain"><li><strong>Keys</strong>: secret superincreasing a&prime;, modulus m &gt; &Sigma;a&prime;<sub>i</sub>, multiplier w with gcd(w, m) = 1. Public a<sub>i</sub> = w&middot;a&prime;<sub>i</sub> mod m.</li>
+<li><strong>Encrypt</strong>: S = &Sigma;x<sub>i</sub>a<sub>i</sub>.</li>
+<li><strong>Decrypt</strong>: S&prime; = w<sup>&minus;1</sup>S mod m = &Sigma;x<sub>i</sub>a&prime;<sub>i</sub> (exact, because m exceeds the sum), then solve greedily.</li></ol>
+<div class="worked"><h3>Worked example</h3><p>a&prime; = (2, 5, 9, 21, 45, 103, 215, 450, 946) (sum 1796), m = 2003, w = 1289, w<sup>&minus;1</sup> = 317.<br>Public key a = (575, 436, 1586, 1030, 1921, 569, 721, 1183, 1570).<br>x = (1,0,1,1,0,0,1,1,1) &rArr; S = 575 + 1586 + 1030 + 721 + 1183 + 1570 = <strong>6665</strong>.<br>S&prime; = 317 &times; 6665 mod 2003 = <strong>1643</strong>; greedy over a&prime; takes 946, 450, 215, 21, 9, 2 &rArr; x recovered.</p></div>
+
+<h2 id="fate">Cryptanalysis and the PKC landscape</h2>
+<p>Shamir broke the basic Merkle&ndash;Hellman scheme in polynomial time (1982); lattice-reduction (LLL) attacks later broke most knapsack variants, because the modular disguise leaks structure.</p>
+<table><thead><tr><th>Scheme</th><th>Hard problem</th><th>Status</th></tr></thead><tbody>
+<tr><td>RSA</td><td>Integer factorisation</td><td>Secure at &ge; 2,048 bits</td></tr>
+<tr><td>Merkle&ndash;Hellman, Chor&ndash;Rivest</td><td>Subset sum</td><td>Broken</td></tr>
+<tr><td>McEliece</td><td>Decoding random linear codes</td><td>Unbroken; post-quantum candidate</td></tr>
+<tr><td>ElGamal, Diffie&ndash;Hellman</td><td>Discrete logarithm in Z<sub>p</sub>*</td><td>Secure at &ge; 2,048 bits</td></tr>
+<tr><td>ECC</td><td>Elliptic-curve discrete logarithm</td><td>Secure with much smaller keys</td></tr></tbody></table>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>A new Blockchain &amp; Access Control quiz opens every day at 11:00 AM IST: 30 questions from recall to evaluation, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/play.html?s=bca">Take today&rsquo;s Blockchain quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/bca-number-theory.html" rel="prev">&larr; Number theory: Fermat, inverses, Euclid and CRT</a><a href="/learn/bca-rsa.html" rel="next">RSA: key generation, square-and-multiply, Miller–Rabin and attacks &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

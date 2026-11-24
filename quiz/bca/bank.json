@@ -18,7 +18,7 @@
   "answer": 0,
   "explanation": "Each header stores the hash of the previous header, which turns the chain into a hash-pointer list: changing an old block changes its hash and breaks the next link. The Merkle root is also in the header, but it commits to this block's own transactions, not to the previous block.",
   "concept": "Blocks are chained by storing the previous header's hash.",
-  "ref": "",
+  "ref": "/learn/bca-blockchain-fundamentals.html",
   "source": ""
  },
  {
@@ -40,7 +40,7 @@
   "answer": 2,
   "explanation": "Collision resistance lets the attacker choose both inputs freely and still demands that no colliding pair can be found. Second-preimage resistance is the tempting answer, but there the first input is fixed in advance, which is a harder task for the attacker and therefore a weaker requirement.",
   "concept": "Collision: any pair x≠x′ with h(x)=h(x′); second preimage: x is given.",
-  "ref": "",
+  "ref": "/learn/bca-hash-functions.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -62,7 +62,7 @@
   "answer": 3,
   "explanation": "Transaction hashes are paired and hashed level by level until one root remains, so changing any transaction changes the root and hence the header hash. Commitment to earlier headers comes from the previous-hash field, not the Merkle root; Bitcoin headers do not commit to the UTXO set at all.",
   "concept": "Merkle root = single hash committing to all transactions in the block.",
-  "ref": "",
+  "ref": "/learn/bca-blockchain-fundamentals.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -84,7 +84,7 @@
   "answer": 1,
   "explanation": "The puzzle is H(header) < T: a lower target admits fewer hashes and so needs more expected work. Difficulty and target move in opposite directions, so 'above the difficulty' reverses the rule.",
   "concept": "PoW validity: H(header ‖ nonce) < target.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.5"
  },
  {
@@ -106,7 +106,7 @@
   "answer": 3,
   "explanation": "Safety means nothing bad happens: no conflicting commits. It can hold even while progress stalls. Liveness and its per-instance form, termination, are exactly what the stalled protocol has given up.",
   "concept": "Safety = no conflicting decisions; liveness = eventual progress.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.2"
  },
  {
@@ -128,7 +128,7 @@
   "answer": 0,
   "explanation": "The MSP defines which root CAs an organisation trusts, how identities are validated and which roles they hold. 'Managed Service Provider' is a common slip from IT outsourcing vocabulary and is wrong in Fabric.",
   "concept": "MSP maps certificates to organisations and roles.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -150,7 +150,7 @@
   "answer": 2,
   "explanation": "A certificate proves identity (authentication). Authorization still has to be checked separately against roles, attributes, ownership or endorsement policy. Treating a valid certificate as full access is a classic design error.",
   "concept": "Authentication = who you are; authorization = what you may do.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": ""
  },
  {
@@ -194,7 +194,7 @@
   "answer": 2,
   "explanation": "In PoET each node waits a random time attested by a TEE such as Intel SGX, and the shortest wait wins; Hyperledger Sawtooth used it. Its trust therefore rests on the hardware vendor. DPoS uses elected producers and involves no special hardware.",
   "concept": "PoET = TEE-attested random wait; trust shifts to hardware.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.8"
  },
  {
@@ -216,7 +216,7 @@
   "answer": 1,
   "explanation": "Only the private-key holder can produce the signature, and the public key lets anyone verify it. A MAC also gives integrity, but it uses a shared secret, so third parties cannot verify it and the recipient could have forged it.",
   "concept": "Digital signature: sign with private key, verify with public key.",
-  "ref": "",
+  "ref": "/learn/bca-pkc-knapsack.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -238,7 +238,7 @@
   "answer": 1,
   "explanation": "RBAC puts roles between users and permissions, so administrators manage a small set of roles instead of per-user grants. Owner-granted rights describe DAC and labels describe MAC.",
   "concept": "RBAC: users → roles → permissions.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": ""
  },
  {
@@ -282,7 +282,7 @@
   "answer": 1,
   "explanation": "Padding (a 1 then zeros) must bring the length to 448 mod 512: 1000 mod 512 = 488, so the next value ≡ 448 is 1472, which needs 472 bits; adding the 64-bit length gives 1536 = 3 × 512. The 1472 answer forgets the length field, and 24 bits simply rounds to the next 512-bit boundary.",
   "concept": "MD5 pad to 448 mod 512, then append 64-bit length.",
-  "ref": "",
+  "ref": "/learn/bca-hash-functions.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -304,7 +304,7 @@
   "answer": 1,
   "explanation": "P(success) = T/2^16 = 2^10/2^16 = 1/64, so the expected number of hashes is 64 and 64/16 = 4 s. The 1,024 answer confuses the target value with the expected work.",
   "concept": "E[hashes] = 2^N / T.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.5"
  },
  {
@@ -326,7 +326,7 @@
   "answer": 3,
   "explanation": "D_new = D_old × 14/12 ≈ 1.167, because blocks came too fast and the puzzle must get harder. The ×4 clamp only limits extreme adjustments; it does not suppress small ones. Applying 12/14 instead inverts the direction.",
   "concept": "D_new = D_old × (expected time / actual time), clamped to [¼, 4].",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.5"
  },
  {
@@ -348,7 +348,7 @@
   "answer": 0,
   "explanation": "BFT needs n ≥ 3f + 1 = 7 and quorums of 2f + 1 = 5, so any two quorums overlap in at least one honest node. Five nodes with quorum 3 is the crash-fault (Raft) sizing for f = 2 and does not survive lying nodes.",
   "concept": "BFT: n ≥ 3f+1, quorum 2f+1.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": ""
  },
  {
@@ -370,7 +370,7 @@
   "answer": 1,
   "explanation": "With q = 0.2 and p = 0.8, q/p = 1/4 and (1/4)^4 = 1/256 ≈ 0.39%. Using q alone ignores the honest chain's progress, which is why (0.2)^4 understates the risk.",
   "concept": "Gambler's-ruin catch-up: (q/p)^z for q < p.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.2 & ch.5"
  },
  {
@@ -392,7 +392,7 @@
   "answer": 2,
   "explanation": "A balanced binary tree over 1,000 leaves has depth ⌈log2 1000⌉ = 10, and the proof carries one sibling per level. Linear answers such as 999 describe re-hashing everything, which is what the Merkle tree avoids.",
   "concept": "Merkle proof size = ⌈log2 n⌉ hashes.",
-  "ref": "",
+  "ref": "/learn/bca-blockchain-fundamentals.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -436,7 +436,7 @@
   "answer": 1,
   "explanation": "The orderer only orders and does not evaluate chaincode endorsement policies, so the transaction enters a block. Committing peers then run VSCC, find one signature where two are required, and mark it invalid while keeping it for audit. MVCC conflicts concern stale read versions, not missing signatures.",
   "concept": "Endorsement policy is checked by committing peers at validation.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -458,7 +458,7 @@
   "answer": 1,
   "explanation": "Tx1 commits first and moves the key to a new version, so Tx2's read version (5,0) is stale at validation. Endorsement does not mean commit. The orderer never inspects read-write sets, so it cannot drop Tx2.",
   "concept": "MVCC: a read version must still be current at commit time.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -480,7 +480,7 @@
   "answer": 2,
   "explanation": "The simple-security property forbids reading above one's clearance, and the *-property forbids writing to a lower level so secrets cannot leak downward. Many people accept the write because Confidential is lower, but that is exactly the downward flow BLP blocks.",
   "concept": "BLP (confidentiality): no read up, no write down.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": ""
  },
  {
@@ -502,7 +502,7 @@
   "answer": 0,
   "explanation": "The birthday bound is Q ≈ 1.17√M with M = 2^64, giving about 1.17 × 2^32 ≈ 5.06 × 10^9. 2^63 or 2^64 is the cost of a preimage-style search, not of finding any colliding pair.",
   "concept": "Birthday attack: Q ≈ 1.17√M = 1.17 × 2^(n/2).",
-  "ref": "",
+  "ref": "/learn/bca-hash-functions.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -524,7 +524,7 @@
   "answer": 2,
   "explanation": "One epoch is 32 × 12 s = 384 s = 6.4 min, and two epochs give 12.8 min. 6.4 minutes is the length of one epoch, which is only enough to justify a checkpoint, not to finalize it.",
   "concept": "Slot 12 s, epoch 6.4 min, finality ≈ 2 epochs.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": ""
  },
  {
@@ -546,7 +546,7 @@
   "answer": 3,
   "explanation": "Each peer simulates independently, and wall-clock values differ, so the signed results do not match. The orderer never executes chaincode. The deterministic fix is to use the transaction timestamp (GetTxTimestamp) or pass the time as an argument.",
   "concept": "Chaincode must be deterministic across endorsers.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -568,7 +568,7 @@
   "answer": 0,
   "explanation": "Static SoD constrains role assignment itself, so the second assignment must be refused. Activating one role per session describes dynamic SoD, which is a different and weaker constraint than the one stated.",
   "concept": "Static SoD restricts assignment; dynamic SoD restricts activation.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": ""
  },
  {
@@ -590,7 +590,7 @@
   "answer": 0,
   "explanation": "Known members, confidentiality and throughput point to a permissioned ledger secured by identity and governance. A central database is ruled out by the stated lack of trust, and public chains expose data and add cost without any need for open membership.",
   "concept": "Use permissioned DLT when parties are known but mutually distrustful.",
-  "ref": "",
+  "ref": "/learn/bca-blockchain-fundamentals.html",
   "source": "Bashir, Mastering Blockchain, decentralization chapter"
  },
  {
@@ -612,7 +612,7 @@
   "answer": 2,
   "explanation": "At γ = 0 the threshold is 1/3, and 30% falls below it, so withheld blocks are lost too often. The 25% figure applies only when γ = 1/2, and 'any size' only when γ = 1. Selfish mining does not need a majority, which is exactly why it matters.",
   "concept": "Selfish-mining threshold α > (1 − γ)/(3 − 2γ).",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.5"
  },
  {
@@ -634,7 +634,7 @@
   "answer": 0,
   "explanation": "The AND forces Mfr and the inner OR accepts either Dist or Hosp, with Reg absent. OutOf(2, …) looks close, but Dist + Hosp would satisfy it without the manufacturer. The OR variant lets Mfr approve alone.",
   "concept": "Compose AND/OR/OutOf to encode exact approval rules.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -656,7 +656,7 @@
   "answer": 3,
   "explanation": "A PDC disseminates the data only to member peers while the hash on the shared ledger lets anyone verify a later disclosure. A query check hides nothing, because every channel peer still stores the plaintext. Endorsement policies control who signs, not who sees, and channels do not cross-post hashes.",
   "concept": "PDC = private data off-ledger for a subset; hash on-ledger for all.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -678,7 +678,7 @@
   "answer": 2,
   "explanation": "The genesis block is hard-coded as block 0, so its previous-hash field points to no real block. Every other block descends from it through hash links. The chain tip is the most recent block, not the first.",
   "concept": "Genesis block = block 0, the root of the chain.",
-  "ref": "",
+  "ref": "/learn/bca-blockchain-fundamentals.html",
   "source": ""
  },
  {
@@ -700,7 +700,7 @@
   "answer": 2,
   "explanation": "MD5 processes 512-bit blocks through 4 rounds of 16 steps and outputs a 128-bit digest held in four 32-bit buffers. The 160-bit digest belongs to SHA-1, which uses the same 512-bit block size.",
   "concept": "MD5: 512-bit blocks → 128-bit digest.",
-  "ref": "",
+  "ref": "/learn/bca-hash-functions.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -722,7 +722,7 @@
   "answer": 2,
   "explanation": "Bitcoin retargets every 2016 blocks so that the average block interval returns to 10 minutes. 210,000 blocks is the subsidy-halving interval, a different schedule.",
   "concept": "Retarget every 2016 blocks; halving every 210,000.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.5"
  },
  {
@@ -744,7 +744,7 @@
   "answer": 0,
   "explanation": "Creating more identities costs nothing, but buying more hash power does, so voting weight tracks real cost. One-identity-one-vote is exactly what a Sybil attacker exploits.",
   "concept": "Sybil resistance ties influence to a scarce resource.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.2"
  },
  {
@@ -766,7 +766,7 @@
   "answer": 1,
   "explanation": "Orderers produce a total order and cut blocks; peers do the execution (endorsement) and validation. Assuming orderers validate transactions is a common error. Certificates come from the CA and are interpreted through the MSP.",
   "concept": "Orderer orders only; peers endorse and validate.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -788,7 +788,7 @@
   "answer": 3,
   "explanation": "The Merge swapped PoW consensus for the Beacon Chain's PoS while keeping the existing state and execution layer. Execution sharding was never part of it, and the direction of change was PoW to PoS.",
   "concept": "The Merge: PoW → PoS via the Beacon Chain.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": ""
  },
  {
@@ -810,7 +810,7 @@
   "answer": 1,
   "explanation": "In DAC the owner grants and revokes rights at discretion, as with Unix permissions or file sharing. That flexibility is also its weakness (permission leakage and Trojan horses). Central labels define MAC.",
   "concept": "DAC: owner-controlled rights.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": ""
  },
  {
@@ -832,7 +832,7 @@
   "answer": 1,
   "explanation": "Following the pointer retrieves the data and the stored hash lets you check it has not changed. A blockchain is a linked list of hash pointers. A plain pointer gives location only, with no integrity check.",
   "concept": "Hash pointer = location + hash of content.",
-  "ref": "",
+  "ref": "/learn/bca-blockchain-fundamentals.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -876,7 +876,7 @@
   "answer": 0,
   "explanation": "DPoS (as in EOS, with about 21 producers) concentrates production in elected delegates for speed. The risks are collusion and voter apathy. Leasing stake without giving up ownership describes LPoS.",
   "concept": "DPoS = elected producers.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.8"
  },
  {
@@ -898,7 +898,7 @@
   "answer": 3,
   "explanation": "Bitcoin chose the Koblitz curve secp256k1. P-256 (secp256r1) is the NIST curve used widely in TLS, which makes it the tempting wrong answer.",
   "concept": "Bitcoin uses ECDSA on secp256k1.",
-  "ref": "",
+  "ref": "/learn/bca-pkc-knapsack.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -942,7 +942,7 @@
   "answer": 2,
   "explanation": "P = 1 − (1 − 1/M)^Q with Q = M gives ≈ 1 − e^(−1) ≈ 0.632. Random inputs can repeat outputs, so trying M of them does not guarantee covering all M values.",
   "concept": "Preimage success: ε = 1 − (1 − 1/M)^Q.",
-  "ref": "",
+  "ref": "/learn/bca-hash-functions.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -964,7 +964,7 @@
   "answer": 3,
   "explanation": "The avalanche effect means a small input change flips roughly half the output bits; the measured Hamming distance is 131. Assuming the digest changes in proportion to the input is the misconception avalanche design rules out. Flipping every bit would be just as predictable as flipping none.",
   "concept": "Avalanche: a 1-bit change flips about 50% of output bits.",
-  "ref": "",
+  "ref": "/learn/bca-hash-functions.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -986,7 +986,7 @@
   "answer": 0,
   "explanation": "The four leading hex zeros give 16 zero bits, and the next hex digit 3 is 0011, adding two more, for 18. Stopping at 16 counts only the zero nibbles.",
   "concept": "Each leading hex 0 = 4 zero bits; check the next nibble too.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.5"
  },
  {
@@ -1008,7 +1008,7 @@
   "answer": 0,
   "explanation": "The expected share of blocks equals the share of hash rate: 0.10 × 144 = 14.4 per day. Actual counts vary because block discovery is a Poisson process.",
   "concept": "Expected blocks = hash-rate share × blocks per period.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.5"
  },
  {
@@ -1030,7 +1030,7 @@
   "answer": 3,
   "explanation": "f = ⌊(n − 1)/3⌋ = ⌊9/3⌋ = 3. The answer 4 comes from the crash-fault formula ⌊(n − 1)/2⌋, which does not hold when faulty nodes can lie.",
   "concept": "PBFT tolerates f = ⌊(n−1)/3⌋.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": ""
  },
  {
@@ -1052,7 +1052,7 @@
   "answer": 2,
   "explanation": "q/p = 0.25/0.75 = 1/3 and (1/3)^6 = 1/729 ≈ 0.14%. The whitepaper's Poisson-refined value is higher (about 5%) because the attacker mines in secret while the merchant waits. Using q instead of q/p understates the risk.",
   "concept": "Use the ratio q/p, not q, in the catch-up formula.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.2 & ch.5"
  },
  {
@@ -1074,7 +1074,7 @@
   "answer": 1,
   "explanation": "Level 1: H(2,5) = 11 and H(7,11) = 32 mod 17 = 15; root = H(11,15) = 48 mod 17 = 14. Swapping the children gives H(15,11) = 5, which shows why child order matters. 8 is the leaf sum mod 17, and 11 is only the left internal node.",
   "concept": "Merkle root: hash pairs bottom-up, keeping left/right order.",
-  "ref": "",
+  "ref": "/learn/bca-blockchain-fundamentals.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -1118,7 +1118,7 @@
   "answer": 1,
   "explanation": "Each OR branch is an AND that needs A, and A did not endorse, so neither branch holds. Counting signatures out of three would be an OutOf(2, …) policy, which this is not.",
   "concept": "Evaluate nested AND/OR exactly; there is no partial credit.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -1140,7 +1140,7 @@
   "answer": 1,
   "explanation": "MAJORITY means more than half of the channel's organisations, so ⌊5/2⌋ + 1 = 3. checkcommitreadiness would show only two approvals. Installing a package on peers is separate from approving the definition.",
   "concept": "Fabric 2.x lifecycle: default MAJORITY of orgs must approve.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -1162,7 +1162,7 @@
   "answer": 0,
   "explanation": "Biba protects integrity: reading Low data could contaminate the subject, and writing upward could corrupt trusted data. It is the dual of Bell–LaPadula, which is why people who memorised BLP get the directions reversed.",
   "concept": "Biba (integrity): no read down, no write up.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": ""
  },
  {
@@ -1184,7 +1184,7 @@
   "answer": 1,
   "explanation": "In hierarchical RBAC a senior role inherits its juniors' permissions, so Manager gets its own approve plus Employee's view. Inheritance flows upward only, so Manager does not get the Senior Manager's sign.",
   "concept": "Hierarchical RBAC: senior roles inherit junior permissions.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": ""
  },
  {
@@ -1206,7 +1206,7 @@
   "answer": 3,
   "explanation": "During simulation, writes go only to the write set; reads come from committed world state, so Fabric does not offer read-your-writes. Developers who expect 10 should keep the new value in a local variable.",
   "concept": "No read-your-writes within a Fabric transaction.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -1228,7 +1228,7 @@
   "answer": 3,
   "explanation": "Finality needs at least 2/3 of stake, and with over 1/3 offline only 65% remains, so justification fails while LMD-GHOST keeps extending the chain. The inactivity leak gradually drains offline stake until finality resumes; that is a penalty, not slashing, which applies only to equivocation.",
   "concept": "> 1/3 stake offline stalls finality, not block production.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": ""
  },
  {
@@ -1250,7 +1250,7 @@
   "answer": 2,
   "explanation": "Both sides stay available and accept transactions, so consistency is temporarily lost and restored when the lighter branch is orphaned. Halting the minority side is how BFT-style, consistency-first systems behave, not longest-chain systems.",
   "concept": "Longest-chain consensus is AP with probabilistic finality.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.2"
  },
  {
@@ -1272,7 +1272,7 @@
   "answer": 3,
   "explanation": "A crashed node also counts against the fault budget, so f = 2 and BFT needs 3f + 1 = 7. Raft of any size tolerates crashes only, and a single lying leader can break it. Four BFT nodes cover only one fault.",
   "concept": "Count all simultaneous faults; Byzantine needs 3f+1.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": ""
  },
  {
@@ -1294,7 +1294,7 @@
   "answer": 0,
   "explanation": "For q = 0.1 the model gives about 0.35% at z = 4 and 0.091% at z = 5, so 5 is the first value below 0.1%. Six is the popular rule of thumb, but it overshoots this target (0.024%).",
   "concept": "Pick z from the Poisson catch-up table for a target risk.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": "Bitcoin whitepaper (2008), §11"
  },
  {
@@ -1316,7 +1316,7 @@
   "answer": 2,
   "explanation": "The function must validate the state transition and authorise the caller before writing, following read, authenticate, authorise, validate, write. Endorsement policies decide which peers sign, not which client may call. Any valid certificate is authentication only, and QA_RELEASED is the wrong source state.",
   "concept": "Chaincode pattern: read → authN → authZ → validate → write.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -1338,7 +1338,7 @@
   "answer": 3,
   "explanation": "Because each header embeds the previous header's hash, an edit cascades into mismatches all the way to the tip, which any node can detect. Blocks are hashed and the transactions in them signed; they are not encrypted, and no central signer is needed.",
   "concept": "Hash chaining makes edits detectable.",
-  "ref": "",
+  "ref": "/learn/bca-blockchain-fundamentals.html",
   "source": ""
  },
  {
@@ -1360,7 +1360,7 @@
   "answer": 1,
   "explanation": "Avalanche makes the outputs of related inputs look unrelated, so attackers cannot work toward a target digest step by step. 'Similar inputs give similar digests' is the opposite, and it is how non-cryptographic locality-sensitive hashes behave.",
   "concept": "Avalanche: small change in → about 50% bits change out.",
-  "ref": "",
+  "ref": "/learn/bca-hash-functions.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -1382,7 +1382,7 @@
   "answer": 0,
   "explanation": "SHA-1 expands each 512-bit block to 80 words and runs 4 × 20 steps over five 32-bit buffers, giving 160 bits. The 128-bit, 4 × 16 structure is MD5.",
   "concept": "SHA-1: 5 × 32-bit buffers, 80 steps, 160-bit output.",
-  "ref": "",
+  "ref": "/learn/bca-hash-functions.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -1404,7 +1404,7 @@
   "answer": 2,
   "explanation": "Halving every 210,000 blocks (about four years) caps total issuance near 21 million BTC. 2016 blocks is the difficulty retarget period.",
   "concept": "Subsidy halves every 210,000 blocks.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.5"
  },
  {
@@ -1426,7 +1426,7 @@
   "answer": 0,
   "explanation": "Raft needs a majority to elect a leader and commit entries, so f failures leave f + 1 of 2f + 1 nodes, still a majority. 3f + 1 is the Byzantine bound, which is stricter because faulty nodes may lie.",
   "concept": "Crash fault tolerance: n ≥ 2f + 1.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": ""
  },
  {
@@ -1448,7 +1448,7 @@
   "answer": 3,
   "explanation": "Each channel has its own blockchain, world state and membership, so non-members never receive its blocks. Keeping a subset of data private within one ledger, with only a hash on chain, describes a private data collection.",
   "concept": "Channel = separate ledger; PDC = private subset within a channel.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -1470,7 +1470,7 @@
   "answer": 0,
   "explanation": "Fabric 2.x moved to decentralised governance: each organisation installs the package and approves the definition, then one commit activates it on the channel. install → instantiate is the deprecated Fabric 1.x flow found in older books.",
   "concept": "Fabric 2.x: package, install, approveformyorg, commit.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -1492,7 +1492,7 @@
   "answer": 3,
   "explanation": "MAC enforces a system-wide policy, for example military classifications, where users cannot pass rights to others. The owner's discretion defines DAC, which is the opposite design choice.",
   "concept": "MAC: central labels; owners cannot change policy.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": ""
  },
  {
@@ -1514,7 +1514,7 @@
   "answer": 2,
   "explanation": "Burning gives up value permanently as a costly signal, and the right to mine grows with the amount burned. Stake in PoS can be recovered or slashed, which differs from irreversible destruction.",
   "concept": "PoB = burn coins to an unspendable address for mining rights.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.8"
  },
  {
@@ -1536,7 +1536,7 @@
   "answer": 1,
   "explanation": "A double proposal is provable equivocation, which is a slashable offence. Inactivity penalties are for being offline and are far milder. Ethereum has no certificate authority.",
   "concept": "Slashing punishes provable equivocation.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": ""
  },
  {
@@ -1558,7 +1558,7 @@
   "answer": 3,
   "explanation": "When membership is controlled through PKI, identity itself defeats Sybil attacks, so costly PoW or PoS is unnecessary. Fabric is permissioned and runs chaincode, which refutes the smart-contract claim.",
   "concept": "Permissioned = known identities; permissionless = open entry, economic security.",
-  "ref": "",
+  "ref": "/learn/bca-blockchain-fundamentals.html",
   "source": "Bashir, Mastering Blockchain, decentralization chapter"
  },
  {
@@ -1602,7 +1602,7 @@
   "answer": 2,
   "explanation": "Each of the 3 inputs can map to any of 4 outputs independently, giving 4^3 = 64. Reversing the base and exponent (3^4 = 81) counts functions from Y to X, a common slip with hash families.",
   "concept": "Number of functions = |Y|^|X|.",
-  "ref": "",
+  "ref": "/learn/bca-hash-functions.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -1624,7 +1624,7 @@
   "answer": 2,
   "explanation": "h(23) = 24 mod 10 = 4 and h(33) = 34 mod 10 = 4, a collision. 24 and 34 collide with each other (both 5) but not with 23. The pigeonhole principle forces such collisions when the domain is larger than the range.",
   "concept": "Collisions are inevitable when |X| > |Y|.",
-  "ref": "",
+  "ref": "/learn/bca-hash-functions.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -1646,7 +1646,7 @@
   "answer": 0,
   "explanation": "5 → 3 parents (the 5th is paired with itself), 3 → 2, 2 → 1, so 3 + 2 + 1 = 6. Counting n − 1 = 4 assumes a perfect binary tree with no duplication.",
   "concept": "Odd levels duplicate the last node in Bitcoin's Merkle tree.",
-  "ref": "",
+  "ref": "/learn/bca-blockchain-fundamentals.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -1668,7 +1668,7 @@
   "answer": 0,
   "explanation": "log2 16 = 4 siblings let the client recompute the root, which it compares with the root in a header it trusts through proof of work. The root alone proves nothing about any particular transaction.",
   "concept": "SPV = Merkle branch + PoW-validated header.",
-  "ref": "",
+  "ref": "/learn/bca-blockchain-fundamentals.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -1690,7 +1690,7 @@
   "answer": 3,
   "explanation": "The raw factor is 14/3 ≈ 4.67, but each adjustment is clamped to between ¼ and 4, so the difficulty rises ×4. 0.21 inverts the ratio, and ×0.25 is the lower clamp, used when blocks are far too slow.",
   "concept": "Retarget clamp limits each change to ×¼…×4.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.5"
  },
  {
@@ -1712,7 +1712,7 @@
   "answer": 3,
   "explanation": "With rate λ = 3 blocks per 30 minutes, P(0) = e^(−3) ≈ 0.0498. The 10-minute figure is an average, not a schedule, so long gaps do happen.",
   "concept": "Block arrivals are Poisson; P(no block in t) = e^(−t/600 s).",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.5"
  },
  {
@@ -1756,7 +1756,7 @@
   "answer": 1,
   "explanation": "The overlap is 2(2f + 1) − (3f + 1) = f + 1, and with at most f faulty at least one shared replica is honest and will not vote for both values. An overlap of only f could consist entirely of faulty nodes, which is why smaller quorums are unsafe.",
   "concept": "Quorum intersection ≥ f+1 guarantees an honest common member.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": ""
  },
  {
@@ -1778,7 +1778,7 @@
   "answer": 2,
   "explanation": "Majority hash power controls which valid chain is heaviest, so it can reorganise and exclude transactions. Every node still checks signatures and consensus rules on its own, so invalid blocks are rejected however much work is behind them.",
   "concept": "A 51% attacker can reorder and censor but cannot forge.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.2 & ch.5"
  },
  {
@@ -1800,7 +1800,7 @@
   "answer": 2,
   "explanation": "Each listed principal can be satisfied only once, so a second B signature adds nothing and the count is 2 of the required 3. Counting raw signatures is the trap. Fabric has no slashing; extra signatures are simply ignored.",
   "concept": "OutOf(n, …) counts distinct satisfied principals.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -1822,7 +1822,7 @@
   "answer": 0,
   "explanation": "Endorsers simulate each transaction separately against the current state and cannot see the other, and orderers do not inspect read-write sets. Only committing peers, checking transactions in block order, see that the second read version is stale.",
   "concept": "Conflicts are caught at validation (MVCC), after ordering.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -1844,7 +1844,7 @@
   "answer": 2,
   "explanation": "Under DAC a program runs with the user's rights, so a Trojan horse can do anything Bob can, including copying data out. MAC forbids writing high data into a low-level file whatever the user's intentions. The ACL still lets Bob, and therefore the Trojan, read the file.",
   "concept": "DAC is vulnerable to Trojan horses; MAC's *-property is not.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": ""
  },
  {
@@ -1866,7 +1866,7 @@
   "answer": 1,
   "explanation": "Certificate attributes carry the role, and the chaincode checks the invoker's role before any write. An endorsement policy decides which peers must sign, not which user may invoke. An MSP check identifies the organisation, not a role within it.",
   "concept": "Attribute-based role checks in chaincode implement RBAC.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": ""
  },
  {
@@ -1888,7 +1888,7 @@
   "answer": 2,
   "explanation": "FLP shows that no deterministic protocol can guarantee both safety and termination under asynchrony with even one crash fault. CAP is tempting, but it concerns availability versus consistency under partitions, not termination with crashes. Real protocols avoid FLP with timing assumptions or randomness.",
   "concept": "FLP: async + 1 crash ⇒ no deterministic consensus that always terminates.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.2"
  },
  {
@@ -1910,7 +1910,7 @@
   "answer": 3,
   "explanation": "An equal r means the same nonce k was used, so subtracting the two s equations gives k = (z1 − z2)/(s1 − s2) mod n, and the private key follows. Treating r as harmless public data ignores that r is determined by k.",
   "concept": "ECDSA nonce reuse leaks the private key.",
-  "ref": "",
+  "ref": "/learn/bca-pkc-knapsack.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -1932,7 +1932,7 @@
   "answer": 1,
   "explanation": "The rule depends on relationships and context (assignment, shift, location), which attributes express directly. A single Doctor role gives every doctor access to every patient, violating least privilege. DAC and MAC have no natural way to express time or location conditions.",
   "concept": "Use ABAC when decisions depend on context and relationships.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": ""
  },
  {
@@ -1954,7 +1954,7 @@
   "answer": 0,
   "explanation": "Difficulty tracks the total hash rate, so it raises the cost of an outside attack. It says nothing about concentration in pools or ASIC owners, or about network topology. Attackers face the same per-block puzzle as everyone else; their advantage comes from their share of the hash power.",
   "concept": "Difficulty ≠ security; distribution of hash power matters.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.5"
  },
  {
@@ -1976,7 +1976,7 @@
   "answer": 1,
   "explanation": "With one node per organisation, losing an organisation leaves 2 of 3, still a majority. With 2 + 2, losing either organisation leaves 2 of 4, not a majority. With 3 + 2, losing the 3-node organisation leaves 2 of 5, and a single host is a single point of failure.",
   "concept": "Place Raft nodes so that losing any failure domain keeps a majority.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": ""
  },
  {
@@ -1998,7 +1998,7 @@
   "answer": 0,
   "explanation": "A distributed ledger is any replicated record kept under shared rules. A blockchain specifically links blocks by hashes, while IOTA's Tangle is a DAG. Mining is only one way to reach consensus, and permissioned ledgers do not mine at all.",
   "concept": "Blockchain ⊂ DLT.",
-  "ref": "",
+  "ref": "/learn/bca-blockchain-fundamentals.html",
   "source": ""
  },
  {
@@ -2020,7 +2020,7 @@
   "answer": 3,
   "explanation": "The construction pads the message, appends its length and chains a fixed-size compression function, so security reduces to that function. MD5 and SHA-1 both use it. A keyed construction would be a MAC, which is a different primitive.",
   "concept": "MD construction: collision resistance of compression ⇒ of the hash.",
-  "ref": "",
+  "ref": "/learn/bca-hash-functions.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -2042,7 +2042,7 @@
   "answer": 3,
   "explanation": "The proof carries one sibling hash per tree level, and a balanced binary tree has log2 n levels. O(n) would mean sending every transaction, which is what light clients avoid.",
   "concept": "Merkle membership proof is logarithmic.",
-  "ref": "",
+  "ref": "/learn/bca-blockchain-fundamentals.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -2064,7 +2064,7 @@
   "answer": 0,
   "explanation": "Changing the nonce (or the extra-nonce in the coinbase, which changes the Merkle root) produces new header hashes to test. The previous hash and difficulty bits are fixed by consensus, and changing them would make the block invalid.",
   "concept": "Search space = nonce + extra-nonce + timestamp.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.5"
  },
  {
@@ -2086,7 +2086,7 @@
   "answer": 3,
   "explanation": "Agreement concerns consistency between nodes. Deciding at most once is integrity, satisfying the rules is validity, and eventually deciding is termination (liveness).",
   "concept": "Agreement / validity / integrity / termination.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.2"
  },
  {
@@ -2108,7 +2108,7 @@
   "answer": 0,
   "explanation": "The ledger has two parts: the immutable block history and the world state, a cache of current values for fast queries. Replaying the valid transactions in the chain regenerates the world state, so the state is derived data, not the record of truth.",
   "concept": "Ledger = blockchain + world state.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -2130,7 +2130,7 @@
   "answer": 1,
   "explanation": "Committing peers check endorsements against this policy during validation (VSCC). Channel membership and block-cutting parameters are set in channel configuration, not in the chaincode endorsement policy.",
   "concept": "Endorsement policy = required signers per chaincode.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -2152,7 +2152,7 @@
   "answer": 0,
   "explanation": "Least privilege limits the damage a compromised or careless account can cause. Assigning permissions directly to users bypasses roles altogether and recreates the management problem RBAC solves.",
   "concept": "Least privilege: minimal permissions per role.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": ""
  },
  {
@@ -2196,7 +2196,7 @@
   "answer": 0,
   "explanation": "A validator activates with 32 ETH deposited to the deposit contract. Smaller holders join through staking pools, which concentrate stake, one of PoS's decentralisation risks.",
   "concept": "Ethereum validator activation: 32 ETH.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": ""
  },
  {
@@ -2218,7 +2218,7 @@
   "answer": 1,
   "explanation": "Without a penalty, backing every fork is the dominant strategy, which weakens convergence. Slashing makes provable equivocation costly. Electricity cost is PoW's problem, not PoS's.",
   "concept": "Nothing-at-stake is solved by slashing.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.8"
  },
  {
@@ -2240,7 +2240,7 @@
   "answer": 2,
   "explanation": "Hashing the public key shortens the address and hides the key until it is first spent from. Deriving an address directly from the private key would expose it, and identity data plays no part.",
   "concept": "Address = Hash160(public key).",
-  "ref": "",
+  "ref": "/learn/bca-pkc-knapsack.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -2262,7 +2262,7 @@
   "answer": 3,
   "explanation": "Padding is always added: a message already at 448 mod 512 still needs at least the single 1 bit, so a full 512 bits is added to reach the next 448 (960), plus the 64-bit length gives 1024. Zero padding is the trap, because the 1 bit cannot be omitted.",
   "concept": "MD5 padding is 1–512 bits, never zero.",
-  "ref": "",
+  "ref": "/learn/bca-hash-functions.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -2284,7 +2284,7 @@
   "answer": 3,
   "explanation": "With M = 2^40, √M = 2^20 ≈ 1.05 × 10^6, and multiplying by 1.17 gives about 1.23 × 10^6, which an ordinary laptop can manage. 2^40 is the cost of a preimage attack, not a collision.",
   "concept": "Collision cost ≈ 2^(n/2).",
-  "ref": "",
+  "ref": "/learn/bca-hash-functions.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -2306,7 +2306,7 @@
   "answer": 1,
   "explanation": "Birthday attacks find collisions in about 2^(n/2) work, so n/2 ≥ 128 gives n ≥ 256. A 128-bit digest such as MD5 offers only 64-bit collision security.",
   "concept": "Digest length = 2 × collision-security level.",
-  "ref": "",
+  "ref": "/learn/bca-hash-functions.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -2328,7 +2328,7 @@
   "answer": 1,
   "explanation": "Expected work is 2^20 = 1,048,576 hashes, and at 10^6 per second that takes about 1.05 s. Each additional zero bit doubles the work.",
   "concept": "k leading zero bits ⇒ E[hashes] = 2^k.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.5"
  },
  {
@@ -2350,7 +2350,7 @@
   "answer": 1,
   "explanation": "840,000 / 210,000 = 4 halvings, so the subsidy is 50 / 2^4 = 3.125 BTC. 6.25 BTC applied from block 630,000 until just before 840,000.",
   "concept": "Subsidy = 50 / 2^⌊height / 210,000⌋.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.5"
  },
  {
@@ -2372,7 +2372,7 @@
   "answer": 1,
   "explanation": "q/p = 0.3/0.7 = 3/7 and (3/7)^2 ≈ 0.184. An 18% double-spend risk shows why two confirmations are too few against a large minority miner.",
   "concept": "Catch-up probability (q/p)^z rises sharply as q approaches p.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.2 & ch.5"
  },
  {
@@ -2394,7 +2394,7 @@
   "answer": 2,
   "explanation": "n = 3f + 1 gives f = 1, and the quorum is 2f + 1 = 3. A quorum of 2 would let two quorums overlap only in a possibly faulty node.",
   "concept": "n = 4 is the smallest BFT cluster (f = 1).",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": ""
  },
  {
@@ -2416,7 +2416,7 @@
   "answer": 2,
   "explanation": "1,000,000 / 32 = 31,250. Multiplying instead of dividing gives 32 million.",
   "concept": "Validator count = staked ETH / 32.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": ""
  },
  {
@@ -2438,7 +2438,7 @@
   "answer": 2,
   "explanation": "MAJORITY means strictly more than half, so ⌊4/2⌋ + 1 = 3, and two organisations is exactly half. Committing peers would flag the transaction ENDORSEMENT_POLICY_FAILURE.",
   "concept": "MAJORITY = more than half (⌊n/2⌋+1).",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -2460,7 +2460,7 @@
   "answer": 2,
   "explanation": "Every channel peer holds the hash of the private write, so a matching hash proves the disclosed value is authentic. Orderers never receive private data, which travels peer to peer by gossip. Salting stops guessing of low-entropy values.",
   "concept": "PDC hashes make later disclosure verifiable.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -2482,7 +2482,7 @@
   "answer": 0,
   "explanation": "The new owner can re-transfer an in-transit batch before it is ever received, which skips the RECEIVED step and breaks custody tracking. The fix is to transfer only from QA_RELEASED (or RECEIVED for onward shipping). The other three are correct guards.",
   "concept": "Restrict each state transition to its legal source states.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -2504,7 +2504,7 @@
   "answer": 2,
   "explanation": "640 means owner rw- (6), group r-- (4), others --- (0). Bob gets group read, and Carol falls under 'others' with nothing. This is DAC: alice could change the mode at will.",
   "concept": "Unix mode digits: owner/group/other, r=4 w=2 x=1.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": ""
  },
  {
@@ -2526,7 +2526,7 @@
   "answer": 1,
   "explanation": "Dynamic SoD allows holding conflicting roles but forbids activating them together, so U must drop Requester before acting as Approver. Static SoD would have blocked the assignment, but the scenario states the dynamic form.",
   "concept": "Dynamic SoD restricts simultaneous role activation.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": ""
  },
  {
@@ -2570,7 +2570,7 @@
   "answer": 0,
   "explanation": "A blockchain pays off when multiple writers do not trust each other or any intermediary. With one trusted writer, a conventional database with audit logs is cheaper and faster. The other three involve distributed trust.",
   "concept": "No multi-party distrust ⇒ no need for a blockchain.",
-  "ref": "",
+  "ref": "/learn/bca-blockchain-fundamentals.html",
   "source": "Bashir, Mastering Blockchain, decentralization chapter"
  },
  {
@@ -2592,7 +2592,7 @@
   "answer": 3,
   "explanation": "Better connectivity lowers the threshold from 1/3 (γ = 0) to 1/4 (γ = 1/2), so 28% becomes profitable. The threshold falls to zero only when γ = 1. That is why tie-breaking and propagation rules are part of the defence.",
   "concept": "Selfish-mining threshold falls as γ rises.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.5"
  },
  {
@@ -2614,7 +2614,7 @@
   "answer": 3,
   "explanation": "The shared channel gives a common ordering and the hashes needed for netting, while per-pair PDCs (including the regulator) hide the details from other banks. Separate channels lose the common ledger. Query restrictions still replicate plaintext to every peer, and a PDC covering everyone hides nothing.",
   "concept": "Channels separate ledgers; PDCs hide data within a shared ledger.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -2636,7 +2636,7 @@
   "answer": 1,
   "explanation": "The role check enforces RBAC and the per-object comparison with the recorded creator enforces separation of duty at the level of individual people. Endorsement policies govern which peers sign, not who invokes. An MSP check cannot tell apart two people in the same organisation.",
   "concept": "Combine role checks with object-level SoD in chaincode.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": ""
  },
  {
@@ -2658,7 +2658,7 @@
   "answer": 3,
   "explanation": "Together these remove the need for a trusted intermediary: replication, P2P communication, cryptographic integrity and agreement on order. The other options describe centralised architectures, which is what blockchains are designed to avoid.",
   "concept": "Blockchain = DLT + P2P + crypto + consensus.",
-  "ref": "",
+  "ref": "/learn/bca-blockchain-fundamentals.html",
   "source": ""
  },
  {
@@ -2680,7 +2680,7 @@
   "answer": 3,
   "explanation": "Here the first input is fixed and the attacker must match its digest. Collision resistance lets the attacker choose both inputs. Preimage resistance starts from a digest alone, with no input given.",
   "concept": "Second preimage: given x, find x′ ≠ x with the same digest.",
-  "ref": "",
+  "ref": "/learn/bca-hash-functions.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -2702,7 +2702,7 @@
   "answer": 1,
   "explanation": "The change propagates up the tree to the root in the header, which changes the block hash and breaks the next block's link, so the attacker must redo the proof of work for all following blocks. Re-signing is not the problem; the hash commitments are.",
   "concept": "Merkle + hash chain make edits cascade.",
-  "ref": "",
+  "ref": "/learn/bca-blockchain-fundamentals.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -2724,7 +2724,7 @@
   "answer": 2,
   "explanation": "Fewer hash values fall below a smaller target, so success per attempt is less likely. Retargeting keeps block times near 10 minutes, so a smaller target does not make blocks permanently slower or faster.",
   "concept": "Target ↓ ⇒ difficulty ↑.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.5"
  },
  {
@@ -2746,7 +2746,7 @@
   "answer": 0,
   "explanation": "Crash faults are fail-stop: the node halts or drops messages. Byzantine nodes can equivocate or collude, which is why tolerating them costs 3f + 1 nodes instead of 2f + 1.",
   "concept": "Byzantine = arbitrary behaviour; crash = fail-stop.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": ""
  },
  {
@@ -2768,7 +2768,7 @@
   "answer": 1,
   "explanation": "Execute-order-validate avoids running every contract sequentially on every node, keeps bad chaincode out of consensus, and limits what orderers learn. The orderer still does no execution, and endorsement policies are central to the design.",
   "concept": "Execute → order → validate.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -2790,7 +2790,7 @@
   "answer": 2,
   "explanation": "Endorsements are compared byte for byte, and different read-write sets cannot form one valid transaction. Orderers never execute chaincode, and Fabric has no gas.",
   "concept": "Determinism keeps endorsements consistent.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -2812,7 +2812,7 @@
   "answer": 2,
   "explanation": "LMD-GHOST uses the latest attestations to pick the head, and Casper FFG justifies and finalizes checkpoints with 2/3 of stake. Hybrid PoW/PoS existed only during the transition before the Merge.",
   "concept": "Gasper = LMD-GHOST + Casper FFG.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": ""
  },
  {
@@ -2834,7 +2834,7 @@
   "answer": 0,
   "explanation": "ABAC generalises RBAC by treating role as just one attribute alongside time, location or relationships. That supports fine-grained, context-aware rules at the cost of more complex policies.",
   "concept": "ABAC: policy over many attributes.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": ""
  },
  {
@@ -2900,7 +2900,7 @@
   "answer": 1,
   "explanation": "In the Tangle, transactions themselves form a DAG and approve earlier tips. Tip selection and confirmation rules still apply, so it is not consensus-free. That makes it a DLT but not a blockchain.",
   "concept": "Tangle = DAG ledger.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.8"
  },
  {
@@ -2922,7 +2922,7 @@
   "answer": 0,
   "explanation": "Depth log2 8 = 3 gives 3 siblings × 32 bytes = 96. 256 bytes would be all 8 leaf hashes, and 24 bytes treats each hash as 8 bytes.",
   "concept": "Proof bytes = ⌈log2 n⌉ × digest size.",
-  "ref": "",
+  "ref": "/learn/bca-blockchain-fundamentals.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -2944,7 +2944,7 @@
   "answer": 3,
   "explanation": "A second preimage costs about 2^64 evaluations and a collision about 2^32 (the birthday bound), so the ratio is about 2^32 ≈ 4.3 × 10^9. That gap is why collision resistance is the first property to fail as digests get shorter.",
   "concept": "Second preimage ≈ 2^n vs collision ≈ 2^(n/2).",
-  "ref": "",
+  "ref": "/learn/bca-hash-functions.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -2966,7 +2966,7 @@
   "answer": 3,
   "explanation": "D_new = D_old × 14/16 = 0.875, because slow blocks mean the hash rate fell. 1.143 inverts the ratio, and the ¼ clamp applies only at extreme slowdowns.",
   "concept": "Slow epoch ⇒ difficulty decreases.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.5"
  },
  {
@@ -2988,7 +2988,7 @@
   "answer": 0,
   "explanation": "Each hex digit is zero with probability 1/16, so three zero digits give (1/16)^3 = 1/4096, and 4,096 hashes are expected. 16,777,216 = 16^6 is the figure for six zero digits.",
   "concept": "k leading hex zeros ⇒ 16^k expected hashes.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.5"
  },
  {
@@ -3010,7 +3010,7 @@
   "answer": 1,
   "explanation": "The attack exploits the merchant trusting a transaction that is not yet mined, and needs no hash power at all. Once the payment is buried under confirmations, the attacker's conflicting transaction can no longer win without out-mining the network.",
   "concept": "0-conf acceptance is vulnerable to race attacks.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.2 & ch.5"
  },
  {
@@ -3032,7 +3032,7 @@
   "answer": 2,
   "explanation": "2/3 × 900 = 600, and the protocol accepts exactly two-thirds. 451 is a simple majority, which suffices for fork-choice weight but not for FFG justification.",
   "concept": "Justification threshold: ≥ 2/3 of total stake.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": ""
  },
  {
@@ -3054,7 +3054,7 @@
   "answer": 1,
   "explanation": "f = ⌊(6 − 1)/3⌋ = 1, so the two extra replicas add cost without adding fault tolerance. Sizes of 3f + 1 (4, 7, 10…) are the efficient points.",
   "concept": "Size BFT clusters at 3f+1.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": ""
  },
  {
@@ -3098,7 +3098,7 @@
   "answer": 0,
   "explanation": "Reg is mandatory and any two of A, B and C are needed, which {Reg, A, C} provides. {A, B, C} is the tempting choice because it has the most signatures, but it lacks the mandatory Reg.",
   "concept": "AND with a mandatory principal plus OutOf for flexibility.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -3120,7 +3120,7 @@
   "answer": 3,
   "explanation": "Raft needs 3 of 5 to elect a leader and replicate entries, so no new blocks are cut, which is a loss of liveness. Safety holds and committed blocks stay final. Peers have no ordering role.",
   "concept": "Raft: losing the majority stops progress but keeps safety.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -3142,7 +3142,7 @@
   "answer": 0,
   "explanation": "Endorsement success is not commit success. The client must check the commit status or transaction event to learn whether the transaction was marked VALID. Orderers do not serve queries, and 'instantiate' is Fabric 1.x terminology.",
   "concept": "Check commit status; invoke success ≠ business success.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": "Bashir, Mastering Blockchain (Hyperledger chapter; answered in Fabric 2.x terms)"
  },
  {
@@ -3164,7 +3164,7 @@
   "answer": 1,
   "explanation": "Reading requires dominance in both level and categories: Secret ≥ Confidential holds, but {NUC} ⊉ {NUC, EUR}. Comparing levels alone is the trap. BLP has no 'no read down' rule; that belongs to Biba.",
   "concept": "BLP dominance: level ≥ and category superset.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": ""
  },
  {
@@ -3186,7 +3186,7 @@
   "answer": 0,
   "explanation": "Combinations multiply: 10 × 5 × 3 = 150. Maintaining that many roles invites errors and accumulated privilege. Keeping roles for job functions and treating context as attributes avoids the blow-up.",
   "concept": "Role explosion arises from encoding context into roles.",
-  "ref": "",
+  "ref": "/learn/bca-fabric-access-control.html",
   "source": ""
  },
  {
@@ -3208,7 +3208,7 @@
   "answer": 0,
   "explanation": "The inner private-key operation authenticates Alice, and the outer encryption under Bob's public key gives confidentiality. Bob decrypts with his private key, then checks with Alice's public key. Using only Bob's public key gives confidentiality but no proof of origin.",
   "concept": "Sign (sender private) then encrypt (receiver public).",
-  "ref": "",
+  "ref": "/learn/bca-pkc-knapsack.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -3230,7 +3230,7 @@
   "answer": 1,
   "explanation": "150 × 10^9 kWh / (400,000 × 365) ≈ 1,027 kWh per transaction, an average accounting ratio. Miners hash at the same rate whatever the block contents, so the marginal cost of one transaction is near zero. The other figures come from unit errors.",
   "concept": "Energy per tx is an average, not a marginal cost.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.5"
  },
  {
@@ -3252,7 +3252,7 @@
   "answer": 2,
   "explanation": "Two independent signers can produce double proposals or double votes, which are provable and slashed, a far larger loss than the inactivity penalty they were meant to avoid. Location does not matter. Correct redundancy is failover with protection against signing twice.",
   "concept": "Never run one validator key on two active machines.",
-  "ref": "",
+  "ref": "/learn/bca-pow-ethereum.html",
   "source": ""
  },
  {
@@ -3274,7 +3274,7 @@
   "answer": 3,
   "explanation": "Anchoring the root on a replicated ledger takes the log's integrity out of any single administrator's hands, and Merkle proofs keep verification cheap. Encryption hides data but does not detect substitution. MD5 hashes stored next to the data can simply be recomputed by whoever alters it.",
   "concept": "Anchor Merkle roots on chain for tamper-evident logs.",
-  "ref": "",
+  "ref": "/learn/bca-blockchain-fundamentals.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.1"
  },
  {
@@ -3296,7 +3296,3607 @@
   "answer": 3,
   "explanation": "Rentable hash power lets an attacker exceed the honest network, so q > p and the catch-up formula no longer applies; P = 1. Confirmations just lengthen the rental period. This is how real 51% attacks on small chains have happened.",
   "concept": "When q ≥ p, no number of confirmations is safe.",
-  "ref": "",
+  "ref": "/learn/bca-consensus.html",
   "source": "Narayanan et al., Bitcoin and Cryptocurrency Technologies, ch.2 & ch.5"
+ },
+ {
+  "id": "BCA-HSEC-001",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 1,
+  "day": 6,
+  "topic": "Hash security properties",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "Which property makes it infeasible, given a digest y, to find any input x with h(x) = y?",
+  "options": [
+   "Preimage resistance",
+   "Second-preimage resistance",
+   "The avalanche effect",
+   "Collision resistance"
+  ],
+  "answer": 0,
+  "explanation": "Preimage resistance (one-wayness) is about inverting a given digest. Second-preimage resistance starts from a given message x, not from a digest.",
+  "concept": "Preimage resistance = cannot invert a digest.",
+  "ref": "/learn/bca-hash-functions.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-HSEC-002",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 2,
+  "day": 6,
+  "topic": "Hash security properties",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "Why must collisions exist for every hash function with a fixed-length output?",
+  "options": [
+   "More possible inputs than outputs (pigeonhole)",
+   "Hash functions reuse the same internal constants",
+   "Padding repeats the final block",
+   "Designers add them as trapdoors"
+  ],
+  "answer": 0,
+  "explanation": "Infinitely many inputs map into a finite set of 2^n digests, so some inputs must share a digest. Collision resistance only means collisions are infeasible to find.",
+  "concept": "No hash is collision-free; resistance is about finding them.",
+  "ref": "/learn/bca-hash-functions.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-HSEC-003",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 3,
+  "day": 6,
+  "topic": "Hash security properties",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "Adding a single full stop to a sentence changes about half the bits of its SHA-256 digest. What is this called?",
+  "options": [
+   "Length extension",
+   "Second-preimage resistance",
+   "The avalanche effect",
+   "Padding sensitivity"
+  ],
+  "answer": 2,
+  "explanation": "The avalanche effect means a tiny input change scrambles roughly 50% of output bits. It is a design goal, not one of the formal resistance properties.",
+  "concept": "Avalanche: one-bit change, about half the output flips.",
+  "ref": "/learn/bca-hash-functions.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-HSEC-004",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 4,
+  "day": 6,
+  "topic": "Hash security properties",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "In the hash family (X, Y, K, H), what characterises an unkeyed hash function such as SHA-256?",
+  "options": [
+   "|K| > 1",
+   "|Y| > |X|",
+   "|K| = 1",
+   "|X| = |Y|"
+  ],
+  "answer": 2,
+  "explanation": "An unkeyed hash is the special case with a single fixed function, so the key set has one element. A keyed family (|K| > 1) is what a MAC uses.",
+  "concept": "Unkeyed hash: one public function, |K| = 1.",
+  "ref": "/learn/bca-hash-functions.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-HSEC-005",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 5,
+  "day": 6,
+  "topic": "Hash security properties",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "Which statement about the hierarchy of hash properties is correct?",
+  "options": [
+   "The three properties are fully independent",
+   "Preimage resistance implies collision resistance",
+   "Collision resistance implies second-preimage resistance",
+   "Second-preimage resistance implies collision resistance"
+  ],
+  "answer": 2,
+  "explanation": "If you could find a second preimage for some x, you would hold a colliding pair, so a collision-resistant hash must resist second preimages. The converse does not hold.",
+  "concept": "Collision resistance is the strongest of the three.",
+  "ref": "/learn/bca-hash-functions.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-MAC-001",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 6,
+  "day": 6,
+  "topic": "MACs & authenticated encryption",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "Why is an unkeyed hash alone insufficient when Mallory controls the only channel?",
+  "options": [
+   "She can read the digest and invert it to the message",
+   "She can alter the message and recompute the hash",
+   "Hashes only work on short messages",
+   "Hashes cannot be sent over networks"
+  ],
+  "answer": 1,
+  "explanation": "Anyone can compute an unkeyed hash, so an attacker on the channel replaces both message and digest. A MAC fixes this by requiring a secret key.",
+  "concept": "Unkeyed hashes need an authentic channel for the digest.",
+  "ref": "/learn/bca-iterated-hash-mac.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-MAC-002",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 7,
+  "day": 6,
+  "topic": "MACs & authenticated encryption",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "Which security service does a MAC NOT provide?",
+  "options": [
+   "Detection of tampering",
+   "Non-repudiation",
+   "Data-origin authentication",
+   "Data integrity"
+  ],
+  "answer": 1,
+  "explanation": "Both parties share the key, so either could have produced a tag and a third party cannot tell which. Integrity and origin authentication are what a MAC does provide.",
+  "concept": "MAC: integrity and authentication, but no non-repudiation.",
+  "ref": "/learn/bca-iterated-hash-mac.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ROM-001",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 8,
+  "day": 6,
+  "topic": "Random oracle & birthday bound",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "In the random oracle model, what does the oracle return when queried twice with the same input?",
+  "options": [
+   "The inverse of the first output",
+   "An error on the second query",
+   "A fresh random value each time",
+   "The same value both times"
+  ],
+  "answer": 3,
+  "explanation": "Consistency is part of the model: repeated queries return the stored value. Only new inputs receive a fresh uniform output.",
+  "concept": "Random oracle: consistent on repeats, uniform on new inputs.",
+  "ref": "/learn/bca-hash-functions.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ROM-002",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 9,
+  "day": 6,
+  "topic": "Random oracle & birthday bound",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "What defines an (epsilon, Q) Las Vegas algorithm?",
+  "options": [
+   "At most Q queries, success at least epsilon, never a wrong answer",
+   "Exactly Q queries and always succeeds",
+   "Unlimited queries but may return wrong answers",
+   "Exactly Q queries, success at most epsilon, may answer wrongly"
+  ],
+  "answer": 0,
+  "explanation": "A Las Vegas algorithm either returns a correct answer or reports failure. Epsilon bounds its average success probability and Q bounds its oracle queries.",
+  "concept": "Las Vegas: correct or fail, never wrong.",
+  "ref": "/learn/bca-hash-functions.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-MDH-001",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 10,
+  "day": 6,
+  "topic": "Iterated hashes: MD5 & SHA",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "What is the output size of SHA-1?",
+  "options": [
+   "160 bits",
+   "256 bits",
+   "128 bits",
+   "224 bits"
+  ],
+  "answer": 0,
+  "explanation": "SHA-0 and SHA-1 both produce 160-bit digests. MD5 gives 128 bits and SHA-256 gives 256 bits.",
+  "concept": "SHA-1 = 160-bit digest.",
+  "ref": "/learn/bca-iterated-hash-mac.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-MDH-002",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 11,
+  "day": 6,
+  "topic": "Iterated hashes: MD5 & SHA",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "Which standard uses a sponge construction instead of Merkle-Damgård?",
+  "options": [
+   "SHA-256",
+   "MD5",
+   "SHA-1",
+   "SHA-3 (Keccak)"
+  ],
+  "answer": 3,
+  "explanation": "SHA-3 was chosen by open competition in 2015 and uses a sponge, giving a structurally different backup to SHA-2. MD5, SHA-1 and SHA-2 are Merkle-Damgård designs.",
+  "concept": "SHA-3 = sponge construction.",
+  "ref": "/learn/bca-iterated-hash-mac.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-MAC-003",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 12,
+  "day": 6,
+  "topic": "MACs & authenticated encryption",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "In CBC-MAC with IV = 0, what is output as the tag?",
+  "options": [
+   "The XOR of all plaintext blocks",
+   "Only the final ciphertext block",
+   "The first ciphertext block",
+   "All ciphertext blocks"
+  ],
+  "answer": 1,
+  "explanation": "CBC-MAC encrypts in CBC mode and discards every block except the last. Sending all blocks would be CBC encryption, not a MAC.",
+  "concept": "CBC-MAC tag = last CBC block.",
+  "ref": "/learn/bca-iterated-hash-mac.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ROM-003",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 13,
+  "day": 6,
+  "topic": "Random oracle & birthday bound",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "In the random oracle model, what is the probability that two distinct inputs hash to the same value if |Y| = M?",
+  "options": [
+   "1/M^2",
+   "1/M",
+   "2/M",
+   "1/(M - 1)"
+  ],
+  "answer": 1,
+  "explanation": "Outputs for distinct inputs are independent and uniform, so the second matches the first with probability 1/M. This independence is what drives the attack bounds.",
+  "concept": "Pr[h(x1) = h(x2)] = 1/M for x1 != x2.",
+  "ref": "/learn/bca-hash-functions.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ROM-004",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 14,
+  "day": 6,
+  "topic": "Random oracle & birthday bound",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "Using the birthday approximation Q ≈ 1.17√M, about how many hash queries give a 50% chance of a collision for a 40-bit digest?",
+  "options": [
+   "About 1.2 million",
+   "About 1.1 trillion",
+   "About 2^39",
+   "About 40 thousand"
+  ],
+  "answer": 0,
+  "explanation": "√(2^40) = 2^20 ≈ 1.05 million, times 1.17 gives about 1.2 million. 2^39 would be the order of a preimage search, not a collision search.",
+  "concept": "Collision work ≈ 2^(n/2).",
+  "ref": "/learn/bca-hash-functions.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ROM-005",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 15,
+  "day": 6,
+  "topic": "Random oracle & birthday bound",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "A designer needs 128-bit security against collision attacks. What is the minimum digest length?",
+  "options": [
+   "256 bits",
+   "128 bits",
+   "512 bits",
+   "160 bits"
+  ],
+  "answer": 0,
+  "explanation": "Birthday attacks cost 2^(n/2), so n/2 = 128 gives n = 256. A 128-bit digest offers only 64-bit collision security.",
+  "concept": "Digest bits = 2 × target collision security.",
+  "ref": "/learn/bca-hash-functions.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ROM-006",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 16,
+  "day": 6,
+  "topic": "Random oracle & birthday bound",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "With 30 random people, what is the approximate chance that at least two share a birthday?",
+  "options": [
+   "About 30%",
+   "About 8%",
+   "About 70%",
+   "About 97%"
+  ],
+  "answer": 2,
+  "explanation": "1 − ∏(1 − i/365) for i up to 29 is about 0.706. 50% is reached at 23 people and 97% near 50.",
+  "concept": "Birthday paradox: pairs grow as Q²/2.",
+  "ref": "/learn/bca-hash-functions.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ROM-007",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 17,
+  "day": 6,
+  "topic": "Random oracle & birthday bound",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "Why are collision attacks so much cheaper than second-preimage attacks?",
+  "options": [
+   "Second preimages require the key",
+   "Collisions need no hash evaluations",
+   "Collisions only need the padding",
+   "Q queries create about Q²/2 candidate pairs"
+  ],
+  "answer": 3,
+  "explanation": "In a collision search every pair of outputs is a chance to match, so success grows with Q². A second-preimage search must hit one fixed digest, so success grows only with Q.",
+  "concept": "Collision ~ O(√M); second preimage ~ O(M).",
+  "ref": "/learn/bca-hash-functions.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ROM-008",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 18,
+  "day": 6,
+  "topic": "Random oracle & birthday bound",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "For an n-bit ideal hash, roughly how many queries does a preimage attack need for a good chance of success?",
+  "options": [
+   "About n^2",
+   "About 2^n",
+   "About 2n",
+   "About 2^(n/2)"
+  ],
+  "answer": 1,
+  "explanation": "Each query hits the target with probability 1/M = 2^-n, so success ≈ Q/M and Q must approach 2^n. 2^(n/2) is the collision bound.",
+  "concept": "Preimage work ≈ 2^n.",
+  "ref": "/learn/bca-hash-functions.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-HSEC-006",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 19,
+  "day": 6,
+  "topic": "Hash security properties",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "The toy hash h(x) = (a·x) mod n lets an attacker compute h(x1 + x2) from h(x1) and h(x2). Which requirement fails?",
+  "options": [
+   "Fixed output length",
+   "Preimage resistance (one-wayness) against inversion",
+   "No shortcuts (pseudorandom evaluation)",
+   "Determinism"
+  ],
+  "answer": 2,
+  "explanation": "Linearity gives h(x1 + x2) = h(x1) + h(x2) mod n without knowing a, an algebraic shortcut. Deterministic, fixed-length output is still present, so those are not the failures.",
+  "concept": "Good hashes are non-linear: no algebraic shortcuts.",
+  "ref": "/learn/bca-hash-functions.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-HSEC-007",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 20,
+  "day": 6,
+  "topic": "Hash security properties",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "An attacker holds Alice's signature on h(x) for contract x and wants a different contract with the same hash. Which property protects Alice?",
+  "options": [
+   "Preimage resistance",
+   "Second-preimage resistance",
+   "The avalanche effect",
+   "Collision resistance of the signature scheme"
+  ],
+  "answer": 1,
+  "explanation": "The attacker starts from a fixed, given message x and needs x' with h(x') = h(x). That is the second-preimage problem; preimage resistance starts from a digest with no message.",
+  "concept": "Fixed message, find a twin = second preimage.",
+  "ref": "/learn/bca-hash-functions.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-MDH-003",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 21,
+  "day": 6,
+  "topic": "Iterated hashes: MD5 & SHA",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "With Merkle-Damgård padding (1 bit, zeros, 64-bit length) and 512-bit blocks, how many blocks does a 1,200-bit message occupy?",
+  "options": [
+   "5 blocks",
+   "3 blocks",
+   "2 blocks",
+   "4 blocks"
+  ],
+  "answer": 1,
+  "explanation": "1,200 + 1 + 64 = 1,265 bits needs rounding up to 1,536 = 3 × 512. Two blocks (1,024 bits) cannot hold even the message.",
+  "concept": "Pad = 1, zeros, length; total a multiple of the block size.",
+  "ref": "/learn/bca-iterated-hash-mac.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-MDH-004",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 22,
+  "day": 6,
+  "topic": "Iterated hashes: MD5 & SHA",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "For a 500-bit message, how many zero bits does SHA-1 padding add, using d = (447 − |x|) mod 512?",
+  "options": [
+   "11",
+   "447",
+   "459",
+   "53"
+  ],
+  "answer": 2,
+  "explanation": "(447 − 500) mod 512 = −53 mod 512 = 459. Then 500 + 1 + 459 + 64 = 1,024 bits, exactly two blocks.",
+  "concept": "SHA-1 pad: 1, d zeros, 64-bit length.",
+  "ref": "/learn/bca-iterated-hash-mac.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-MDH-005",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 23,
+  "day": 6,
+  "topic": "Iterated hashes: MD5 & SHA",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "Why could attackers forge a rogue CA certificate using MD5 in 2008?",
+  "options": [
+   "Preimage attacks let them invert the CA's signed digest",
+   "MD5 has no padding step",
+   "MD5 digests are reversible",
+   "Chosen-prefix collisions let two certificates share one digest"
+  ],
+  "answer": 3,
+  "explanation": "Researchers built a benign and a rogue certificate with equal MD5 hashes, so the CA's signature on one was valid for the other. Inversion was never needed; this was a collision attack.",
+  "concept": "Signatures inherit the hash's collision weaknesses.",
+  "ref": "/learn/bca-iterated-hash-mac.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-MDH-006",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 24,
+  "day": 6,
+  "topic": "Iterated hashes: MD5 & SHA",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "What change separates SHA-1 from SHA-0?",
+  "options": [
+   "Removal of the length padding",
+   "A sponge construction",
+   "A longer 256-bit output with an extra fifth round",
+   "A one-bit rotation in the message schedule"
+  ],
+  "answer": 3,
+  "explanation": "SHA-1 adds ROTL^1 when expanding 16 words to 80, fixing the flaw that weakened SHA-0. Both keep 160-bit output and Merkle-Damgård padding.",
+  "concept": "SHA-1 = SHA-0 + 1-bit rotation in the schedule.",
+  "ref": "/learn/bca-iterated-hash-mac.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-MAC-004",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 25,
+  "day": 6,
+  "topic": "MACs & authenticated encryption",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "Which authenticated-encryption composition lets the receiver reject forged packets before decrypting anything?",
+  "options": [
+   "MAC-then-Encrypt",
+   "Encrypt-then-MAC",
+   "Encrypt-and-MAC",
+   "Encrypt with CBC-MAC as the cipher"
+  ],
+  "answer": 1,
+  "explanation": "In Encrypt-then-MAC the tag covers the ciphertext, so it can be checked first. MAC-then-Encrypt hides the tag inside the ciphertext, so decryption must come first.",
+  "concept": "EtM: verify the tag on the ciphertext, then decrypt.",
+  "ref": "/learn/bca-iterated-hash-mac.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-MAC-005",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 26,
+  "day": 6,
+  "topic": "MACs & authenticated encryption",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "CBC encryption and CBC-MAC share key K. Mallory replaces c0, c1, c2 with garbage but keeps c3 and the tag. What happens?",
+  "options": [
+   "Bob's MAC check passes on corrupted plaintext",
+   "Bob recovers the original plaintext",
+   "Bob's MAC check fails and the packet is discarded",
+   "Decryption raises a padding error"
+  ],
+  "answer": 0,
+  "explanation": "Recomputing CBC-MAC over the decrypted blocks reproduces each garbage block and ends at E(D(c3)) = c3, the original tag. The integrity check is defeated.",
+  "concept": "Never use CBC + CBC-MAC with one key.",
+  "ref": "/learn/bca-iterated-hash-mac.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-MAC-006",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 27,
+  "day": 6,
+  "topic": "MACs & authenticated encryption",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "Which mode safely combines a block cipher's encryption with CBC-MAC, as in WPA2's CCMP?",
+  "options": [
+   "CBC encryption with CBC-MAC",
+   "ECB encryption with CBC-MAC",
+   "CBC encryption with no MAC",
+   "CTR encryption with CBC-MAC (CCM)"
+  ],
+  "answer": 3,
+  "explanation": "CCM encrypts in counter mode, which does not feed ciphertext into the MAC chain, so any ciphertext change breaks verification. CBC with CBC-MAC under one key is the broken case.",
+  "concept": "CCM = CTR + CBC-MAC.",
+  "ref": "/learn/bca-iterated-hash-mac.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-HSEC-008",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 28,
+  "day": 6,
+  "topic": "Hash security properties",
+  "bloom": "Evaluate",
+  "difficulty": "Hard",
+  "stem": "A startup stores passwords as unsalted MD5 because 'MD5 collisions do not matter for passwords'. What is the best critique?",
+  "options": [
+   "MD5 is too fast and unsalted hashes allow precomputed lookups",
+   "The claim is correct, so the design is fine",
+   "MD5 collisions let anyone log in with any chosen password",
+   "MD5 digests can be decrypted with the key"
+  ],
+  "answer": 0,
+  "explanation": "Collision breaks are indeed not the main risk here, but MD5's speed and the missing salt make dictionary and rainbow-table attacks cheap. Use a salted, slow password hash such as bcrypt or Argon2.",
+  "concept": "Passwords need salt and a deliberately slow hash.",
+  "ref": "/learn/bca-hash-functions.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ROM-009",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 29,
+  "day": 6,
+  "topic": "Random oracle & birthday bound",
+  "bloom": "Evaluate",
+  "difficulty": "Hard",
+  "stem": "A ledger uses a 128-bit hash for transaction IDs and argues it gives '128-bit security'. Which assessment is right?",
+  "options": [
+   "128 bits is ample for any use",
+   "Collision security is 256 bits",
+   "Collision security is only about 64 bits, so 256 bits is needed",
+   "Preimage security is only about 64 bits, so 512 bits are needed"
+  ],
+  "answer": 2,
+  "explanation": "Birthday attacks find collisions in about 2^64 work for a 128-bit digest. Preimage security stays near 2^128; it is collisions that fall to half the length.",
+  "concept": "Halve the digest length for collision security.",
+  "ref": "/learn/bca-hash-functions.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-MAC-007",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 6,
+  "position": 30,
+  "day": 6,
+  "topic": "MACs & authenticated encryption",
+  "bloom": "Create",
+  "difficulty": "Hard",
+  "stem": "You must design integrity for API webhooks sent over HTTPS to many clients. Which design is soundest?",
+  "options": [
+   "An MD5 checksum signed with RSA",
+   "SHA-256 digest of the body sent in a header alongside the payload",
+   "CBC-MAC and CBC encryption with one shared key",
+   "HMAC-SHA256 tag with a per-client secret, verified before processing"
+  ],
+  "answer": 3,
+  "explanation": "A keyed HMAC with per-client secrets stops forgery and limits damage if one key leaks. An unkeyed digest can be recomputed by anyone, and the other options rely on broken constructions.",
+  "concept": "Webhook integrity = per-client HMAC, verified first.",
+  "ref": "/learn/bca-iterated-hash-mac.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-NT-001",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 1,
+  "day": 7,
+  "topic": "Number theory",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "Fermat's little theorem states that for prime p and gcd(a, p) = 1:",
+  "options": [
+   "a^p ≡ 1 (mod p)",
+   "a^(p−1) ≡ 0 (mod p)",
+   "a^(p−1) ≡ 1 (mod p)",
+   "a^(p+1) ≡ a (mod p)"
+  ],
+  "answer": 2,
+  "explanation": "For a not divisible by p, raising to p − 1 gives 1. The corollary a^p ≡ a holds for every a, not a^p ≡ 1.",
+  "concept": "FLT: a^(p−1) ≡ 1 mod p.",
+  "ref": "/learn/bca-number-theory.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-NT-002",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 2,
+  "day": 7,
+  "topic": "Number theory",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "When does a modular inverse of a modulo m exist?",
+  "options": [
+   "Whenever a < m",
+   "Exactly when gcd(a, m) = 1",
+   "Only when a is prime",
+   "Whenever m is even"
+  ],
+  "answer": 1,
+  "explanation": "Bézout gives sa + tm = 1 only when a and m are coprime, and then s is the inverse. Size or primality of a alone do not decide it.",
+  "concept": "Inverse exists iff gcd(a, m) = 1.",
+  "ref": "/learn/bca-number-theory.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-NT-003",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 3,
+  "day": 7,
+  "topic": "Number theory",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "What does the extended Euclidean algorithm return beyond the gcd?",
+  "options": [
+   "The square root of a mod m",
+   "Integers s, t with s·a + t·m = gcd(a, m)",
+   "The order of a mod m",
+   "The prime factorisation of m, used to test a"
+  ],
+  "answer": 1,
+  "explanation": "Back-substitution expresses the gcd as a linear combination; when it is 1, s is a^−1 mod m. It does not factor numbers.",
+  "concept": "EEA gives Bézout coefficients.",
+  "ref": "/learn/bca-number-theory.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-NT-004",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 4,
+  "day": 7,
+  "topic": "Number theory",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "What condition does the Chinese remainder theorem require of the moduli?",
+  "options": [
+   "They are all odd",
+   "They sum to the product",
+   "They are pairwise coprime",
+   "They are all prime"
+  ],
+  "answer": 2,
+  "explanation": "Pairwise coprime moduli guarantee a unique solution modulo their product. They need not be prime: 4 and 9 work.",
+  "concept": "CRT needs pairwise coprime moduli.",
+  "ref": "/learn/bca-number-theory.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-NT-005",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 5,
+  "day": 7,
+  "topic": "Number theory",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "Why does RSA-CRT make decryption about four times faster?",
+  "options": [
+   "It skips the modular exponentiation",
+   "It uses a smaller public exponent",
+   "It avoids computing d",
+   "It works with two half-size moduli p and q"
+  ],
+  "answer": 3,
+  "explanation": "Exponentiation cost grows roughly with the cube of modulus size, so two exponentiations mod p and mod q are much cheaper than one mod n. d is still used, reduced mod p − 1 and q − 1.",
+  "concept": "RSA-CRT: compute mod p and mod q, then combine.",
+  "ref": "/learn/bca-number-theory.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-PKC-001",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 6,
+  "day": 7,
+  "topic": "Public-key principles",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "Which paper introduced public-key cryptography in 1976?",
+  "options": [
+   "Merkle and Hellman's knapsack paper",
+   "Diffie and Hellman, 'New Directions in Cryptography'",
+   "Nakamoto's Bitcoin white paper",
+   "Rivest, Shamir and Adleman, 'A Method for Digital Signatures'"
+  ],
+  "answer": 1,
+  "explanation": "Diffie and Hellman proposed public-key ideas and key exchange in 1976. RSA followed in 1977 and the knapsack scheme in 1978.",
+  "concept": "PKC began with Diffie–Hellman, 1976.",
+  "ref": "/learn/bca-pkc-knapsack.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-PKC-002",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 7,
+  "day": 7,
+  "topic": "Public-key principles",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "Why do real systems use hybrid encryption?",
+  "options": [
+   "Symmetric keys need no protection",
+   "Hybrid systems avoid using keys",
+   "Public-key schemes cannot encrypt data longer than one block",
+   "Public-key operations are far slower than symmetric ciphers"
+  ],
+  "answer": 3,
+  "explanation": "Public-key cryptography is 100–1,000 times slower, so it is used to agree or wrap a session key and AES encrypts the bulk data. Public-key schemes can encrypt, just inefficiently.",
+  "concept": "PKC for the key, symmetric for the data.",
+  "ref": "/learn/bca-pkc-knapsack.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-PKC-003",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 8,
+  "day": 7,
+  "topic": "Public-key principles",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "To send a message only Bob can read, Alice encrypts with:",
+  "options": [
+   "Alice's public key",
+   "Bob's public key",
+   "Alice's private key",
+   "Bob's private key"
+  ],
+  "answer": 1,
+  "explanation": "Only Bob's private key undoes encryption under his public key, giving confidentiality. Encrypting with Alice's private key gives authentication, not secrecy.",
+  "concept": "Secrecy: encrypt to the receiver's public key.",
+  "ref": "/learn/bca-pkc-knapsack.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-PKC-004",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 9,
+  "day": 7,
+  "topic": "Public-key principles",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "Encrypting with the sender's private key provides which service?",
+  "options": [
+   "Secrecy and authentication, but no non-repudiation",
+   "Authentication and non-repudiation, but no secrecy",
+   "Both secrecy and authentication",
+   "Neither service"
+  ],
+  "answer": 1,
+  "explanation": "Anyone with the sender's public key can decrypt, so there is no confidentiality, but only the sender could have produced it. That is the basis of digital signatures.",
+  "concept": "Private-key 'encryption' = signature.",
+  "ref": "/learn/bca-pkc-knapsack.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-PKC-005",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 10,
+  "day": 7,
+  "topic": "Public-key principles",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "Which algorithm supports encryption, signatures and key exchange?",
+  "options": [
+   "DSA",
+   "Diffie–Hellman",
+   "SHA-256",
+   "RSA"
+  ],
+  "answer": 3,
+  "explanation": "RSA serves all three applications. Diffie–Hellman only exchanges keys and DSA only signs.",
+  "concept": "RSA covers all three PKC uses.",
+  "ref": "/learn/bca-pkc-knapsack.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-PKC-006",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 11,
+  "day": 7,
+  "topic": "Public-key principles",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "What distinguishes a trapdoor one-way function from a plain one-way function?",
+  "options": [
+   "It has no inverse at all",
+   "Secret information makes inversion easy",
+   "It requires a hash function",
+   "It is hard to compute in both directions"
+  ],
+  "answer": 1,
+  "explanation": "A trapdoor function is easy forward, hard to invert, but easy to invert with the trapdoor. A plain one-way function is hard to invert for everyone.",
+  "concept": "Trapdoor = one-way except for the key holder.",
+  "ref": "/learn/bca-pkc-knapsack.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-KNAP-001",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 12,
+  "day": 7,
+  "topic": "Merkle–Hellman knapsack",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "A sequence is superincreasing when each term:",
+  "options": [
+   "Is prime",
+   "Is greater than the term just before it",
+   "Exceeds the sum of all earlier terms",
+   "Is a multiple of the first term"
+  ],
+  "answer": 2,
+  "explanation": "Superincreasing means a_j > a_1 + … + a_(j−1), which makes greedy subset-sum solving work. Merely increasing is not enough.",
+  "concept": "Superincreasing: each term > sum of predecessors.",
+  "ref": "/learn/bca-pkc-knapsack.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-NT-006",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 13,
+  "day": 7,
+  "topic": "Number theory",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "What is 128^129 mod 17?",
+  "options": [
+   "1",
+   "8",
+   "128",
+   "9"
+  ],
+  "answer": 3,
+  "explanation": "By Fermat, 128^16 ≡ 1, and 129 = 8·16 + 1, leaving 128 mod 17 = 9. Answering 1 forgets the leftover exponent.",
+  "concept": "Reduce the exponent mod p − 1.",
+  "ref": "/learn/bca-number-theory.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-NT-007",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 14,
+  "day": 7,
+  "topic": "Number theory",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "What is 2^1000 mod 13?",
+  "options": [
+   "3",
+   "1",
+   "4",
+   "9"
+  ],
+  "answer": 0,
+  "explanation": "2^12 ≡ 1 and 1000 = 83·12 + 4, so the answer is 2^4 = 16 ≡ 3. 4 is the reduced exponent, not the residue.",
+  "concept": "Exponent mod 12 for p = 13.",
+  "ref": "/learn/bca-number-theory.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-NT-008",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 15,
+  "day": 7,
+  "topic": "Number theory",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "Solve x^103 ≡ 4 (mod 11).",
+  "options": [
+   "x ≡ 3",
+   "x ≡ 5",
+   "x ≡ 9",
+   "x ≡ 4"
+  ],
+  "answer": 1,
+  "explanation": "103 ≡ 3 (mod 10), so x^3 ≡ 4, and 5^3 = 125 = 11·11 + 4. 4^3 = 64 ≡ 9, so 4 fails.",
+  "concept": "Reduce exponent, then test small x.",
+  "ref": "/learn/bca-number-theory.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-NT-009",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 16,
+  "day": 7,
+  "topic": "Number theory",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "Solve 3x ≡ 4 (mod 7).",
+  "options": [
+   "x ≡ 5",
+   "x ≡ 2",
+   "x ≡ 6",
+   "x ≡ 4"
+  ],
+  "answer": 2,
+  "explanation": "3^−1 mod 7 is 5, and 5·4 = 20 ≡ 6. 5 is the inverse itself, not the solution.",
+  "concept": "x ≡ a^−1·b (mod m).",
+  "ref": "/learn/bca-number-theory.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-NT-010",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 17,
+  "day": 7,
+  "topic": "Number theory",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "What is 19^−1 mod 141?",
+  "options": [
+   "52",
+   "89",
+   "7",
+   "141"
+  ],
+  "answer": 0,
+  "explanation": "Euclid gives 1 = 52·19 − 7·141, so 52·19 = 988 = 7·141 + 1. 89 is −52 mod 141, which is the negative of the inverse.",
+  "concept": "Back-substitute Euclid's steps.",
+  "ref": "/learn/bca-number-theory.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-NT-011",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 18,
+  "day": 7,
+  "topic": "Number theory",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "What is 13^−1 mod 2436?",
+  "options": [
+   "937",
+   "187",
+   "947",
+   "1499"
+  ],
+  "answer": 0,
+  "explanation": "Euclid: 2436 = 187·13 + 5, 13 = 2·5 + 3, 5 = 3 + 2, 3 = 2 + 1, giving 1 = 937·13 − 5·2436. 947 leaves remainder 131, so it is not the inverse.",
+  "concept": "Always verify: a·a^−1 mod m must be 1.",
+  "ref": "/learn/bca-number-theory.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-NT-012",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 19,
+  "day": 7,
+  "topic": "Number theory",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "Solve x ≡ 2 (mod 3), x ≡ 3 (mod 5), x ≡ 2 (mod 7).",
+  "options": [
+   "x ≡ 53 (mod 105)",
+   "x ≡ 233 (mod 105)",
+   "x ≡ 23 (mod 105)",
+   "x ≡ 8 (mod 105)"
+  ],
+  "answer": 2,
+  "explanation": "The CRT sum 2·35·2 + 3·21·1 + 2·15·1 = 233 reduces to 23 mod 105, and 23 checks against all three. 233 is the unreduced sum.",
+  "concept": "CRT: Σ a_k·M_k·y_k mod M.",
+  "ref": "/learn/bca-number-theory.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-NT-013",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 20,
+  "day": 7,
+  "topic": "Number theory",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "What is (2^20 + 3^30 + 4^40 + 5^50 + 6^60) mod 7?",
+  "options": [
+   "1",
+   "4",
+   "14",
+   "0"
+  ],
+  "answer": 3,
+  "explanation": "Reducing exponents mod 6 gives 4 + 1 + 4 + 4 + 1 = 14 ≡ 0. 14 is the sum before the final reduction.",
+  "concept": "Reduce every term, then the sum.",
+  "ref": "/learn/bca-number-theory.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-KNAP-002",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 21,
+  "day": 7,
+  "topic": "Merkle–Hellman knapsack",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "With superincreasing a' = (171, 197, 459, 1191, 2410) and S = 3798, which bit vector solves the knapsack?",
+  "options": [
+   "(1, 1, 0, 1, 1)",
+   "(0, 1, 1, 0, 1)",
+   "(1, 0, 0, 1, 1)",
+   "(0, 1, 0, 1, 1)"
+  ],
+  "answer": 3,
+  "explanation": "Greedy from the top takes 2410, 1191 and 197, leaving 0. (1, 0, 0, 1, 1) sums to 3,772, not 3,798.",
+  "concept": "Greedy from the largest weight.",
+  "ref": "/learn/bca-pkc-knapsack.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-KNAP-003",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 22,
+  "day": 7,
+  "topic": "Merkle–Hellman knapsack",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "In Merkle–Hellman with m = 2003, w = 1289 and a'_1 = 2, what is the public weight a_1?",
+  "options": [
+   "575",
+   "1289",
+   "2578",
+   "436"
+  ],
+  "answer": 0,
+  "explanation": "a_1 = 1289·2 mod 2003 = 2578 − 2003 = 575. 2578 forgets the reduction mod m.",
+  "concept": "Public weights: a_i = w·a'_i mod m.",
+  "ref": "/learn/bca-pkc-knapsack.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-KNAP-004",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 23,
+  "day": 7,
+  "topic": "Merkle–Hellman knapsack",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "Why must the Merkle–Hellman modulus m exceed the sum of the secret weights?",
+  "options": [
+   "So encryption is faster",
+   "So that w has an inverse and the public key looks random",
+   "So w^−1·S mod m equals the exact superincreasing sum",
+   "So the public key looks random"
+  ],
+  "answer": 2,
+  "explanation": "If m > Σa'_i, the reduced value is the true integer sum and the greedy algorithm recovers x. Invertibility of w depends on gcd(w, m) = 1, a separate condition.",
+  "concept": "m > Σa'_i keeps the decrypted sum exact.",
+  "ref": "/learn/bca-pkc-knapsack.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-KNAP-005",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 24,
+  "day": 7,
+  "topic": "Merkle–Hellman knapsack",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "Merkle–Hellman ciphertext S = 6665, w^−1 = 317, m = 2003. What is S' for the greedy step?",
+  "options": [
+   "6665",
+   "317",
+   "2112805",
+   "1643"
+  ],
+  "answer": 3,
+  "explanation": "S' = 317·6665 mod 2003 = 2,112,805 mod 2003 = 1643. 2,112,805 is the product before reduction.",
+  "concept": "Decrypt: S' = w^−1·S mod m.",
+  "ref": "/learn/bca-pkc-knapsack.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-PKC-007",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 25,
+  "day": 7,
+  "topic": "Public-key principles",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "Signing and then encrypting gives secrecy and authentication. What is its main cost?",
+  "options": [
+   "Four public-key operations per message",
+   "It needs a shared symmetric key",
+   "No authentication of the sender",
+   "The receiver needs the sender's private key"
+  ],
+  "answer": 0,
+  "explanation": "Sender signs and encrypts, receiver decrypts and verifies, so the slow algorithm runs four times. Each party still uses only its own private key.",
+  "concept": "Double encryption = 4 PKC operations.",
+  "ref": "/learn/bca-pkc-knapsack.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-PKC-008",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 26,
+  "day": 7,
+  "topic": "Public-key principles",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "Which misconception about public-key cryptography is shown by 'AES-256 is stronger than 512-bit RSA'?",
+  "options": [
+   "That PKC is inherently more secure than symmetric encryption",
+   "That key management becomes trivial once keys are public",
+   "That PKC replaced symmetric encryption",
+   "That PKC cannot sign messages"
+  ],
+  "answer": 0,
+  "explanation": "Strength depends on key length and attack cost, not on whether a cipher is asymmetric. The other two misconceptions concern speed and certificate infrastructure.",
+  "concept": "Security comes from work factor, not from being public-key.",
+  "ref": "/learn/bca-pkc-knapsack.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-KNAP-006",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 27,
+  "day": 7,
+  "topic": "Merkle–Hellman knapsack",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "An eavesdropper sees a Merkle–Hellman public key and ciphertext S but not w or m. What problem must she solve to read the message?",
+  "options": [
+   "A superincreasing knapsack",
+   "A general subset-sum instance",
+   "A discrete logarithm modulo m",
+   "Factoring m into primes"
+  ],
+  "answer": 1,
+  "explanation": "Without the trapdoor the public weights look like an arbitrary knapsack, so she faces general subset sum. Only the receiver, who can undo w, gets the easy superincreasing instance.",
+  "concept": "Merkle–Hellman = disguised subset sum.",
+  "ref": "/learn/bca-pkc-knapsack.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-KNAP-007",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 28,
+  "day": 7,
+  "topic": "Merkle–Hellman knapsack",
+  "bloom": "Evaluate",
+  "difficulty": "Hard",
+  "stem": "Merkle–Hellman rests on an NP-complete problem, yet it was broken. Which explanation is best?",
+  "options": [
+   "Its instances are disguised easy knapsacks, not hard average cases",
+   "It used a weak hash function",
+   "NP-complete problems are always easy",
+   "Its keys were too short for the NP-complete hardness to apply"
+  ],
+  "answer": 0,
+  "explanation": "NP-completeness is worst-case; the modular disguise of a superincreasing sequence leaves structure that Shamir and lattice reduction exploit. Hardness of the general problem says little about these special instances.",
+  "concept": "Worst-case hardness ≠ cryptographic hardness.",
+  "ref": "/learn/bca-pkc-knapsack.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-PKC-009",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 29,
+  "day": 7,
+  "topic": "Public-key principles",
+  "bloom": "Evaluate",
+  "difficulty": "Hard",
+  "stem": "A colleague says public-key cryptography makes certificate authorities unnecessary since keys are public. What is the strongest rebuttal?",
+  "options": [
+   "Without authentication an attacker can substitute a fake public key",
+   "CAs are needed because public keys must be kept secret by them",
+   "CAs generate everyone's private keys",
+   "CAs are needed to speed up encryption"
+  ],
+  "answer": 0,
+  "explanation": "Publishing keys removes the need for secret channels but not the need to bind a key to an identity; a substituted key enables man-in-the-middle. CAs sign that binding, not private keys.",
+  "concept": "Public keys need authenticity, hence PKI.",
+  "ref": "/learn/bca-pkc-knapsack.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-NT-014",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 7,
+  "position": 30,
+  "day": 7,
+  "topic": "Number theory",
+  "bloom": "Create",
+  "difficulty": "Hard",
+  "stem": "You must compute 7^(10^6) mod 101 by hand in an exam. Which plan is quickest?",
+  "options": [
+   "Factor 101 first, then apply the CRT to each prime factor",
+   "Use the CRT with moduli 10 and 10",
+   "Reduce 10^6 mod 100, then square-and-multiply",
+   "Multiply 7 by itself a million times"
+  ],
+  "answer": 2,
+  "explanation": "101 is prime, so the exponent reduces mod 100 to 0, giving 7^0 = 1 immediately. Factoring 101 is pointless as it is prime, and CRT needs coprime moduli whose product is the modulus.",
+  "concept": "Fermat first, then fast exponentiation.",
+  "ref": "/learn/bca-number-theory.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-RSA-001",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 1,
+  "day": 8,
+  "topic": "RSA",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "The security of RSA rests on the difficulty of:",
+  "options": [
+   "Factoring n = p·q",
+   "Finding hash collisions",
+   "Computing discrete logarithms",
+   "Solving subset sum"
+  ],
+  "answer": 0,
+  "explanation": "Anyone who factors n can compute φ(n) and then d. Discrete logarithms underpin Diffie–Hellman and ElGamal instead.",
+  "concept": "RSA hardness = integer factorisation.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-RSA-002",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 2,
+  "day": 8,
+  "topic": "RSA",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "In RSA, how is the private exponent d computed?",
+  "options": [
+   "d = e mod φ(n)",
+   "d = e^−1 mod φ(n)",
+   "d = n − e",
+   "d = e^−1 mod n"
+  ],
+  "answer": 1,
+  "explanation": "d must satisfy e·d ≡ 1 mod φ(n) so that M^(ed) ≡ M. Reducing modulo n instead is a classic error.",
+  "concept": "d is the inverse of e modulo φ(n).",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-RSA-003",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 3,
+  "day": 8,
+  "topic": "RSA",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "Which condition must the public exponent e satisfy?",
+  "options": [
+   "e must be even",
+   "e must be prime to n only",
+   "e must exceed φ(n)",
+   "gcd(e, φ(n)) = 1"
+  ],
+  "answer": 3,
+  "explanation": "e needs an inverse modulo φ(n), which exists only when they are coprime. An even e always shares the factor 2 with φ(n).",
+  "concept": "e coprime to φ(n).",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-RSA-004",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 4,
+  "day": 8,
+  "topic": "RSA",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "Which items form the RSA public key?",
+  "options": [
+   "{e, φ(n)}",
+   "{d, n}",
+   "{p, q}",
+   "{e, n}"
+  ],
+  "answer": 3,
+  "explanation": "The public key is the exponent e with modulus n. p, q, φ(n) and d must stay secret, since any of them reveals d.",
+  "concept": "Public: e, n. Secret: d, p, q, φ(n).",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-SQM-001",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 5,
+  "day": 8,
+  "topic": "Square-and-multiply",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "Why does square-and-multiply reduce modulo n after every step?",
+  "options": [
+   "To hide the exponent bits",
+   "To avoid computing d",
+   "To keep intermediate numbers below n²",
+   "To make the result non-deterministic"
+  ],
+  "answer": 2,
+  "explanation": "Reducing each product keeps values bounded, so 2,048-bit exponentiation stays tractable. It does not hide exponent bits; that is why timing attacks work.",
+  "concept": "Reduce as you go: (a·b) mod n.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-SQM-002",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 6,
+  "day": 8,
+  "topic": "Square-and-multiply",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "In left-to-right square-and-multiply, what happens at a 0 bit of the exponent?",
+  "options": [
+   "Only a multiplication",
+   "Only a squaring",
+   "A squaring and a multiplication",
+   "Nothing at all"
+  ],
+  "answer": 1,
+  "explanation": "Each bit squares the accumulator; a 1 bit also multiplies by the base. This asymmetry is what timing attacks exploit.",
+  "concept": "Bit 0: square. Bit 1: square then multiply.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-PRIME-001",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 7,
+  "day": 8,
+  "topic": "Primality testing",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "Why does RSA key generation use probabilistic primality tests instead of trial division?",
+  "options": [
+   "Trial division to √n is infeasible for 1,024-bit numbers",
+   "Trial division gives wrong answers for numbers above 512 bits",
+   "Primes cannot be divided",
+   "Probabilistic tests factor the number"
+  ],
+  "answer": 0,
+  "explanation": "Trial division up to √n would need on the order of 2^512 divisions for a 1,024-bit candidate. Primality tests decide primality without finding factors.",
+  "concept": "Testing primality is far easier than factoring.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-PRIME-002",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 8,
+  "day": 8,
+  "topic": "Primality testing",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "Which composite number fools the Fermat test for every coprime base?",
+  "options": [
+   "35",
+   "97",
+   "221",
+   "561"
+  ],
+  "answer": 3,
+  "explanation": "561 = 3·11·17 is the smallest Carmichael number. 35 is caught by base 2, and 97 is prime.",
+  "concept": "Carmichael numbers defeat the Fermat test.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-PRIME-003",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 9,
+  "day": 8,
+  "topic": "Primality testing",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "What is the maximum error probability of one Miller–Rabin round on a composite n?",
+  "options": [
+   "1/2",
+   "1/4",
+   "1/100",
+   "1/8"
+  ],
+  "answer": 1,
+  "explanation": "At most a quarter of bases are strong liars, so t rounds err with probability at most (1/4)^t. 1/2 is the Solovay–Strassen bound.",
+  "concept": "Miller–Rabin: error ≤ 1/4 per round.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-TIME-001",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 10,
+  "day": 8,
+  "topic": "Timing attacks",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "Who first described timing attacks on RSA implementations (1996)?",
+  "options": [
+   "Whitfield Diffie",
+   "Paul Kocher",
+   "Adi Shamir",
+   "Daniel Bleichenbacher"
+  ],
+  "answer": 1,
+  "explanation": "Kocher showed that decryption time leaks private-key bits. Bleichenbacher is known for the 1998 padding-oracle attack.",
+  "concept": "Kocher, 1996: timing side channels.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-TIME-002",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 11,
+  "day": 8,
+  "topic": "Timing attacks",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "How does RSA blinding defeat timing attacks?",
+  "options": [
+   "It switches to a smaller modulus",
+   "It shortens the private exponent so every step takes equal time",
+   "It randomises the value being exponentiated",
+   "It encrypts the timing data"
+  ],
+  "answer": 2,
+  "explanation": "Decrypting C·r^e with a fresh random r makes intermediate values unpredictable to the attacker, and r is divided out afterwards. The key itself is unchanged.",
+  "concept": "Blinding: work on C·r^e, then remove r.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-FACT-001",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 12,
+  "day": 8,
+  "topic": "Factoring",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "If x² ≡ y² (mod n) but x ≢ ±y (mod n), what follows?",
+  "options": [
+   "n must be a perfect square, so √n is a factor",
+   "n is a perfect square",
+   "gcd(x − y, n) is a non-trivial factor of n",
+   "x and y are inverses"
+  ],
+  "answer": 2,
+  "explanation": "n divides (x − y)(x + y) without dividing either factor, so each shares a proper factor with n. This principle drives the quadratic sieve and Miller–Rabin.",
+  "concept": "Congruence of squares → factor.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-RSA-005",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 13,
+  "day": 8,
+  "topic": "RSA",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "With p = 7, q = 17 and e = 5, what is d?",
+  "options": [
+   "77",
+   "29",
+   "96",
+   "5"
+  ],
+  "answer": 0,
+  "explanation": "φ(n) = 96 and 5·77 = 385 = 4·96 + 1. 96 is φ(n) itself, not the inverse.",
+  "concept": "d·e ≡ 1 (mod φ(n)).",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-RSA-006",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 14,
+  "day": 8,
+  "topic": "RSA",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "With public key {5, 119}, what is the ciphertext of M = 19?",
+  "options": [
+   "19",
+   "24",
+   "66",
+   "95"
+  ],
+  "answer": 2,
+  "explanation": "19^5 = 2,476,099 = 20,807·119 + 66. 95 is 19·5, a multiplication instead of exponentiation.",
+  "concept": "C = M^e mod n.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-RSA-007",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 15,
+  "day": 8,
+  "topic": "RSA",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "p = 11, q = 13. Which value is a valid public exponent?",
+  "options": [
+   "9",
+   "10",
+   "7",
+   "15"
+  ],
+  "answer": 2,
+  "explanation": "φ(n) = 120 = 2³·3·5, so e must avoid 2, 3 and 5; only 7 qualifies. 9 shares 3, 15 shares 3 and 5, and 10 shares 2 and 5.",
+  "concept": "Check gcd(e, φ(n)) = 1.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-SQM-003",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 16,
+  "day": 8,
+  "topic": "Square-and-multiply",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "How many squarings does left-to-right square-and-multiply perform for a 12-bit exponent?",
+  "options": [
+   "3,532",
+   "12",
+   "24",
+   "11"
+  ],
+  "answer": 1,
+  "explanation": "The loop squares once per exponent bit, here 12 times (the first squares 1). 3,532 is the naive multiplication count for 3533.",
+  "concept": "Squarings = bit length.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-SQM-004",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 17,
+  "day": 8,
+  "topic": "Square-and-multiply",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "Computing 9726^3533 mod 11413, the accumulator is 105 after the bit at position 2. Bit 1 is 0. What is the next value?",
+  "options": [
+   "11025",
+   "5761",
+   "105",
+   "210"
+  ],
+  "answer": 0,
+  "explanation": "A 0 bit means square only: 105² = 11,025, which is below 11,413. 5761 is the final result after the last bit, which is 1.",
+  "concept": "Follow square, then multiply on 1 bits.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-PRIME-004",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 18,
+  "day": 8,
+  "topic": "Primality testing",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "Writing n − 1 = 2^k·m with m odd for n = 561, what are k and m?",
+  "options": [
+   "k = 4, m = 35",
+   "k = 4, m = 140",
+   "k = 5, m = 35",
+   "k = 3, m = 70"
+  ],
+  "answer": 0,
+  "explanation": "560 = 16·35, so k = 4 and m = 35 (odd). 70 and 140 are even, so they cannot be m.",
+  "concept": "Strip all factors of 2 from n − 1.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-PRIME-005",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 19,
+  "day": 8,
+  "topic": "Primality testing",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "In Miller–Rabin on 561 with a = 2 the sequence is 263, 166, 67, 1. Why is 561 composite?",
+  "options": [
+   "263 is not equal to 1",
+   "The sequence reached 1, which only composites do",
+   "561 is odd",
+   "67 is a square root of 1 other than ±1"
+  ],
+  "answer": 3,
+  "explanation": "Modulo a prime, the only square roots of 1 are ±1; 67² ≡ 1 with 67 ≢ ±1 proves compositeness. Reaching 1 through −1 would have been consistent with primality.",
+  "concept": "Non-trivial √1 ⇒ composite.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-PRIME-006",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 20,
+  "day": 8,
+  "topic": "Primality testing",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "Fermat test on n = 35 with base 2 gives 2^34 mod 35 = ?",
+  "options": [
+   "34",
+   "4",
+   "1",
+   "9"
+  ],
+  "answer": 3,
+  "explanation": "2^32 ≡ 11 and 2^34 ≡ 11·4 = 44 ≡ 9. A prime would give 1, so 35 is composite.",
+  "concept": "Fermat: a^(n−1) ≠ 1 ⇒ composite.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-FACT-002",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 21,
+  "day": 8,
+  "topic": "Factoring",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "Using 12² ≡ 2² (mod 35), which factor of 35 does gcd(12 − 2, 35) reveal?",
+  "options": [
+   "10",
+   "35",
+   "5",
+   "7"
+  ],
+  "answer": 2,
+  "explanation": "gcd(10, 35) = 5, and gcd(14, 35) = 7 gives the other. 10 is x − y, not the gcd.",
+  "concept": "gcd(x − y, n) exposes a factor.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-FACT-003",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 22,
+  "day": 8,
+  "topic": "Factoring",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "In factoring 539873, why are the relations for 735 and 801 combined?",
+  "options": [
+   "Their sum equals n",
+   "Their product makes every prime exponent even",
+   "Their squares are both primes",
+   "They are the two smallest values tried above √n"
+  ],
+  "answer": 1,
+  "explanation": "2^5·11 times 2^5·11·17² gives 2^10·11²·17², a perfect square, so X² ≡ Y². Including 783 would add an odd power of 13.",
+  "concept": "Choose relations whose exponent vectors sum to even.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-TIME-003",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 23,
+  "day": 8,
+  "topic": "Timing attacks",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "Timing a device computing 5^20 mod 33 reveals slower steps at bit positions 1 and 3 from the left. What exponent pattern is leaked?",
+  "options": [
+   "01011",
+   "10100",
+   "11000",
+   "10010"
+  ],
+  "answer": 1,
+  "explanation": "Extra multiplications occur only at 1 bits, so slow steps 1 and 3 spell 1-0-1-0-0 = 20. That is how timing leaks d bit by bit.",
+  "concept": "Slow step ⇔ 1 bit.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-RSA-008",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 24,
+  "day": 8,
+  "topic": "RSA",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "Why is textbook RSA weak for encrypting 'YES' or 'NO' votes?",
+  "options": [
+   "Votes need a hash instead",
+   "RSA cannot encrypt messages shorter than the modulus length",
+   "Deterministic encryption lets anyone encrypt both and compare",
+   "The ciphertext reveals d"
+  ],
+  "answer": 2,
+  "explanation": "Same plaintext, same ciphertext, so an attacker encrypts each candidate with the public key and matches. Randomised padding such as OAEP removes this.",
+  "concept": "Textbook RSA is deterministic; pad it.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-RSA-009",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 25,
+  "day": 8,
+  "topic": "RSA",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "Why must RSA primes be at least 1,024 bits each today?",
+  "options": [
+   "Square-and-multiply needs long keys",
+   "Miller–Rabin becomes unreliable for primes below 1,024 bits",
+   "Smaller primes make e impossible",
+   "Number field sieve attacks can factor 512-bit moduli"
+  ],
+  "answer": 3,
+  "explanation": "Sub-exponential factoring has broken 512-bit and 768-bit RSA, so a 2,048-bit modulus is the current floor. The other options are not real constraints.",
+  "concept": "n ≥ 2,048 bits.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-RSA-010",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 26,
+  "day": 8,
+  "topic": "RSA",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "An RSA user publishes n = 119 and e = 5, and you learn φ(n) = 96. What can you now do?",
+  "options": [
+   "Compute d = 77 and decrypt everything",
+   "Only find p, not q",
+   "Nothing; φ(n) is harmless",
+   "Only verify signatures; decryption still needs p and q"
+  ],
+  "answer": 0,
+  "explanation": "φ(n) gives d directly as e^−1 mod φ(n). It also yields p and q, since p + q = n − φ(n) + 1.",
+  "concept": "φ(n) is as secret as d.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-RSA-011",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 27,
+  "day": 8,
+  "topic": "RSA",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "Which RSA operation is typically fastest, and why?",
+  "options": [
+   "Decryption, because d is usually smaller than e in practice",
+   "Key generation, because primes are common",
+   "Signing, because hashes are short",
+   "Encryption or verification, because e is small (e.g. 65537)"
+  ],
+  "answer": 3,
+  "explanation": "A small e with few 1 bits makes M^e cheap, while d is full length. Key generation needs repeated primality testing and is slowest.",
+  "concept": "Small e: fast public operation.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-TIME-004",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 28,
+  "day": 8,
+  "topic": "Timing attacks",
+  "bloom": "Evaluate",
+  "difficulty": "Hard",
+  "stem": "A smart-card vendor fixes timing leaks by adding random delays. Which assessment is best?",
+  "options": [
+   "Weak: averaging many traces removes noise; use constant time and blinding",
+   "Harmful: delays break RSA correctness",
+   "Sufficient: random delays fully hide all timing differences",
+   "Unnecessary: timing attacks need physical access"
+  ],
+  "answer": 0,
+  "explanation": "Random noise only raises the number of measurements the attacker needs. Constant-time code and blinding remove the data-dependent timing.",
+  "concept": "Fix side channels at the source.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-PRIME-007",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 29,
+  "day": 8,
+  "topic": "Primality testing",
+  "bloom": "Evaluate",
+  "difficulty": "Hard",
+  "stem": "For a production RSA key generator, which primality approach is most appropriate?",
+  "options": [
+   "Miller–Rabin with many random bases (e.g. 40 rounds)",
+   "Trial division up to √n",
+   "Accepting any odd number ending in 7",
+   "A single Fermat test with base 2 on each odd candidate"
+  ],
+  "answer": 0,
+  "explanation": "Forty Miller–Rabin rounds bound the error below 2^−80 cheaply. A Fermat test misses Carmichael numbers and trial division is infeasible.",
+  "concept": "Many-round Miller–Rabin for keygen.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-RSA-012",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 8,
+  "position": 30,
+  "day": 8,
+  "topic": "RSA",
+  "bloom": "Create",
+  "difficulty": "Hard",
+  "stem": "Design a fast RSA decryption for a busy TLS server holding p and q. What is the best approach?",
+  "options": [
+   "Compute C^d mod n with naive multiplication",
+   "Use RSA-CRT with d mod (p−1) and d mod (q−1), plus blinding",
+   "Skip padding to save time",
+   "Choose a tiny private exponent such as d = 3 for speed"
+  ],
+  "answer": 1,
+  "explanation": "CRT gives about 4× speed-up and blinding preserves side-channel resistance. A tiny d is vulnerable to Wiener's attack and skipping padding breaks security.",
+  "concept": "RSA-CRT + blinding.",
+  "ref": "/learn/bca-rsa.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-DH-001",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 1,
+  "day": 9,
+  "topic": "Diffie–Hellman",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "What does the Diffie–Hellman protocol accomplish?",
+  "options": [
+   "Hashing passwords",
+   "Encrypting messages directly with the public values",
+   "Producing digital signatures",
+   "Agreeing a shared secret over a public channel"
+  ],
+  "answer": 3,
+  "explanation": "DH only establishes a key; that key then drives a symmetric cipher. It neither encrypts data nor signs.",
+  "concept": "DH = key agreement only.",
+  "ref": "/learn/bca-dh-dlp.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-DH-002",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 2,
+  "day": 9,
+  "topic": "Diffie–Hellman",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "What is a primitive root modulo a prime q?",
+  "options": [
+   "The smallest prime factor of q − 1",
+   "Any number less than q",
+   "An element whose powers produce every value 1 to q − 1",
+   "An element equal to its own inverse modulo q"
+  ],
+  "answer": 2,
+  "explanation": "A primitive root generates the whole multiplicative group Z_q*. Not every element does: some generate only subgroups.",
+  "concept": "Primitive root = generator of Z_q*.",
+  "ref": "/learn/bca-dh-dlp.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-DH-003",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 3,
+  "day": 9,
+  "topic": "Diffie–Hellman",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "Why do Alice and Bob reach the same DH key?",
+  "options": [
+   "Bob sends his secret to Alice",
+   "The key is fixed in advance",
+   "Both compute α raised to X_A·X_B mod q",
+   "They exchange the key encrypted"
+  ],
+  "answer": 2,
+  "explanation": "(α^X_B)^X_A and (α^X_A)^X_B both equal α^(X_A·X_B) because exponents multiply. The private values never cross the wire.",
+  "concept": "Exponents commute: K = α^(ab).",
+  "ref": "/learn/bca-dh-dlp.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-DLP-001",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 4,
+  "day": 9,
+  "topic": "Discrete log & BSGS",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "Why can binary search not solve g^x ≡ y (mod p)?",
+  "options": [
+   "Exponents must be prime, so the search space has gaps",
+   "Binary search needs floating point",
+   "Modular powers wrap around and are not monotonic",
+   "Modular division is undefined"
+  ],
+  "answer": 2,
+  "explanation": "Over the integers 2^x grows steadily, so 'too high/too low' guides the search; modulo p the values jump unpredictably. That loss of ordering is what makes the DLP hard.",
+  "concept": "No ordering mod p ⇒ no binary search.",
+  "ref": "/learn/bca-dh-dlp.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-DH-004",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 5,
+  "day": 9,
+  "topic": "Diffie–Hellman",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "Which attack threatens unauthenticated Diffie–Hellman?",
+  "options": [
+   "Man-in-the-middle substitution of public values",
+   "Birthday collision on the shared key after many sessions",
+   "Timing analysis of hashing",
+   "Padding oracle on the ciphertext"
+  ],
+  "answer": 0,
+  "explanation": "Mallory replaces each side's public value with her own and shares a key with each party. Signing the values (authenticated DH) stops this.",
+  "concept": "Authenticate DH half-keys.",
+  "ref": "/learn/bca-dh-dlp.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-DH-005",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 6,
+  "day": 9,
+  "topic": "Diffie–Hellman",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "What does ephemeral DH (DHE/ECDHE) in TLS 1.3 provide?",
+  "options": [
+   "Non-repudiation of messages",
+   "Faster bulk encryption",
+   "Forward secrecy for past sessions",
+   "Smaller certificates"
+  ],
+  "answer": 2,
+  "explanation": "Fresh per-session secrets are discarded, so a later theft of the server's long-term key cannot decrypt recorded traffic. Bulk speed comes from AES, not DH.",
+  "concept": "Ephemeral keys ⇒ forward secrecy.",
+  "ref": "/learn/bca-dh-dlp.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-DLP-002",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 7,
+  "day": 9,
+  "topic": "Discrete log & BSGS",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "What are the time and space costs of baby-step giant-step on a group of order p?",
+  "options": [
+   "O(log p) time and space",
+   "O(p) time, O(1) space",
+   "O(p²) time, O(√p) space",
+   "O(√p) time and O(√p) space"
+  ],
+  "answer": 3,
+  "explanation": "BSGS stores √p giant steps and tries up to √p baby steps. Brute force is O(p) time with constant space.",
+  "concept": "BSGS: √p time–memory trade-off.",
+  "ref": "/learn/bca-dh-dlp.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-DLP-003",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 8,
+  "day": 9,
+  "topic": "Discrete log & BSGS",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "In BSGS with m = ⌈√p⌉, how is the unknown exponent written?",
+  "options": [
+   "x = i·j mod m with 0 ≤ i, j < m",
+   "x = m^j + i",
+   "x = m·j + i with 0 ≤ i, j < m",
+   "x = m + i + j"
+  ],
+  "answer": 2,
+  "explanation": "Quotient and remainder by m cover every x below m², which is at least p. Then g^(mj) ≡ y·g^(−i) gives the matching condition.",
+  "concept": "x = mj + i.",
+  "ref": "/learn/bca-dh-dlp.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ELG-001",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 9,
+  "day": 9,
+  "topic": "ElGamal",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "ElGamal encryption's security rests on:",
+  "options": [
+   "The knapsack problem",
+   "Integer factorisation",
+   "The hardness of factoring the modulus p − 1",
+   "The discrete logarithm problem in Z_p*"
+  ],
+  "answer": 3,
+  "explanation": "ElGamal extends Diffie–Hellman, so recovering the key means solving a discrete log. Factoring is RSA's assumption.",
+  "concept": "ElGamal ↔ DLP.",
+  "ref": "/learn/bca-elgamal-ecc.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ELG-002",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 10,
+  "day": 9,
+  "topic": "ElGamal",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "Why does encrypting the same plaintext twice under ElGamal give different ciphertexts?",
+  "options": [
+   "A fresh random k is chosen for every encryption",
+   "The public key changes each time",
+   "The plaintext is padded with its own hash each time",
+   "The modulus is reselected"
+  ],
+  "answer": 0,
+  "explanation": "y1 = α^k and the mask β^k both depend on the new k. The public key stays the same.",
+  "concept": "ElGamal is randomised by k.",
+  "ref": "/learn/bca-elgamal-ecc.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ELG-003",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 11,
+  "day": 9,
+  "topic": "ElGamal",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "How large is an ElGamal ciphertext relative to the plaintext?",
+  "options": [
+   "Four times the size",
+   "About twice the size",
+   "The same size",
+   "Half the size"
+  ],
+  "answer": 1,
+  "explanation": "The ciphertext is a pair (y1, y2), each an element of Z_p*. This expansion is the price of randomisation.",
+  "concept": "ElGamal ciphertext = 2 group elements.",
+  "ref": "/learn/bca-elgamal-ecc.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-DLP-004",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 12,
+  "day": 9,
+  "topic": "Discrete log & BSGS",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "Why do generic DLP attacks force a 256-bit group order for 128-bit security?",
+  "options": [
+   "The key must match the 256-bit output of SHA-256",
+   "BSGS and Pollard rho cost about √(group order)",
+   "Primes below 256 bits do not exist",
+   "DH needs two 128-bit keys"
+  ],
+  "answer": 1,
+  "explanation": "√(2^256) = 2^128 operations, matching the security target. Halving the group size would halve the security in bits.",
+  "concept": "Generic DLP: square-root attacks.",
+  "ref": "/learn/bca-dh-dlp.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-DH-006",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 13,
+  "day": 9,
+  "topic": "Diffie–Hellman",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "q = 353, α = 3, X_A = 97 gives Y_A = 40; Bob sends Y_B = 248. What key does Alice compute?",
+  "options": [
+   "40",
+   "160",
+   "248",
+   "97"
+  ],
+  "answer": 1,
+  "explanation": "K = 248^97 mod 353 = 160, matching Bob's 40^233 mod 353. 40 and 248 are the public values Eve sees.",
+  "concept": "K = Y_B^X_A mod q.",
+  "ref": "/learn/bca-dh-dlp.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-DH-007",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 14,
+  "day": 9,
+  "topic": "Diffie–Hellman",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "With n = 11 and g = 7, Alice's secret is x = 9. What does she send?",
+  "options": [
+   "8",
+   "2",
+   "9",
+   "4"
+  ],
+  "answer": 0,
+  "explanation": "Powers of 7 mod 11 run 7, 5, 2, 3, 10, 4, 6, 9, 8, so 7^9 ≡ 8. Value 2 is 7^3, a slip found in rough notes.",
+  "concept": "Public value = g^x mod n.",
+  "ref": "/learn/bca-dh-dlp.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-DH-008",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 15,
+  "day": 9,
+  "topic": "Diffie–Hellman",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "n = 11, g = 7, A = 8 and B = 4. If Bob's secret is y = 6, what shared key results?",
+  "options": [
+   "9",
+   "4",
+   "8",
+   "3"
+  ],
+  "answer": 3,
+  "explanation": "Bob computes 8^6 mod 11 = 64³ ≡ (−2)³ = −8 ≡ 3, and Alice gets 4^9 ≡ 3 too. 9 comes from using the wrong A = 2.",
+  "concept": "Both sides must give the same K.",
+  "ref": "/learn/bca-dh-dlp.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-DH-009",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 16,
+  "day": 9,
+  "topic": "Diffie–Hellman",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "Which of 2, 3, 4, 5 is a primitive root modulo 11?",
+  "options": [
+   "3",
+   "4",
+   "5",
+   "2"
+  ],
+  "answer": 3,
+  "explanation": "2 has order 10 (2^5 ≡ 10 ≢ 1, 2^2 ≢ 1). 3, 4 and 5 each satisfy x^5 ≡ 1, so they have order 5.",
+  "concept": "Order must equal q − 1.",
+  "ref": "/learn/bca-dh-dlp.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-DLP-005",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 17,
+  "day": 9,
+  "topic": "Discrete log & BSGS",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "Solving 5^x ≡ 20 (mod 47) by BSGS, what is m?",
+  "options": [
+   "7",
+   "5",
+   "47",
+   "6"
+  ],
+  "answer": 0,
+  "explanation": "√47 ≈ 6.86, so m = 7. Using 6 would leave some exponents below 47 uncovered, since 6² = 36.",
+  "concept": "m = ⌈√p⌉.",
+  "ref": "/learn/bca-dh-dlp.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-DLP-006",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 18,
+  "day": 9,
+  "topic": "Discrete log & BSGS",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "What is 5^−1 mod 47, needed for the baby steps?",
+  "options": [
+   "9",
+   "5",
+   "42",
+   "19"
+  ],
+  "answer": 3,
+  "explanation": "5·19 = 95 = 2·47 + 1. 42 is −5 mod 47, not the inverse.",
+  "concept": "Baby steps multiply by g^−1.",
+  "ref": "/learn/bca-dh-dlp.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-DLP-007",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 19,
+  "day": 9,
+  "topic": "Discrete log & BSGS",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "Giant steps 11^j mod 47 are 1, 11, 27, 15, 24, 29, 37; the baby step 20·19² ≡ 29 matches. What is x?",
+  "options": [
+   "12",
+   "37",
+   "29",
+   "35"
+  ],
+  "answer": 1,
+  "explanation": "29 sits at j = 5 and the baby step is i = 2, so x = 7·5 + 2 = 37. 35 forgets the baby-step offset.",
+  "concept": "x = m·j + i.",
+  "ref": "/learn/bca-dh-dlp.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-DLP-008",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 20,
+  "day": 9,
+  "topic": "Discrete log & BSGS",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "For 5^x ≡ 41 (mod 193), what is m for BSGS?",
+  "options": [
+   "13",
+   "12",
+   "14",
+   "193"
+  ],
+  "answer": 2,
+  "explanation": "√193 ≈ 13.9, so m = 14; 13² = 169 is below 193 and would miss exponents. The answer is x = 151.",
+  "concept": "Round √p up.",
+  "ref": "/learn/bca-dh-dlp.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ELG-004",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 21,
+  "day": 9,
+  "topic": "ElGamal",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "p = 2579, α = 2, Bob's secret a = 765. What is Bob's public β?",
+  "options": [
+   "2396",
+   "949",
+   "765",
+   "435"
+  ],
+  "answer": 1,
+  "explanation": "β = 2^765 mod 2579 = 949. 435 is y1 = 2^853 from the sample encryption.",
+  "concept": "β = α^a mod p.",
+  "ref": "/learn/bca-elgamal-ecc.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ELG-005",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 22,
+  "day": 9,
+  "topic": "ElGamal",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "With β = 949, k = 853, p = 2579 and x = 1299, what is y1?",
+  "options": [
+   "949",
+   "435",
+   "2396",
+   "1299"
+  ],
+  "answer": 1,
+  "explanation": "y1 = α^k = 2^853 mod 2579 = 435. 2396 is y2, the masked message.",
+  "concept": "y1 = α^k mod p.",
+  "ref": "/learn/bca-elgamal-ecc.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ELG-006",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 23,
+  "day": 9,
+  "topic": "ElGamal",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "Bob receives (y1, y2). Which computation recovers x?",
+  "options": [
+   "x = y2·(y1^a)^−1 mod p",
+   "x = y2^a mod p",
+   "x = (y2·y1)^−a mod p",
+   "x = y1·y2 mod p"
+  ],
+  "answer": 0,
+  "explanation": "y1^a = (α^k)^a = β^k, the mask, so dividing y2 by it returns x. The other options do not cancel the mask.",
+  "concept": "Decrypt: divide out y1^a.",
+  "ref": "/learn/bca-elgamal-ecc.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ELG-007",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 24,
+  "day": 9,
+  "topic": "ElGamal",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "Alice reuses k for two ElGamal messages x1 and x2 to the same key. What leaks?",
+  "options": [
+   "x1/x2, from y2/y2' with identical masks",
+   "Bob's private key a, from y1 and y1' being equal",
+   "Nothing, since k stays secret",
+   "Only the length of messages"
+  ],
+  "answer": 0,
+  "explanation": "Same k gives the same mask β^k, so the ratio of y2 values equals x1/x2; knowing one message reveals the other. a stays safe.",
+  "concept": "Never reuse ElGamal's k.",
+  "ref": "/learn/bca-elgamal-ecc.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-DH-010",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 25,
+  "day": 9,
+  "topic": "Diffie–Hellman",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "A Logjam-style downgrade forces DH onto a 512-bit prime. Why is that dangerous?",
+  "options": [
+   "Shorter keys break AES",
+   "It disables certificate checks",
+   "512-bit primes have no primitive roots to use as α",
+   "Precomputation makes 512-bit discrete logs feasible"
+  ],
+  "answer": 3,
+  "explanation": "Number field sieve precomputation for a common 512-bit prime lets attackers solve each session's DLP quickly. The fix is ≥ 2,048-bit groups or elliptic curves.",
+  "concept": "Use ≥ 2,048-bit DH or ECDH.",
+  "ref": "/learn/bca-dh-dlp.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-DLP-009",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 26,
+  "day": 9,
+  "topic": "Discrete log & BSGS",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "Brute force on a DLP with p ≈ 2^64 takes 2^64 steps. Roughly how many does BSGS take?",
+  "options": [
+   "2^32 steps, plus a 2^32-entry table",
+   "2^16 steps, plus a 2^48 table",
+   "2^64 steps, with a 2^32 table",
+   "2^63 steps, no table"
+  ],
+  "answer": 0,
+  "explanation": "BSGS cost is √p = 2^32 in both time and memory. It trades memory for time; it does not shrink both arbitrarily.",
+  "concept": "√p each for time and space.",
+  "ref": "/learn/bca-dh-dlp.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ELG-008",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 27,
+  "day": 9,
+  "topic": "ElGamal",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "Translating ElGamal to elliptic curves, β = α^a becomes:",
+  "options": [
+   "β = a/α",
+   "β = a·α (scalar multiplication)",
+   "β = α^a mod p, computed exactly as before",
+   "β = α + a (point plus scalar)"
+  ],
+  "answer": 1,
+  "explanation": "Group exponentiation in Z_p* becomes repeated point addition on a curve. Adding a scalar to a point is not defined.",
+  "concept": "Exponent ↔ scalar multiple.",
+  "ref": "/learn/bca-elgamal-ecc.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-DH-011",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 28,
+  "day": 9,
+  "topic": "Diffie–Hellman",
+  "bloom": "Evaluate",
+  "difficulty": "Hard",
+  "stem": "An IoT design runs plain DH without authentication 'because the keys are large'. What is the best verdict?",
+  "options": [
+   "Unsafe: DH needs a pre-shared AES key first",
+   "Unsafe: key size stops brute force, not man-in-the-middle",
+   "Safe: large keys prevent every passive and active attack",
+   "Safe if a hash of the key is published"
+  ],
+  "answer": 1,
+  "explanation": "Large groups defeat passive discrete-log attacks, but an active attacker can still substitute values. Sign the exchange or use certificates.",
+  "concept": "Size vs authentication: different threats.",
+  "ref": "/learn/bca-dh-dlp.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ELG-009",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 29,
+  "day": 9,
+  "topic": "ElGamal",
+  "bloom": "Evaluate",
+  "difficulty": "Hard",
+  "stem": "Comparing textbook RSA and ElGamal for encrypting short, guessable values, which is better and why?",
+  "options": [
+   "ElGamal, because randomisation stops encrypt-and-compare",
+   "RSA, because deterministic ciphertexts are easier to check",
+   "They are equivalent",
+   "RSA, because ciphertexts are smaller"
+  ],
+  "answer": 0,
+  "explanation": "ElGamal's random k hides repeated messages, while textbook RSA can be tested by encrypting candidates. RSA needs OAEP padding to match.",
+  "concept": "Randomised encryption hides repeats.",
+  "ref": "/learn/bca-elgamal-ecc.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-DH-012",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 9,
+  "position": 30,
+  "day": 9,
+  "topic": "Diffie–Hellman",
+  "bloom": "Create",
+  "difficulty": "Hard",
+  "stem": "Design key exchange for a chat app that must protect past messages if a server key leaks. Which design fits?",
+  "options": [
+   "RSA key transport with a fixed server key",
+   "A single pre-shared password for all users",
+   "Ephemeral ECDH per session, signed by long-term identity keys",
+   "Static DH keys reused for all sessions, rotated yearly"
+  ],
+  "answer": 2,
+  "explanation": "Ephemeral keys give forward secrecy and signatures stop man-in-the-middle. Static keys or RSA transport let one leaked key decrypt recorded history.",
+  "concept": "Ephemeral + authenticated = forward-secure.",
+  "ref": "/learn/bca-dh-dlp.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ECC-001",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 1,
+  "day": 10,
+  "topic": "Elliptic curves",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "What is the short Weierstrass form of an elliptic curve?",
+  "options": [
+   "y² = x² + ax + b",
+   "x² + y² = a",
+   "y² = x³ + ax + b",
+   "y = x² + ax + b"
+  ],
+  "answer": 2,
+  "explanation": "Cryptographic curves over prime fields use the cubic y² = x³ + ax + b. A circle or parabola lacks the group structure.",
+  "concept": "Weierstrass: y² = x³ + ax + b.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ECC-002",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 2,
+  "day": 10,
+  "topic": "Elliptic curves",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "Which condition makes a curve non-singular?",
+  "options": [
+   "a ≠ b",
+   "b ≠ 0",
+   "4a³ + 27b² ≠ 0",
+   "a³ + b² = 1"
+  ],
+  "answer": 2,
+  "explanation": "A zero discriminant gives a cusp or node, where the group law fails. b can be 0, as in y² = x³ − 4x.",
+  "concept": "Non-singular: 4a³ + 27b² ≠ 0.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ECC-003",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 3,
+  "day": 10,
+  "topic": "Elliptic curves",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "What plays the role of the identity element in the elliptic-curve group?",
+  "options": [
+   "The point (0, 0)",
+   "The point at infinity O",
+   "The point (1, 1)",
+   "The generator G"
+  ],
+  "answer": 1,
+  "explanation": "P + O = P for every P. (0, 0) may not even lie on the curve.",
+  "concept": "Identity = point at infinity.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ECC-004",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 4,
+  "day": 10,
+  "topic": "Elliptic curves",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "What is the inverse of the point P = (x, y)?",
+  "options": [
+   "(−x, −y)",
+   "(x, −y)",
+   "(y, x)",
+   "(−x, y)"
+  ],
+  "answer": 1,
+  "explanation": "The curve is symmetric about the x-axis, and the vertical line through (x, y) and (x, −y) meets O. Over Z_p, −y is p − y.",
+  "concept": "−P = reflection in the x-axis.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ECC-005",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 5,
+  "day": 10,
+  "topic": "Elliptic curves",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "Geometrically, how is P + Q found?",
+  "options": [
+   "Draw the tangent at the origin",
+   "Average the coordinates of P and Q, then reduce them",
+   "Rotate P by Q's angle",
+   "Take the third intersection of line PQ and reflect it"
+  ],
+  "answer": 3,
+  "explanation": "A line meets the cubic in three points; reflecting the third in the x-axis gives P + Q. For doubling the tangent replaces the chord.",
+  "concept": "Chord-and-tangent, then reflect.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ECC-006",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 6,
+  "day": 10,
+  "topic": "Elliptic curves",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "What is the ECDLP?",
+  "options": [
+   "Given x, find y on the curve",
+   "Given k, find kG",
+   "Given P and Q, find P + Q",
+   "Given G and Q = kG, find k"
+  ],
+  "answer": 3,
+  "explanation": "Computing kG is fast by double-and-add; recovering k is believed infeasible on good curves. Point addition and finding y are easy.",
+  "concept": "ECDLP: recover the scalar k.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ECC-007",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 7,
+  "day": 10,
+  "topic": "Elliptic curves",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "Why are elliptic curves defined over Z_p for cryptography?",
+  "options": [
+   "Z_p allows decimals",
+   "Real-number curves have no points with integer values",
+   "Exact finite arithmetic without rounding",
+   "It makes the curve singular"
+  ],
+  "answer": 2,
+  "explanation": "Real-number points need infinite precision and rounding breaks the group law. A finite field gives a finite, exact group.",
+  "concept": "Finite fields give exact, finite groups.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ECC-008",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 8,
+  "day": 10,
+  "topic": "Elliptic curves",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "Which curve do Bitcoin and Ethereum use for keys?",
+  "options": [
+   "P-256",
+   "Curve25519",
+   "secp256k1, y² = x³ + 7",
+   "y² = x³ + x + 6"
+  ],
+  "answer": 2,
+  "explanation": "secp256k1 has a = 0, b = 7 over a 256-bit prime field. y² = x³ + x + 6 over Z_11 is the classroom curve.",
+  "concept": "Bitcoin/Ethereum: secp256k1.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-QR-001",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 9,
+  "day": 10,
+  "topic": "Quadratic residues",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "What is a quadratic residue z modulo p?",
+  "options": [
+   "Any value less than p/2 that is coprime to p",
+   "A value with z² ≡ 1",
+   "A prime below p",
+   "A value for which y² ≡ z (mod p) has a solution"
+  ],
+  "answer": 3,
+  "explanation": "Residues are exactly the squares mod p; half of the non-zero values are residues. Elliptic-curve points exist only where x³ + ax + b is one.",
+  "concept": "QR = a square mod p.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-QR-002",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 10,
+  "day": 10,
+  "topic": "Quadratic residues",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "Euler's criterion says z is a quadratic residue mod an odd prime p when:",
+  "options": [
+   "z^((p−1)/2) ≡ 1 (mod p)",
+   "z^((p+1)/4) ≡ 0 (mod p)",
+   "z^2 ≡ 1 (mod p)",
+   "z^(p−1) ≡ 1 (mod p)"
+  ],
+  "answer": 0,
+  "explanation": "The half-power is +1 for residues and −1 for non-residues. z^(p−1) ≡ 1 holds for every non-zero z, so it tests nothing.",
+  "concept": "Euler: z^((p−1)/2) = ±1.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-CMP-001",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 11,
+  "day": 10,
+  "topic": "RSA vs ECC",
+  "bloom": "Remember",
+  "difficulty": "Easy",
+  "stem": "Which RSA modulus gives roughly the same security as a 256-bit elliptic-curve key?",
+  "options": [
+   "15,360 bits",
+   "3,072 bits",
+   "1,024 bits",
+   "256 bits"
+  ],
+  "answer": 1,
+  "explanation": "Both give about 128-bit security. 15,360-bit RSA matches 512-bit ECC.",
+  "concept": "256-bit ECC ≈ 3,072-bit RSA.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-CMP-002",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 12,
+  "day": 10,
+  "topic": "RSA vs ECC",
+  "bloom": "Understand",
+  "difficulty": "Easy",
+  "stem": "Why does ECC need much shorter keys than RSA?",
+  "options": [
+   "ECC operations are simpler, so smaller keys suffice",
+   "ECC uses hashing instead of keys",
+   "No sub-exponential attack is known for ECDLP",
+   "RSA keys are padded"
+  ],
+  "answer": 2,
+  "explanation": "Factoring has the sub-exponential number field sieve; ECDLP has only square-root attacks. ECC point operations are actually more complex per step.",
+  "concept": "Attack complexity drives key size.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-QR-003",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 13,
+  "day": 10,
+  "topic": "Quadratic residues",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "Which set is the quadratic residues modulo 11?",
+  "options": [
+   "{1, 2, 4, 8}",
+   "{1, 4, 9}",
+   "{2, 6, 7, 8, 10}",
+   "{1, 3, 4, 5, 9}"
+  ],
+  "answer": 3,
+  "explanation": "Squaring 1 to 5 gives 1, 4, 9, 5, 3. {2, 6, 7, 8, 10} are the non-residues.",
+  "concept": "(p − 1)/2 residues mod p.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-QR-004",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 14,
+  "day": 10,
+  "topic": "Quadratic residues",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "Since 11 ≡ 3 (mod 4), the square roots of 5 mod 11 are ±5^3. What are they?",
+  "options": [
+   "5 and 6",
+   "2 and 9",
+   "4 and 7",
+   "3 and 8"
+  ],
+  "answer": 2,
+  "explanation": "5³ = 125 ≡ 4, and −4 ≡ 7; check 4² = 16 ≡ 5. 2 and 9 are the roots of 4.",
+  "concept": "p ≡ 3 mod 4: roots are ±z^((p+1)/4).",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ECC-009",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 15,
+  "day": 10,
+  "topic": "Elliptic curves",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "Is y² ≡ x³ + x + 6 (mod 11) non-singular?",
+  "options": [
+   "Yes: 4 + 27·36 = 976 ≡ 8 (mod 11)",
+   "No: the discriminant is 0",
+   "Yes: b is non-zero",
+   "No: 6 is not a residue"
+  ],
+  "answer": 0,
+  "explanation": "976 = 88·11 + 8, which is non-zero, so the curve is valid. b ≠ 0 alone does not prove it.",
+  "concept": "Reduce the discriminant mod p.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ECC-010",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 16,
+  "day": 10,
+  "topic": "Elliptic curves",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "On y² = x³ + x + 6 over Z_11, how many points lie on the curve including O?",
+  "options": [
+   "13",
+   "11",
+   "22",
+   "12"
+  ],
+  "answer": 0,
+  "explanation": "Six x-values give two points each (12 affine points) plus O. 12 forgets the point at infinity.",
+  "concept": "Group order counts O.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ECC-011",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 17,
+  "day": 10,
+  "topic": "Elliptic curves",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "On y² = x³ + x + 6 over Z_11, which x-value yields points?",
+  "options": [
+   "x = 0",
+   "x = 1",
+   "x = 2",
+   "x = 4"
+  ],
+  "answer": 2,
+  "explanation": "x = 2 gives z = 16 ≡ 5, a residue, so y = 4 or 7. x = 0, 1 and 4 give 6, 8 and 8, which are non-residues.",
+  "concept": "Points exist where z is a QR.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ECC-012",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 18,
+  "day": 10,
+  "topic": "Elliptic curves",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "Doubling α = (2, 7) on y² = x³ + x + 6 over Z_11, what is λ?",
+  "options": [
+   "8",
+   "13",
+   "4",
+   "2"
+  ],
+  "answer": 0,
+  "explanation": "λ = (3·4 + 1)(2·7)^−1 = 13·14^−1 ≡ 2·3^−1 = 2·4 = 8. 13 is the unreduced numerator.",
+  "concept": "Doubling slope (3x² + a)/(2y).",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ECC-013",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 19,
+  "day": 10,
+  "topic": "Elliptic curves",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "With λ = 8, what is 2α for α = (2, 7) over Z_11?",
+  "options": [
+   "(2, 4)",
+   "(5, 2)",
+   "(8, 3)",
+   "(5, 9)"
+  ],
+  "answer": 1,
+  "explanation": "x = 64 − 4 = 60 ≡ 5 and y = 8(2 − 5) − 7 = −31 ≡ 2. (5, 9) is −2α.",
+  "concept": "x3 = λ² − 2x1; y3 = λ(x1 − x3) − y1.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ECC-014",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 20,
+  "day": 10,
+  "topic": "Elliptic curves",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "Given 2α = (5, 2) and α = (2, 7), what is 3α?",
+  "options": [
+   "(8, 8)",
+   "(8, 3)",
+   "(10, 2)",
+   "(3, 6)"
+  ],
+  "answer": 1,
+  "explanation": "λ = (7 − 2)(2 − 5)^−1 = 5·7 = 35 ≡ 2; x = 4 − 7 ≡ 8, y = 2(5 − 8) − 2 ≡ 3. (8, 8) is its negative.",
+  "concept": "Addition slope (y2 − y1)/(x2 − x1).",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ECC-015",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 21,
+  "day": 10,
+  "topic": "Elliptic curves",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "If 12α = (2, 4) and α = (2, 7) on the Z_11 curve, what is 13α?",
+  "options": [
+   "O",
+   "(4, 7)",
+   "α",
+   "(2, 0)"
+  ],
+  "answer": 0,
+  "explanation": "(2, 4) and (2, 7) share x and 4 + 7 = 11 ≡ 0, so they are inverses and sum to O. The group order is 13.",
+  "concept": "P + (−P) = O.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ECC-016",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 22,
+  "day": 10,
+  "topic": "Elliptic curves",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "Why is every point except O a generator of the 13-point Z_11 curve group?",
+  "options": [
+   "13 equals p + 2",
+   "13 is prime, so the only subgroups have order 1 or 13",
+   "The curve has a = 1",
+   "All points share the same x-value, so each repeats"
+  ],
+  "answer": 1,
+  "explanation": "By Lagrange's theorem a point's order divides 13, so any point other than O has order 13. This is why α = (2, 7) generates all points.",
+  "concept": "Prime group order ⇒ every non-identity element generates.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ECC-017",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 23,
+  "day": 10,
+  "topic": "Elliptic curves",
+  "bloom": "Apply",
+  "difficulty": "Intermediate",
+  "stem": "With β = 7α = (7, 2) and k = 3, what is 3β on the Z_11 curve?",
+  "options": [
+   "(7, 9)",
+   "(3, 5)",
+   "(10, 2)",
+   "(8, 3)"
+  ],
+  "answer": 1,
+  "explanation": "3β = 21α = 8α since 13α = O, and 8α = (3, 5). (8, 3) is 3α.",
+  "concept": "Reduce scalars mod the group order.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ECC-018",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 24,
+  "day": 10,
+  "topic": "Elliptic curves",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "To decrypt EC-ElGamal (y1, y2) = ((8, 3), (10, 2)) with a = 7, Bob computes 7y1 = (3, 5). What does he add to y2?",
+  "options": [
+   "(3, 6)",
+   "(8, 8)",
+   "(10, 9)",
+   "(3, 5)"
+  ],
+  "answer": 0,
+  "explanation": "Subtracting a point means adding its inverse, (3, −5) = (3, 6). The sum (10, 2) + (3, 6) = (10, 9) is the plaintext.",
+  "concept": "P_m = y2 − a·y1.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-CMP-003",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 25,
+  "day": 10,
+  "topic": "RSA vs ECC",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "Why do blockchains prefer ECC signatures over RSA?",
+  "options": [
+   "Smaller keys and signatures shrink every transaction",
+   "RSA cannot sign data",
+   "ECC signatures need no private key to produce them",
+   "ECC verification needs no computation"
+  ],
+  "answer": 0,
+  "explanation": "At equal security an ECC signature is a fraction of an RSA one, and size multiplies across millions of transactions. RSA can sign; it is just bulkier.",
+  "concept": "Signature size matters at ledger scale.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-CMP-004",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 26,
+  "day": 10,
+  "topic": "RSA vs ECC",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "Which statement about RSA vs ECC performance is accurate?",
+  "options": [
+   "RSA key generation is faster than ECC",
+   "ECC is slower in every operation but has smaller keys",
+   "RSA signatures are shorter than ECC",
+   "RSA verification with small e is fast, but ECC wins on size and keygen"
+  ],
+  "answer": 3,
+  "explanation": "Public-exponent operations in RSA are cheap, yet keys, signatures and key generation favour ECC. RSA keygen needs large prime searches.",
+  "concept": "Trade-offs differ by operation.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ECC-019",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 27,
+  "day": 10,
+  "topic": "Elliptic curves",
+  "bloom": "Analyse",
+  "difficulty": "Intermediate",
+  "stem": "On y² = x³ − 4x over the reals, why is 2·(2, 0) = O?",
+  "options": [
+   "The discriminant is zero",
+   "(2, 0) is the generator",
+   "x = 2 is a root of a",
+   "y = 0 makes the tangent vertical"
+  ],
+  "answer": 3,
+  "explanation": "With y1 = 0 the doubling slope has a zero denominator, so the tangent is vertical and meets O. The curve's discriminant is −256, not zero.",
+  "concept": "Points with y = 0 have order 2.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-CMP-005",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 28,
+  "day": 10,
+  "topic": "RSA vs ECC",
+  "bloom": "Evaluate",
+  "difficulty": "Hard",
+  "stem": "An IoT sensor with tight bandwidth needs 128-bit security for signatures. Which choice is best?",
+  "options": [
+   "ECDSA or Ed25519 with a 256-bit curve",
+   "RSA-3072 for maximum compatibility",
+   "ECC over a 64-bit prime field",
+   "RSA-1024 to save bandwidth"
+  ],
+  "answer": 0,
+  "explanation": "A 256-bit curve gives 128-bit security with small keys and signatures. RSA-1024 is too weak and a 64-bit curve falls to √p attacks.",
+  "concept": "Constrained devices → 256-bit ECC.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ECC-020",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 29,
+  "day": 10,
+  "topic": "Elliptic curves",
+  "bloom": "Evaluate",
+  "difficulty": "Hard",
+  "stem": "A curve's group order is 2^4·q for a large prime q. A protocol uses a point of order 16 as its base. What is the verdict?",
+  "options": [
+   "Secure if the field prime is large enough",
+   "Insecure: the DLP in a 16-element subgroup is trivial",
+   "Secure, since the full group has a large prime factor q",
+   "Insecure only on the real numbers"
+  ],
+  "answer": 1,
+  "explanation": "Security depends on the order of the base point, not the whole group; order 16 means at most 16 tries. Use a base point of prime order q.",
+  "concept": "Base point must have large prime order.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
+ },
+ {
+  "id": "BCA-ECC-021",
+  "subject": "Blockchain & Access Control",
+  "code": "BCA",
+  "subject_code": "BCA",
+  "quiz_no": 10,
+  "position": 30,
+  "day": 10,
+  "topic": "Elliptic curves",
+  "bloom": "Create",
+  "difficulty": "Hard",
+  "stem": "You must choose curve parameters for a new wallet. Which set of checks is most complete?",
+  "options": [
+   "Largest possible a for speed",
+   "A singular curve to simplify arithmetic",
+   "Any a and b with b ≠ 0, chosen freshly for each wallet",
+   "Non-singular curve, large prime-order base point, small cofactor, vetted standard"
+  ],
+  "answer": 3,
+  "explanation": "A non-zero discriminant, prime-order subgroup and small cofactor block known attacks, and standard curves avoid hidden weaknesses. Singular curves reduce the DLP to easier problems.",
+  "concept": "Vet parameters; prefer standard curves.",
+  "ref": "/learn/bca-ecc-finite-fields.html",
+  "source": "Course notes, Blockchain & Access Control (IIT Bhubaneswar M.Tech)"
  }
 ]

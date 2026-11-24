@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Distributed consensus, fault models and consensus families | Prasun Chaturvedi</title>
+  <meta name="description" content="The consensus problem and its six properties, timing models, crash versus Byzantine faults, permissionless versus permissioned designs, Nakamoto PoW, PoS, DPoS, LPoS, PoET, Tangle and Proof of Burn.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/bca-consensus.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="Distributed consensus, fault models and consensus families">
+  <meta property="og:description" content="The consensus problem and its six properties, timing models, crash versus Byzantine faults, permissionless versus permissioned designs, Nakamoto PoW, PoS, DPoS, LPoS, PoET, Tangle and Proof of Burn.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/bca-consensus.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Blockchain &amp; Access Control &rsaquo; Module 3 · Consensus</p>
+        <h1>Distributed consensus, fault models and consensus families</h1>
+        <p>The consensus problem and its six properties, timing models, crash versus Byzantine faults, permissionless versus permissioned designs, Nakamoto PoW, PoS, DPoS, LPoS, PoET, Tangle and Proof of Burn.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Blockchain &amp; Access Control &mdash; revision notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#problem">The consensus problem</a></li><li><a href="#faults">Crash vs Byzantine faults</a></li><li><a href="#families">Challenges and families</a></li><li><a href="#pow">Nakamoto consensus and PoW</a></li><li><a href="#pos">PoS, DPoS and LPoS</a></li><li><a href="#alt">PoET, Tangle and Proof of Burn</a></li><li><a href="#table">Summary table</a></li></ol></nav>
+<h2 id="problem">The consensus problem</h2>
+<p>Distributed nodes must agree on one value or ordered history despite delays, no global clock, crashes, partitions and attackers. The goal is to prevent conflicting accepted states (forks, double spends), not merely to copy data. Not every ledger is a chain of blocks: IOTA&rsquo;s Tangle is a DAG.</p>
+<table><thead><tr><th>Property</th><th>Meaning</th></tr></thead><tbody>
+<tr><td>Agreement</td><td>Honest nodes never decide conflicting values</td></tr>
+<tr><td>Validity</td><td>A decided value satisfies the protocol rules</td></tr>
+<tr><td>Integrity</td><td>A node decides at most once per instance</td></tr>
+<tr><td>Safety</td><td>&ldquo;Nothing bad happens&rdquo; &mdash; no invalid or conflicting commits, even if progress stalls</td></tr>
+<tr><td>Termination</td><td>Non-faulty nodes eventually decide, under the stated network model</td></tr>
+<tr><td>Liveness</td><td>&ldquo;Something good eventually happens&rdquo; &mdash; new transactions keep confirming</td></tr></tbody></table>
+<p>Timing models: <strong>synchronous</strong> (known delay bound), <strong>partially synchronous</strong> (bounded after an unknown stabilisation time), <strong>asynchronous</strong> (no bound).</p>
+
+<h2 id="faults">Crash vs Byzantine faults</h2>
+<table><thead><tr><th></th><th>Crash / omission</th><th>Byzantine</th></tr></thead><tbody>
+<tr><td>Behaviour</td><td>Stops or drops messages; never lies</td><td>Arbitrary: lies, equivocates, colludes, reorders</td></tr>
+<tr><td>Mitigation</td><td>Timeouts, retries, leader failover (Raft, Paxos)</td><td>Signatures, independent verification, thresholds (f faulty of 3f + 1; or &lt; 50% hash/stake)</td></tr></tbody></table>
+<div class="worked"><h3>Worked example</h3><p>Four bank nodes. If N3 loses power, the others time out, exclude it and commit. If N3 is hacked and tells N1, N2 &ldquo;pay Alice&rdquo; but N4 &ldquo;pay Hacker&rdquo;, only Byzantine-tolerant rules stop the ledger from splitting.</p></div>
+
+<h2 id="families">Challenges and families</h2>
+<p>Challenges: latency and loss, simultaneous proposals, <strong>Sybil attacks</strong> in open membership, incentive manipulation and censorship, and trade-offs among security, throughput, decentralisation, latency, energy and governance.</p>
+<p><strong>Permissionless</strong>: anyone joins; Sybil resistance comes from a scarce resource (work or stake). <strong>Permissioned</strong>: vetted organisations; identity (PKI, MSPs), endorsement policies and consortium governance.</p>
+
+<h2 id="pow">Nakamoto consensus and Proof of Work</h2>
+<ol class="plain"><li>Assemble mempool transactions into a candidate block.</li><li>Vary the nonce and hash the header.</li><li>Win when H(header) &lt; target.</li><li>Peers verify every rule and extend the chain with the most cumulative work.</li></ol>
+<ul class="plain"><li><strong>Probabilistic finality</strong>: a block can be reorganised, but the risk falls exponentially with confirmations (Bitcoin: about 6, roughly an hour).</li>
+<li>A &gt; 50% attacker can censor and rewrite recent history (double-spend their own coins) but <em>cannot</em> forge signatures or mint coins beyond the rules.</li>
+<li>Strengths: open, battle-tested, explicit cost to rewrite. Weaknesses: energy, ASICs, pool centralisation, slow confirmation.</li></ul>
+
+<h2 id="pos">PoS, DPoS and LPoS</h2>
+<table><thead><tr><th></th><th>Mechanism</th><th>Risk</th><th>Example</th></tr></thead><tbody>
+<tr><td>PoS</td><td>Validators lock stake; pseudo-random, stake-weighted proposal and attestation; rewards for uptime, <strong>slashing</strong> for provable equivocation</td><td>Stake concentration, hot-key compromise, client bugs</td><td>Ethereum, Cardano, Polkadot</td></tr>
+<tr><td>DPoS</td><td>Holders vote in a small set of block producers who take turns</td><td>Cartels, voter apathy, exchange voting power</td><td>EOS (21), TRON (27)</td></tr>
+<tr><td>LPoS</td><td>Small holders lease stake to a validator; coins never leave the wallet; revocable</td><td>Delegation concentration</td><td>Waves; Tezos-style delegation</td></tr></tbody></table>
+
+<h2 id="alt">PoET, Tangle and Proof of Burn</h2>
+<ul class="plain"><li><strong>PoET</strong> (Intel, Hyperledger Sawtooth): each node gets a random wait time from a trusted execution environment (SGX); the first to finish proves it and publishes. Saves energy by <em>shifting trust</em> to the hardware vendor and attestation.</li>
+<li><strong>Tangle</strong> (IOTA): no blocks or miners; each new transaction approves two earlier tips, forming a DAG. Parallel and feeless, but finality depends on tip selection and weight assumptions.</li>
+<li><strong>Proof of Burn</strong>: send coins to an unspendable address; more burned, more minting right. No ongoing energy, but destroys capital and favours the wealthy (Slimcoin, Counterparty).</li></ul>
+
+<h2 id="table">Summary table</h2>
+<table><thead><tr><th>Mechanism</th><th>Selection resource</th><th>Energy</th><th>Main concern</th></tr></thead><tbody>
+<tr><td>PoW</td><td>Hash computation</td><td>High</td><td>Hash-power and pool concentration</td></tr>
+<tr><td>PoS</td><td>Staked tokens</td><td>Low</td><td>Stake concentration; slashing</td></tr>
+<tr><td>DPoS</td><td>Elected producers</td><td>Low</td><td>Collusion; apathy</td></tr>
+<tr><td>LPoS</td><td>Leased stake</td><td>Low</td><td>Delegation concentration</td></tr>
+<tr><td>PoET</td><td>TEE wait timer</td><td>Low</td><td>Trusted hardware</td></tr>
+<tr><td>Tangle</td><td>DAG tip approval</td><td>Protocol-driven</td><td>Tip selection; finality</td></tr>
+<tr><td>PoB</td><td>Burned coins</td><td>Low ongoing</td><td>Capital destruction</td></tr></tbody></table>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>A new Blockchain &amp; Access Control quiz opens every day at 11:00 AM IST: 30 questions from recall to evaluation, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/play.html?s=bca">Take today&rsquo;s Blockchain quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/bca-ecc-finite-fields.html" rel="prev">&larr; ECC over prime fields, quadratic residues, EC-ElGamal and RSA vs ECC</a><a href="/learn/bca-pow-ethereum.html" rel="next">PoW difficulty, energy metrics and Ethereum proof of stake &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
