@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Learn: Network &amp; Systems Security notes | Prasun Chaturvedi</title>
+  <meta name="description" content="Refresher notes on networks and system security by Prasun Chaturvedi, with a daily quiz.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="Learn: Network &amp; Systems Security notes">
+  <meta property="og:description" content="Refresher notes on networks and system security by Prasun Chaturvedi, with a daily quiz.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <h1>Learn</h1>
+        <p>Network &amp; Systems Security &mdash; refresher notes by Prasun Chaturvedi.</p>
+      </div>
+    </div>
+    <section aria-label="Notes and quiz">
+      <div class="wrap">
+        <p class="section-intro">Concise, exam-oriented notes on networks and system security: definitions, tables, worked examples and common pitfalls.<br>Revise a topic, then check yourself with the daily quiz.</p>
+        <a class="quiz-card-link" href="/quiz/">
+          <strong>Daily quiz</strong>
+          <span>30 questions a day with instant model answers. Networking is live; more subjects are coming.</span>
+          <span class="go" aria-hidden="true">Start &rarr;</span>
+        </a>
+        <h2>Part 1 · Networking foundations</h2>
+<ul class="topic-list"><li><a href="/learn/osi-model.html">OSI model and layer-wise threats</a><span>The seven OSI layers, encapsulation hop by hop, and the typical attack and mitigation at each layer.</span></li><li><a href="/learn/ipv4-addressing.html">IPv4 addressing, subnetting and CIDR</a><span>Classful addressing, casting types, subnet masks, bitwise AND routing, CIDR validity rules and worked subnetting.</span></li><li><a href="/learn/application-layer.html">Application layer: HTTP, DNS, e-mail and FTP</a><span>HTTP methods and persistence, DNS hierarchy and resolution, SMTP/POP/IMAP with MIME, and FTP&#x27;s two connections.</span></li><li><a href="/learn/transport-sockets.html">TCP, UDP, sockets and CRC</a><span>Ports and sockets, TCP header, sequence and acknowledgement arithmetic, handshake and teardown, UDP, the C socket API, CRC and NS-2.</span></li><li><a href="/learn/arp-dhcp-icmp.html">ARP, BOOTP, DHCP and ICMP</a><span>Address resolution, host configuration with relay agents, and ICMP error and query messages with their exceptions.</span></li></ul>
+<h2>Part 2 · Network attacks and defence</h2>
+<ul class="topic-list"><li><a href="/learn/security-fundamentals.html">Security goals, attacks and X.800</a><span>CIA and its extensions, passive and active attacks, X.800 services and mechanisms, and the model for network security.</span></li><li><a href="/learn/lan-transport-attacks.html">LAN and transport attacks: ARP, DHCP, SYN flood, hijacking</a><span>Layer 2 attacks mapped to X.800, DHCP starvation and spoofing, SYN floods and SYN cookies, session hijacking and spoofing, and Ettercap.</span></li><li><a href="/learn/dns-attacks-firewalls.html">DNS attacks, amplification and firewalls</a><span>Pharming and glue poisoning, on-path and off-path cache poisoning, DNS hardening, amplification, and stateless, stateful and proxy firewalls.</span></li><li><a href="/learn/security-tools.html">Security tools: tcpdump, httprobe, nmap and Snort 3</a><span>Packet capture with BPF filters and TCP flag masks, web-service discovery, nmap scan types and port states, and Snort 3 IDS/IPS rules and modes.</span></li></ul>
+<h2>Part 3 · Cryptography and secure protocols</h2>
+<ul class="topic-list"><li><a href="/learn/classical-crypto.html">Symmetric cryptography and classical ciphers</a><span>Terminology, Kerckhoffs&#x27; principle, attack models, perfect secrecy, additive, multiplicative and affine ciphers, transposition, and stream versus block ciphers.</span></li><li><a href="/learn/lfsr-rc4.html">Stream ciphers: LFSR and RC4</a><span>How LFSRs work and why they fail alone, RC4&#x27;s KSA and PRGA step by step, its biases, and the RC4 chat lab.</span></li><li><a href="/learn/dh-rsa.html">Diffie–Hellman, RSA and man-in-the-middle</a><span>Diffie-Hellman key agreement, brute-forcing a small discrete log, RSA key generation and use, padding, and why unauthenticated keys invite man-in-the-middle attacks.</span></li><li><a href="/learn/ipsec.html">IPsec: AH, ESP, transport and tunnel modes</a><span>Where IPsec sits compared with TLS, its services, SPD and SAD, mutable header fields, AH and ESP formats, modes, NAT and anti-replay.</span></li></ul>
+<h2>Part 4 · Forensics, attack graphs and blockchain security</h2>
+<ul class="topic-list"><li><a href="/learn/forensics.html">File forensics and EnCase</a><span>Magic numbers, metadata, deletion and file carving, steganography, write-blocking, E01 images and the EnCase workflow.</span></li><li><a href="/learn/attack-graphs-blockchain.html">Attack graphs, trust scores and Hyperledger Fabric</a><span>Formal attack graphs, network model inputs, minimum hitting sets, trust-score arithmetic, and the Fabric pharma chaincode lab.</span></li></ul>
+
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

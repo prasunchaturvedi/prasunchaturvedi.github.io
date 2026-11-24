@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TCP, UDP, sockets and CRC | Prasun Chaturvedi</title>
+  <meta name="description" content="Ports and sockets, TCP header, sequence and acknowledgement arithmetic, handshake and teardown, UDP, the C socket API, CRC and NS-2.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/transport-sockets.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="TCP, UDP, sockets and CRC">
+  <meta property="og:description" content="Ports and sockets, TCP header, sequence and acknowledgement arithmetic, handshake and teardown, UDP, the C socket API, CRC and NS-2.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/transport-sockets.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Part 1 · Networking foundations</p>
+        <h1>TCP, UDP, sockets and CRC</h1>
+        <p>Ports and sockets, TCP header, sequence and acknowledgement arithmetic, handshake and teardown, UDP, the C socket API, CRC and NS-2.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Network &amp; Systems Security &mdash; refresher notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#role">Role of the transport layer</a></li><li><a href="#tcp">TCP essentials</a></li><li><a href="#udp">UDP</a></li><li><a href="#sockets">Socket programming in C</a></li><li><a href="#crc">CRC (cyclic redundancy check)</a></li><li><a href="#ns2">NS-2 in one paragraph</a></li><li><a href="#pitfalls">Common pitfalls</a></li></ol></nav>
+
+<h2 id="role">Role of the transport layer</h2>
+<p>IP delivers host to host; the transport layer delivers <strong>process to process</strong> using 16-bit ports (0&ndash;65,535) and multiplexing/demultiplexing.</p>
+<table class="data"><thead><tr><th scope="col">Range</th><th scope="col">Name</th><th scope="col">Examples</th></tr></thead><tbody>
+<tr><td>0&ndash;1,023</td><td>Well-known</td><td>FTP 21, SSH 22, Telnet 23, SMTP 25, DNS 53, HTTP 80, POP3 110, HTTPS 443</td></tr>
+<tr><td>1,024&ndash;49,151</td><td>Registered</td><td>Vendor services, e.g. 8080</td></tr>
+<tr><td>49,152&ndash;65,535</td><td>Dynamic / ephemeral</td><td>Client-side ports</td></tr>
+</tbody></table>
+<p>A <strong>socket</strong> = IP address + port (32 + 16 = 48 bits for IPv4). A TCP connection is identified by both sockets: the 4-tuple (source IP, source port, destination IP, destination port).</p>
+
+<h2 id="tcp">TCP essentials</h2>
+<p>Connection-oriented, reliable, ordered byte stream with flow control (receiver's advertised window) and congestion control (network capacity). Header: 20 bytes minimum, up to 60 with options. Flags: URG, ACK, PSH, RST, SYN, FIN.</p>
+<div class="formula"><p>Seq = number of the first data byte in the segment. ACK = next byte expected = last byte received + 1 = Seq + data length.</p>
+<p>SYN and FIN each consume one sequence number; a pure ACK consumes none. ACKs are cumulative.</p>
+<p>TCP data = IP total length &minus; IP header &minus; TCP header.</p></div>
+<div class="worked"><h3>Worked examples</h3>
+<ul class="plain">
+<li>Seq 10,000 with 1,200 bytes &rArr; ACK 11,200.</li>
+<li>IP total 1,500, IP header 20, TCP header 20 &rArr; 1,460 data bytes; Seq 20,000 &rArr; ACK 21,460.</li>
+<li>Handshake: client SYN Seq 5,000; server SYN-ACK Seq 8,000, Ack 5,001; client ACK Seq 5,001, Ack 8,001.</li>
+<li>Segments 1,001, 2,001, 3,001 (1,000 B each), the second lost: receiver keeps sending ACK 2,001 (duplicate ACKs). Three duplicates trigger fast retransmit.</li>
+<li>Teardown: client FIN Seq 722 &rArr; server ACK 723; server FIN Seq 2,201 &rArr; client ACK 2,202.</li>
+</ul></div>
+<p>Flag combinations: SYN=1/ACK=0 opens a connection; SYN=1/ACK=1 is the reply; SYN=0/ACK=1 is every later segment. SYN=0/ACK=0 does not occur in normal flow, but it does appear in some RST segments and in NULL/FIN/Xmas scan probes.</p>
+
+<h2 id="udp">UDP</h2>
+<p>Connectionless and message-oriented, with an 8-byte header (source port, destination port, length, checksum). It suits DNS, streaming, VoIP and broadcast/multicast. Largest IPv4 UDP payload = 65,535 &minus; 20 &minus; 8 = <strong>65,507 bytes</strong>.</p>
+
+<h2 id="sockets">Socket programming in C</h2>
+<pre><code>/* TCP server */
+int s = socket(AF_INET, SOCK_STREAM, 0);      /* SOCK_DGRAM for UDP */
+addr.sin_family = AF_INET;
+addr.sin_addr.s_addr = INADDR_ANY;            /* any local interface */
+addr.sin_port = htons(8080);                  /* host to network byte order */
+bind(s, (struct sockaddr *)&amp;addr, sizeof addr);
+listen(s, 3);                                 /* passive socket, queue of 3 */
+int c = accept(s, (struct sockaddr *)&amp;cli, &amp;len); /* new data socket */
+while ((n = read(c, buf, MAX)) &gt; 0) fwrite(buf, 1, n, fp);
+close(c); close(s);
+
+/* TCP client */
+int s = socket(AF_INET, SOCK_STREAM, 0);
+inet_pton(AF_INET, "127.0.0.1", &amp;srv.sin_addr);
+connect(s, (struct sockaddr *)&amp;srv, sizeof srv);  /* starts the handshake */
+while ((n = fread(buf, 1, MAX, fp)) &gt; 0) send(s, buf, n, 0);</code></pre>
+<ul class="plain">
+<li>One <strong>listening</strong> socket per service never carries data; <code>accept()</code> returns a new <strong>data</strong> socket per client.</li>
+<li><code>recv()</code>/<code>read()</code> return bytes read, 0 when the peer closes, &minus;1 on error.</li>
+<li>UDP servers use <code>socket</code>, <code>bind</code>, <code>recvfrom</code>, <code>sendto</code>; there is no <code>listen</code>/<code>accept</code>.</li>
+<li>Concurrency: <code>fork()</code> after <code>accept()</code> (child closes the listener; parent closes the data socket and reaps children with <code>waitpid(-1, NULL, WNOHANG)</code>), or threads.</li>
+<li>When the <code>listen</code> queue is full, Linux ignores new SYNs and clients retransmit; requests are not refused at once.</li>
+<li>Because TCP moves raw bytes, the file-transfer server needs no knowledge of PDF or JPEG formats.</li>
+</ul>
+
+<h2 id="crc">CRC (cyclic redundancy check)</h2>
+<p>CRC detects accidental bit errors using modulo-2 (XOR) division by a generator polynomial shared by both ends. It offers no protection against deliberate tampering, because anyone can recompute it.</p>
+<ol class="plain"><li>Append (degree of generator) zeros to the data.</li><li>Divide modulo 2 by the generator; keep the remainder.</li><li>Replace the zeros with the remainder to form the codeword.</li><li>The receiver divides the codeword; remainder 0 &rArr; accept, otherwise error detected.</li></ol>
+<div class="worked"><h3>Worked example</h3><p>Data <code>1001</code>, generator <code>1011</code> (degree 3): divide <code>1001000</code> by <code>1011</code> to get remainder <code>110</code>, so the codeword is <code>1001110</code>. Dividing <code>1001110</code> by <code>1011</code> leaves <code>000</code>.</p></div>
+<p>Ethernet uses CRC-32 in the FCS, computed in hardware with shift registers.</p>
+
+<h2 id="ns2">NS-2 in one paragraph</h2>
+<p>NS-2 has a C++ core (scheduler, queues such as DropTail and RED) and OTcl scripts for topologies. A script creates the simulator, opens trace files, builds nodes and links (<code>$ns duplex-link $n0 $n1 1Mb 10ms DropTail</code>), attaches agents (TCP&ndash;TCPSink, UDP&ndash;Null) and traffic (FTP, CBR), schedules events and runs. Trace events: <code>+</code> enqueue, <code>-</code> dequeue, <code>r</code> receive, <code>d</code> drop.</p>
+
+<h2 id="pitfalls">Common pitfalls</h2>
+<ul class="plain">
+<li>Reading from the listening socket instead of the accepted one.</li>
+<li>Forgetting that SYN uses up a sequence number.</li>
+<li>Subtracting a 20-byte TCP header when options make it longer.</li>
+</ul>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>Questions on this topic appear across the daily quiz, from recall to design problems, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/net/">Take today&rsquo;s Networking quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/application-layer.html" rel="prev">&larr; Application layer: HTTP, DNS, e-mail and FTP</a><a href="/learn/arp-dhcp-icmp.html" rel="next">ARP, BOOTP, DHCP and ICMP &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Security goals, attacks and X.800 | Prasun Chaturvedi</title>
+  <meta name="description" content="CIA and its extensions, passive and active attacks, X.800 services and mechanisms, and the model for network security.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/security-fundamentals.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="Security goals, attacks and X.800">
+  <meta property="og:description" content="CIA and its extensions, passive and active attacks, X.800 services and mechanisms, and the model for network security.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/security-fundamentals.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Part 2 · Network attacks and defence</p>
+        <h1>Security goals, attacks and X.800</h1>
+        <p>CIA and its extensions, passive and active attacks, X.800 services and mechanisms, and the model for network security.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Network &amp; Systems Security &mdash; refresher notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#goals">Security objectives</a></li><li><a href="#attacks">Passive and active attacks (X.800)</a></li><li><a href="#services">X.800 security services</a></li><li><a href="#mechanisms">Services and mechanisms</a></li><li><a href="#model">Model for network security</a></li><li><a href="#pitfalls">Common pitfalls</a></li></ol></nav>
+
+<h2 id="goals">Security objectives</h2>
+<table class="data"><thead><tr><th scope="col">Objective</th><th scope="col">Meaning</th></tr></thead><tbody>
+<tr><td>Confidentiality (and privacy)</td><td>Information is not disclosed to unauthorised parties; individuals control what is collected about them</td></tr>
+<tr><td>Integrity (data and system)</td><td>Data changes only in specified, authorised ways; systems behave as intended</td></tr>
+<tr><td>Availability</td><td>Resources are usable on demand by authorised entities</td></tr>
+<tr><td>Authenticity</td><td>Users and inputs are who and what they claim to be</td></tr>
+<tr><td>Accountability</td><td>Every action can be traced to one responsible entity, supporting non-repudiation, intrusion detection and forensics</td></tr>
+</tbody></table>
+
+<h2 id="attacks">Passive and active attacks (X.800)</h2>
+<table class="data"><thead><tr><th scope="col">Passive (observe)</th><th scope="col">Active (alter or disrupt)</th></tr></thead><tbody>
+<tr><td>Release of message contents</td><td>Masquerade: pretending to be another entity</td></tr>
+<tr><td>Traffic analysis: patterns, sizes, timing, endpoints, even under encryption</td><td>Replay: capture and resend a valid unit</td></tr>
+<tr><td></td><td>Modification: alter, delay or reorder messages</td></tr>
+<tr><td></td><td>Denial of service: suppress or flood</td></tr>
+</tbody></table>
+<p>Passive attacks are almost impossible to detect, so the emphasis is on <strong>prevention</strong> (encryption, traffic padding). Active attacks are hard to prevent completely, so the emphasis shifts to <strong>detection and recovery</strong>.</p>
+<div class="worked"><h3>Classifying a scenario</h3><p>Manager D sends &ldquo;ADD user G, ADD user H&rdquo; to server E. If attacker F changes it to &ldquo;ADD user I&rdquo;: modification (integrity). If D sends nothing and F forges &ldquo;ADD G, H, I&rdquo; as D: fabrication by masquerade (authenticity). If F only copies it: release of contents (confidentiality).</p></div>
+
+<h2 id="services">X.800 security services</h2>
+<ul class="plain">
+<li><strong>Authentication</strong>: peer-entity (at connection set-up and during transfer, against masquerade and replay) and data-origin (per data unit, for connectionless use such as e-mail; does not stop duplication or modification).</li>
+<li><strong>Access control</strong>: limit access to systems and applications; requires identification first.</li>
+<li><strong>Data confidentiality</strong>: whole message, selected fields, or traffic flow.</li>
+<li><strong>Data integrity</strong>: stream, single message or selected fields; detects alteration, insertion, deletion and replay.</li>
+<li><strong>Non-repudiation</strong>: of origin (receiver can prove who sent) and of delivery (sender can prove receipt).</li>
+<li><strong>Availability</strong>: treated alongside the services; supported by redundancy and protection against DoS.</li>
+</ul>
+
+<h2 id="mechanisms">Services and mechanisms</h2>
+<table class="data"><thead><tr><th scope="col">Service</th><th scope="col">Mechanisms</th></tr></thead><tbody>
+<tr><td>Peer-entity authentication</td><td>Encipherment, digital signature, authentication exchange</td></tr>
+<tr><td>Data-origin authentication</td><td>Encipherment, digital signature</td></tr>
+<tr><td>Access control</td><td>Access-control mechanisms</td></tr>
+<tr><td>Confidentiality</td><td>Encipherment, routing control</td></tr>
+<tr><td>Traffic-flow confidentiality</td><td>Encipherment, traffic padding, routing control</td></tr>
+<tr><td>Data integrity</td><td>Encipherment, digital signature, data-integrity mechanisms</td></tr>
+<tr><td>Non-repudiation</td><td>Digital signature, data-integrity mechanisms, notarisation</td></tr>
+</tbody></table>
+
+<h2 id="model">Model for network security</h2>
+<p>Sender and receiver apply a security-related transformation using secret information, over an untrusted channel, possibly helped by a trusted third party (key distributor or arbiter). Designing a service involves four tasks: design the algorithm, generate the secret information, devise ways to distribute and share it, and specify the protocol the two parties follow.</p>
+
+<h2 id="pitfalls">Common pitfalls</h2>
+<ul class="plain">
+<li>Shared symmetric keys cannot give non-repudiation: either party could have produced the message.</li>
+<li>Encryption hides content, not traffic patterns.</li>
+<li>A valid login does not authorise every change; misuse by insiders is still an integrity breach.</li>
+</ul>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>Questions on this topic appear across the daily quiz, from recall to design problems, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/net/">Take today&rsquo;s Networking quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/arp-dhcp-icmp.html" rel="prev">&larr; ARP, BOOTP, DHCP and ICMP</a><a href="/learn/lan-transport-attacks.html" rel="next">LAN and transport attacks: ARP, DHCP, SYN flood, hijacking &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

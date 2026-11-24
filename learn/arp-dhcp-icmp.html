@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ARP, BOOTP, DHCP and ICMP | Prasun Chaturvedi</title>
+  <meta name="description" content="Address resolution, host configuration with relay agents, and ICMP error and query messages with their exceptions.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/arp-dhcp-icmp.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="ARP, BOOTP, DHCP and ICMP">
+  <meta property="og:description" content="Address resolution, host configuration with relay agents, and ICMP error and query messages with their exceptions.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/arp-dhcp-icmp.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Part 1 · Networking foundations</p>
+        <h1>ARP, BOOTP, DHCP and ICMP</h1>
+        <p>Address resolution, host configuration with relay agents, and ICMP error and query messages with their exceptions.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Network &amp; Systems Security &mdash; refresher notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#arp">ARP</a></li><li><a href="#bootp-dhcp">BOOTP and DHCP</a></li><li><a href="#icmp">ICMP</a></li><li><a href="#pitfalls">Common pitfalls</a></li></ol></nav>
+
+<h2 id="arp">ARP</h2>
+<p>ARP resolves a known IPv4 address to the MAC address needed on the local link.</p>
+<table class="data"><thead><tr><th scope="col">Message</th><th scope="col">Delivery</th><th scope="col">Destination MAC</th></tr></thead><tbody>
+<tr><td>Request (&ldquo;who has I<sub>B</sub>?&rdquo;)</td><td>Broadcast</td><td>FF:FF:FF:FF:FF:FF</td></tr>
+<tr><td>Reply (&ldquo;I<sub>B</sub> is at M<sub>B</sub>&rdquo;)</td><td>Unicast</td><td>Requester's MAC</td></tr>
+</tbody></table>
+<p>For an off-subnet destination the host ARPs for its <strong>default gateway</strong>, not the remote host. (Some slides show the request as multicast and the reply as broadcast; that is wrong.)</p>
+
+<h2 id="bootp-dhcp">BOOTP and DHCP</h2>
+<p>Both run over UDP, client port 68 to server port 67. A booting client sends from 0.0.0.0 to 255.255.255.255 with a broadcast MAC.</p>
+<table class="data"><thead><tr><th scope="col"></th><th scope="col">BOOTP</th><th scope="col">DHCP</th></tr></thead><tbody>
+<tr><td>Allocation</td><td>Static MAC-to-IP table</td><td>Static bindings plus a dynamic pool with leases</td></tr>
+<tr><td>Lease</td><td>None</td><td>Time-limited; renew or the address returns to the pool</td></tr>
+<tr><td>Across routers</td><td colspan="2">A relay agent turns the local broadcast into a unicast to the server and relays the reply back</td></tr>
+</tbody></table>
+<p>DHCP exchange (<strong>DORA</strong>): DISCOVER, OFFER, REQUEST, ACK. Give static bindings to infrastructure (DNS servers, gateways, printers) and leases to clients.</p>
+
+<h2 id="icmp">ICMP</h2>
+<p>ICMP is IP's companion for errors and queries; errors always go to the <strong>original source</strong> of the datagram.</p>
+<ul class="plain">
+<li><strong>Destination Unreachable</strong>: network, host, protocol or port cannot be reached (also &ldquo;fragmentation needed&rdquo;).</li>
+<li><strong>Time Exceeded</strong>: TTL reached 0 at a router; prevents routing loops; traceroute relies on it.</li>
+<li><strong>Parameter Problem</strong>: invalid header field.</li>
+<li><strong>Source Quench</strong>: historic &ldquo;slow down&rdquo; message to the source host; deprecated since 2012.</li>
+<li><strong>Echo Request / Reply</strong>: used by ping.</li>
+</ul>
+<div class="callout"><h3>When no ICMP error is sent</h3><p>No error is generated for an ICMP error message, for a non-first fragment, for datagrams to multicast or broadcast (or special) addresses, and routers rate-limit ICMP. &ldquo;Every discarding router must send ICMP&rdquo; is therefore an over-simplification.</p></div>
+<div class="worked"><h3>Worked example: TTL</h3><p>S sends TTL = 3 through R1, R2, R3, R4. R1: 3&rarr;2, R2: 2&rarr;1, R3: 1&rarr;0, so R3 discards the packet and sends Time Exceeded with source R3 and destination S. Traceroute repeats this with TTL = 1, 2, 3, &hellip; to reveal each hop.</p></div>
+
+<h2 id="pitfalls">Common pitfalls</h2>
+<ul class="plain">
+<li>ICMP errors go to the source host, not to the previous router.</li>
+<li>Routers do not forward 255.255.255.255; DHCP across subnets needs relays.</li>
+<li>Blocking all ICMP breaks path-MTU discovery; filter by type instead.</li>
+</ul>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>Questions on this topic appear across the daily quiz, from recall to design problems, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/net/">Take today&rsquo;s Networking quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/transport-sockets.html" rel="prev">&larr; TCP, UDP, sockets and CRC</a><a href="/learn/security-fundamentals.html" rel="next">Security goals, attacks and X.800 &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diffie–Hellman, RSA and man-in-the-middle | Prasun Chaturvedi</title>
+  <meta name="description" content="Diffie-Hellman key agreement, brute-forcing a small discrete log, RSA key generation and use, padding, and why unauthenticated keys invite man-in-the-middle attacks.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/dh-rsa.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="Diffie–Hellman, RSA and man-in-the-middle">
+  <meta property="og:description" content="Diffie-Hellman key agreement, brute-forcing a small discrete log, RSA key generation and use, padding, and why unauthenticated keys invite man-in-the-middle attacks.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/dh-rsa.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Part 3 · Cryptography and secure protocols</p>
+        <h1>Diffie–Hellman, RSA and man-in-the-middle</h1>
+        <p>Diffie-Hellman key agreement, brute-forcing a small discrete log, RSA key generation and use, padding, and why unauthenticated keys invite man-in-the-middle attacks.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Network &amp; Systems Security &mdash; refresher notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#dh">Diffie&ndash;Hellman key agreement</a></li><li><a href="#rsa">RSA</a></li><li><a href="#pitfalls">Common pitfalls</a></li></ol></nav>
+
+<h2 id="dh">Diffie&ndash;Hellman key agreement</h2>
+<p>Public parameters: prime p and generator g. Alice picks secret a and sends A = g<sup>a</sup> mod p; Bob picks b and sends B = g<sup>b</sup> mod p. Both compute K = B<sup>a</sup> = A<sup>b</sup> = g<sup>ab</sup> mod p. The key itself never crosses the network; security rests on the <strong>discrete logarithm problem</strong>.</p>
+<div class="worked"><h3>Worked example: the lab relay attack (corrected)</h3>
+<p>g = 3, p = 19. Powers of 3 mod 19: 3, 9, 8, 5, 15, 7, 2, 6, 18, 16, 10, 11, &hellip;</p>
+<ol class="plain"><li>Client 1 sends A = 5. The relay loops exp = 1, 2, 3, &hellip; and finds 3<sup>4</sup> mod 19 = 5, so a = 4 (after 4 iterations).</li>
+<li>Client 2 sends B = 11. The relay computes K = 11<sup>4</sup> mod 19 = <strong>11</strong>, the same key both clients derive.</li>
+<li>It forwards ciphertext untouched while decrypting a copy: a passive MitM. An active MitM would also alter and re-encrypt messages.</li></ol>
+<p>The original lab text gives a = 6 and K = 18; both are arithmetic slips (3<sup>6</sup> mod 19 = 7 and 11<sup>6</sup> mod 19 = 1).</p></div>
+<p><strong>Man-in-the-middle</strong>: without authentication, Mallory replaces A and B with her own values and shares one key with Alice and another with Bob, relaying between them. Countermeasures: large groups (&ge; 2,048-bit p, or elliptic curves) against brute force, and signed half-keys with certificates (authenticated, ephemeral DH such as ECDHE) against substitution. Logjam (2015) showed how downgrading to 512-bit export groups broke real TLS sessions.</p>
+
+<h2 id="rsa">RSA</h2>
+<div class="formula"><p>Choose primes p, q; n = pq; &phi;(n) = (p &minus; 1)(q &minus; 1). Pick e with gcd(e, &phi;(n)) = 1; d = e<sup>&minus;1</sup> mod &phi;(n).</p>
+<p>Encrypt c = m<sup>e</sup> mod n. Decrypt m = c<sup>d</sup> mod n. Sign with d, verify with e.</p></div>
+<div class="worked"><h3>Worked example</h3><p>p = 11, q = 13: n = 143, &phi;(n) = 120. e = 7 &rArr; d = 103 (7 &times; 103 = 721 = 6 &times; 120 + 1). m = 9 &rArr; c = 9<sup>7</sup> mod 143 = 48; 48<sup>103</sup> mod 143 = 9. e = 9 would be invalid, because gcd(9, 120) = 3.</p></div>
+<ul class="plain">
+<li>Security rests on factoring n; use at least 2,048-bit moduli today.</li>
+<li>Textbook RSA is deterministic: an attacker can encrypt each possible message (&ldquo;yes&rdquo;/&ldquo;no&rdquo;) and compare. Randomised padding (OAEP) fixes this.</li>
+<li>In the lab, the server sends its public key to each client, which pads and encrypts; programs link OpenSSL (<code>-lssl -lcrypto</code>).</li>
+<li>If the client accepts any key that arrives, an attacker swaps in its own key, decrypts, reads or alters, and re-encrypts with the real server key. Verify certificates.</li>
+</ul>
+
+<h2 id="pitfalls">Common pitfalls</h2>
+<ul class="plain"><li>Compute d modulo &phi;(n), never modulo n.</li><li>Large parameters stop passive brute force; only authentication stops active MitM.</li><li>Do not reduce the RSA ciphertext modulo &phi;(n).</li></ul>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>Questions on this topic appear across the daily quiz, from recall to design problems, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/net/">Take today&rsquo;s Networking quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/lfsr-rc4.html" rel="prev">&larr; Stream ciphers: LFSR and RC4</a><a href="/learn/ipsec.html" rel="next">IPsec: AH, ESP, transport and tunnel modes &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

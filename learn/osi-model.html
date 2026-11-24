@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OSI model and layer-wise threats | Prasun Chaturvedi</title>
+  <meta name="description" content="The seven OSI layers, encapsulation hop by hop, and the typical attack and mitigation at each layer.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/osi-model.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="OSI model and layer-wise threats">
+  <meta property="og:description" content="The seven OSI layers, encapsulation hop by hop, and the typical attack and mitigation at each layer.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/osi-model.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Part 1 · Networking foundations</p>
+        <h1>OSI model and layer-wise threats</h1>
+        <p>The seven OSI layers, encapsulation hop by hop, and the typical attack and mitigation at each layer.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Network &amp; Systems Security &mdash; refresher notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#why">Why layering</a></li><li><a href="#layers">The seven layers at a glance</a></li><li><a href="#encapsulation">Encapsulation hop by hop</a></li><li><a href="#addresses">Logical versus physical addresses</a></li><li><a href="#pitfalls">Common pitfalls</a></li></ol></nav>
+
+<h2 id="why">Why layering</h2>
+<p>The OSI model breaks network communication into seven layers so that each one can be designed, replaced and tested on its own. Four principles explain it: <strong>divide and conquer</strong>, <strong>encapsulation</strong> (each layer adds its own header and reads only its own), <strong>abstraction</strong> (a layer uses the service below without knowing how it works), and <strong>systematic troubleshooting</strong> (check layer by layer, bottom-up or top-down).</p>
+
+<h2 id="layers">The seven layers at a glance</h2>
+<table class="data"><thead><tr><th scope="col">Layer</th><th scope="col">PDU</th><th scope="col">Job</th><th scope="col">Typical protocols / devices</th><th scope="col">Typical attack</th><th scope="col">Mitigation</th></tr></thead><tbody>
+<tr><th scope="row">7 Application</th><td>Message</td><td>Network services for applications</td><td>HTTP, DNS, SMTP, FTP, SSH, DHCP</td><td>HTTP flood, SQL injection, XSS</td><td>WAF, input validation</td></tr>
+<tr><th scope="row">6 Presentation</th><td>Data</td><td>Syntax: translation, compression, encryption</td><td>TLS, JSON/XML/ASN.1, JPEG</td><td>TLS downgrade, malformed input, XXE</td><td>Disable old TLS, hardened parsers</td></tr>
+<tr><th scope="row">5 Session</th><td>Data</td><td>Dialogue control, checkpoints, tokens</td><td>RPC, NetBIOS, SOCKS</td><td>Session hijacking, fixation</td><td>Random IDs, regenerate on login, Secure/HttpOnly</td></tr>
+<tr><th scope="row">4 Transport</th><td>Segment / datagram</td><td>Process-to-process delivery, ports, reliability</td><td>TCP, UDP</td><td>SYN flood, UDP amplification, port scans</td><td>SYN cookies, rate limits, ACLs</td></tr>
+<tr><th scope="row">3 Network</th><td>Packet</td><td>Logical addressing, routing, fragmentation</td><td>IP, ICMP, IPsec, OSPF/BGP; routers</td><td>IP spoofing, ping flood, BGP hijack</td><td>uRPF, ICMP rate limits, BGPsec</td></tr>
+<tr><th scope="row">2 Data link</th><td>Frame</td><td>Framing, MAC addressing, FCS error detection, medium access</td><td>Ethernet, Wi-Fi, ARP, PPP; switches</td><td>ARP spoofing, MAC flooding, VLAN hopping</td><td>DAI, DHCP snooping, port security</td></tr>
+<tr><th scope="row">1 Physical</th><td>Bit</td><td>Signals, rates, topology, duplex</td><td>Cables, connectors, hubs, repeaters</td><td>Jamming, wiretapping, cable cuts</td><td>Physical security, shielded cable, WIPS</td></tr>
+</tbody></table>
+<p>The data link layer has two sublayers: <strong>LLC</strong> (upper, interface to Layer 3) and <strong>MAC</strong> (lower, hardware addressing and access to the medium). In TCP/IP practice, Layers 5 and 6 are folded into the application layer: TLS libraries, cookies and JSON encoding all live in application code.</p>
+
+<h2 id="encapsulation">Encapsulation hop by hop</h2>
+<p>On the way down the sender's stack the message gains a transport header (ports), an IP header (source and destination IP) and a frame header and trailer (MACs and FCS). A router only goes up to Layer 3: it checks the FCS, strips the frame, reads the destination IP, looks up the next hop and builds a <em>new</em> frame.</p>
+<table class="data"><thead><tr><th scope="col">Field</th><th scope="col">Changes at each router?</th></tr></thead><tbody>
+<tr><td>Source / destination MAC</td><td>Yes: rewritten for every link</td></tr>
+<tr><td>Source / destination IP</td><td>No (except where NAT is used)</td></tr>
+<tr><td>Source / destination port</td><td>No</td></tr>
+<tr><td>TTL and IP header checksum</td><td>Yes: TTL decremented, checksum recomputed</td></tr>
+</tbody></table>
+<div class="worked"><h3>Worked example: what does a compromised router see?</h3>
+<p>Path S &rarr; R1 &rarr; R2 &rarr; R3 &rarr; server, payload protected by TLS. A compromised R2 sees the encrypted payload, the source and destination ports, the source and destination IPs, and the MAC addresses on its own links (R1's and R3's interfaces). It does not see the plaintext, because TLS encrypts only what sits above TCP.</p>
+<p>Frame size check: 1,000 B of data + 20 B TCP + 20 B IP + 14 B Ethernet header + 4 B FCS = <strong>1,058 B</strong>.</p></div>
+
+<h2 id="addresses">Logical versus physical addresses</h2>
+<p>A MAC address (48 bits) identifies an interface on the local link; an IP address (32 bits for IPv4) is logical and depends on the network the host has joined. Move a laptop between networks and its IP changes while its MAC normally stays the same (MAC spoofing is the exception).</p>
+
+<h2 id="pitfalls">Common pitfalls</h2>
+<ul class="plain">
+<li>Routers do not use ports to forward; ports belong to Layer 4.</li>
+<li>CRC in the FCS <em>detects</em> errors; it does not correct them. A bad frame is dropped at that hop.</li>
+<li>Layer 3/4 firewalls cannot see SQL injection in an allowed HTTPS session; that needs Layer 7 inspection.</li>
+<li>Applications such as browsers sit <em>above</em> the OSI model; Layer 7 holds the protocols they use.</li>
+</ul>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>Questions on this topic appear across the daily quiz, from recall to design problems, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/net/">Take today&rsquo;s Networking quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><span></span><a href="/learn/ipv4-addressing.html" rel="next">IPv4 addressing, subnetting and CIDR &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

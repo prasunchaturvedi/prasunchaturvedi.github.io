@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IPsec: AH, ESP, transport and tunnel modes | Prasun Chaturvedi</title>
+  <meta name="description" content="Where IPsec sits compared with TLS, its services, SPD and SAD, mutable header fields, AH and ESP formats, modes, NAT and anti-replay.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/ipsec.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="IPsec: AH, ESP, transport and tunnel modes">
+  <meta property="og:description" content="Where IPsec sits compared with TLS, its services, SPD and SAD, mutable header fields, AH and ESP formats, modes, NAT and anti-replay.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/ipsec.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Part 3 · Cryptography and secure protocols</p>
+        <h1>IPsec: AH, ESP, transport and tunnel modes</h1>
+        <p>Where IPsec sits compared with TLS, its services, SPD and SAD, mutable header fields, AH and ESP formats, modes, NAT and anti-replay.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Network &amp; Systems Security &mdash; refresher notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#where">TLS versus IPsec</a></li><li><a href="#dbs">SPD and SAD</a></li><li><a href="#mutable">Mutable and immutable IPv4 fields</a></li><li><a href="#ah-esp">AH and ESP</a></li><li><a href="#modes">Transport and tunnel modes</a></li><li><a href="#replay">Anti-replay window</a></li><li><a href="#pitfalls">Common pitfalls</a></li></ol></nav>
+
+<h2 id="where">TLS versus IPsec</h2>
+<table class="data"><thead><tr><th scope="col"></th><th scope="col">TLS</th><th scope="col">IPsec</th></tr></thead><tbody>
+<tr><td>Layer</td><td>Above TCP, inside each application</td><td>IP layer, in the OS kernel or gateway</td></tr>
+<tr><td>Changes needed</td><td>Every application must use TLS</td><td>None in applications; configure hosts or gateways</td></tr>
+<tr><td>Typical use</td><td>Web, mail, APIs</td><td>VPNs: site-to-site and remote access</td></tr>
+</tbody></table>
+<p>Services (RFC 4301): access control, connectionless integrity, data-origin authentication, anti-replay, confidentiality, and limited traffic-flow confidentiality. IKE authenticates peers and negotiates SAs and keys with Diffie&ndash;Hellman; AH and ESP protect packets.</p>
+
+<h2 id="dbs">SPD and SAD</h2>
+<ul class="plain">
+<li><strong>SPD</strong> (policy): ordered rules matched on selectors (addresses, protocol, ports) with action <em>discard</em>, <em>bypass</em> or <em>apply IPsec</em>.</li>
+<li><strong>SAD</strong> (parameters): one entry per security association, which is <strong>one-way</strong>, so two-way traffic needs two SAs. An SA is identified by (SPI, destination address, protocol 51/50) and stores algorithms and keys, lifetime, sequence counter, anti-replay window, mode and path MTU.</li>
+</ul>
+
+<h2 id="mutable">Mutable and immutable IPv4 fields</h2>
+<p>AH's ICV covers the IP header, except fields that routers legitimately change, which are zeroed for the calculation.</p>
+<table class="data"><thead><tr><th scope="col">Immutable (covered)</th><th scope="col">Mutable (zeroed)</th></tr></thead><tbody>
+<tr><td>Version, IHL, total length, identification, protocol, source and destination address</td><td>TOS/DSCP, flags, fragment offset, TTL, header checksum</td></tr>
+</tbody></table>
+
+<h2 id="ah-esp">AH and ESP</h2>
+<table class="data"><thead><tr><th scope="col"></th><th scope="col">AH (protocol 51)</th><th scope="col">ESP (protocol 50)</th></tr></thead><tbody>
+<tr><td>Confidentiality</td><td>No</td><td>Yes</td></tr>
+<tr><td>Integrity / origin / anti-replay</td><td>Yes</td><td>Yes (optional authentication)</td></tr>
+<tr><td>Covers outer IP header</td><td>Yes (immutable fields)</td><td>No</td></tr>
+<tr><td>Through NAT</td><td>Breaks: NAT changes covered addresses</td><td>Works with NAT-Traversal (ESP in UDP 4500)</td></tr>
+</tbody></table>
+<ul class="plain">
+<li>AH header: Next Header, Payload Length (= AH length in 32-bit words &minus; 2), Reserved, SPI, Sequence Number, ICV. With a 96-bit ICV the AH is 24 bytes = 6 words, so Payload Length = 4.</li>
+<li>ESP: header (SPI, sequence) in clear; payload, padding (0&ndash;255 bytes), pad length and next header encrypted; ICV after them. Pad so payload + padding + 2 is a multiple of the cipher block (16 for AES): a 45-byte payload needs 1 byte of padding.</li>
+<li>Next Header: 6 for TCP (transport mode), 4 for IPv4 (tunnel mode).</li>
+</ul>
+
+<h2 id="modes">Transport and tunnel modes</h2>
+<pre><code>Transport: [orig IP hdr][AH/ESP][TCP/UDP + data]
+Tunnel:    [new IP hdr][AH/ESP][orig IP hdr][TCP/UDP + data]</code></pre>
+<p>Transport mode suits host-to-host links and exposes the real addresses. Tunnel mode suits gateway-to-gateway and remote-access VPNs; with ESP it hides internal addresses behind the gateways. The usual VPN choice is <strong>ESP tunnel mode with authentication</strong>, plus NAT-T when clients sit behind NAT.</p>
+
+<h2 id="replay">Anti-replay window</h2>
+<p>The receiver tracks a sliding window (say 50&ndash;80). A new number inside it is accepted once and marked; a duplicate or a number left of the window (say 42) is dropped; a number to the right (say 85) is accepted after authentication and slides the window forward.</p>
+
+<h2 id="pitfalls">Common pitfalls</h2>
+<ul class="plain"><li>Plain ESP has no ports, so PAT cannot map it; NAT-T is needed.</li><li>Identification is immutable; flags and fragment offset are mutable.</li><li>AH never encrypts.</li></ul>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>Questions on this topic appear across the daily quiz, from recall to design problems, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/net/">Take today&rsquo;s Networking quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/dh-rsa.html" rel="prev">&larr; Diffie–Hellman, RSA and man-in-the-middle</a><a href="/learn/forensics.html" rel="next">File forensics and EnCase &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

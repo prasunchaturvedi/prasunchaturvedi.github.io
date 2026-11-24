@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IPv4 addressing, subnetting and CIDR | Prasun Chaturvedi</title>
+  <meta name="description" content="Classful addressing, casting types, subnet masks, bitwise AND routing, CIDR validity rules and worked subnetting.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/ipv4-addressing.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="IPv4 addressing, subnetting and CIDR">
+  <meta property="og:description" content="Classful addressing, casting types, subnet masks, bitwise AND routing, CIDR validity rules and worked subnetting.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/ipv4-addressing.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Part 1 · Networking foundations</p>
+        <h1>IPv4 addressing, subnetting and CIDR</h1>
+        <p>Classful addressing, casting types, subnet masks, bitwise AND routing, CIDR validity rules and worked subnetting.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Network &amp; Systems Security &mdash; refresher notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#basics">IPv4 basics</a></li><li><a href="#classful">Classful addressing (1981&ndash;1993)</a></li><li><a href="#casting">Casting and special addresses</a></li><li><a href="#subnetting">Subnetting formulas</a></li><li><a href="#cidr">CIDR</a></li><li><a href="#pitfalls">Common pitfalls</a></li></ol></nav>
+
+<h2 id="basics">IPv4 basics</h2>
+<p>An IPv4 address is 32 bits, written as four octets, giving 2<sup>32</sup> &asymp; 4.29 billion addresses. Every address splits into a <strong>network ID</strong> (used by routers) and a <strong>host ID</strong> (the interface inside that network).</p>
+
+<h2 id="classful">Classful addressing (1981&ndash;1993)</h2>
+<p>The space was split by successive halving on the leading bits: 2<sup>32</sup> = 2<sup>31</sup> (A) + 2<sup>30</sup> (B) + 2<sup>29</sup> (C) + 2<sup>28</sup> (D) + 2<sup>28</sup> (E).</p>
+<table class="data"><thead><tr><th scope="col">Class</th><th scope="col">Leading bits</th><th scope="col">First octet</th><th scope="col">Default mask</th><th scope="col">Networks</th><th scope="col">Usable hosts each</th></tr></thead><tbody>
+<tr><td>A</td><td>0</td><td>0&ndash;127</td><td>/8</td><td>2<sup>7</sup> = 128</td><td>2<sup>24</sup> &minus; 2 = 16,777,214</td></tr>
+<tr><td>B</td><td>10</td><td>128&ndash;191</td><td>/16</td><td>2<sup>14</sup> = 16,384</td><td>65,534</td></tr>
+<tr><td>C</td><td>110</td><td>192&ndash;223</td><td>/24</td><td>2<sup>21</sup> = 2,097,152</td><td>254</td></tr>
+<tr><td>D</td><td>1110</td><td>224&ndash;239</td><td colspan="3">Multicast</td></tr>
+<tr><td>E</td><td>1111</td><td>240&ndash;255</td><td colspan="3">Experimental</td></tr>
+</tbody></table>
+
+<h2 id="casting">Casting and special addresses</h2>
+<ul class="plain">
+<li><strong>Unicast</strong>: one sender to one receiver.</li>
+<li><strong>Limited broadcast</strong> 255.255.255.255: every host on the local network; routers never forward it.</li>
+<li><strong>Directed broadcast</strong>: a remote network's ID with all host bits set to 1 (e.g. 20.255.255.255 for 20.0.0.0/8); routed to that network, then broadcast there.</li>
+<li><strong>Network address</strong>: all host bits 0; identifies the network and is not assigned to a host.</li>
+</ul>
+
+<h2 id="subnetting">Subnetting formulas</h2>
+<div class="formula"><p>Borrow <var>n</var> host bits &rArr; 2<sup><var>n</var></sup> subnets. With <var>h</var> host bits left: 2<sup><var>h</var></sup> addresses, 2<sup><var>h</var></sup> &minus; 2 usable hosts.</p>
+<p>Network ID = destination IP AND mask. Broadcast = network ID with all host bits set to 1.</p></div>
+<div class="worked"><h3>Worked example: four departments from 192.168.1.0/24</h3>
+<p>Need 4 subnets &rArr; 2<sup>2</sup> = 4, borrow 2 bits &rArr; /26, mask 255.255.255.192, 6 host bits &rArr; 64 addresses, 62 usable.</p>
+<table class="data"><thead><tr><th scope="col">Bits</th><th scope="col">Network</th><th scope="col">Hosts</th><th scope="col">Broadcast</th></tr></thead><tbody>
+<tr><td>00</td><td>192.168.1.0</td><td>.1&ndash;.62</td><td>.63</td></tr>
+<tr><td>01</td><td>192.168.1.64</td><td>.65&ndash;.126</td><td>.127</td></tr>
+<tr><td>10</td><td>192.168.1.128</td><td>.129&ndash;.190</td><td>.191</td></tr>
+<tr><td>11</td><td>192.168.1.192</td><td>.193&ndash;.254</td><td>.255</td></tr>
+</tbody></table>
+<p>A packet for 192.168.1.70: 70 = <code>01000110</code>, 192 = <code>11000000</code>, AND = <code>01000000</code> = 64 &rArr; network 192.168.1.64, so it leaves on the second subnet's interface. Routers store networks, not hosts, which is why they mask instead of looking up the host address.</p></div>
+
+<h2 id="cidr">CIDR</h2>
+<p>Classless Inter-Domain Routing (1993) allows any prefix from /1 to /32, so blocks fit the need (an organisation needing 1,000 hosts gets a /22 of 1,024 addresses instead of a Class B of 65,536). A range is a valid CIDR block only if:</p>
+<ol class="plain"><li>the addresses are contiguous;</li><li>the count is a power of two (2<sup>n</sup>);</li><li>the first address is divisible by the block size (all host bits zero).</li></ol>
+<div class="worked"><h3>Worked example</h3><p>100.1.2.32&ndash;100.1.2.47: 16 addresses = 2<sup>4</sup>, and 32 / 16 = 2 exactly &rArr; valid, <code>100.1.2.32/28</code>. By contrast 100.1.2.40&ndash;.55 also holds 16 addresses but 40 is not a multiple of 16, so it is not a block.</p></div>
+<p>Aggregation follows the same rules: 200.1.4.0/24 to 200.1.7.0/24 summarise to 200.1.4.0/22, but 200.1.2.0 to 200.1.5.0 cannot, because 2 is not a multiple of 4.</p>
+
+<h2 id="pitfalls">Common pitfalls</h2>
+<ul class="plain">
+<li>Forgetting the &minus;2 for network and broadcast addresses.</li>
+<li>Assuming octet boundaries: in 10.45.77.200/20 the network is 10.45.64.0, not 10.45.77.0.</li>
+<li>Counting subnets from host bits (or the reverse): a /24 holds 16 /28 subnets of 14 usable hosts each.</li>
+<li>In VLSM, allocate the largest subnets first so blocks stay aligned and do not overlap.</li>
+</ul>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>Questions on this topic appear across the daily quiz, from recall to design problems, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/net/">Take today&rsquo;s Networking quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/osi-model.html" rel="prev">&larr; OSI model and layer-wise threats</a><a href="/learn/application-layer.html" rel="next">Application layer: HTTP, DNS, e-mail and FTP &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

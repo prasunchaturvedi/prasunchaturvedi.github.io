@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Security tools: tcpdump, httprobe, nmap and Snort 3 | Prasun Chaturvedi</title>
+  <meta name="description" content="Packet capture with BPF filters and TCP flag masks, web-service discovery, nmap scan types and port states, and Snort 3 IDS/IPS rules and modes.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/security-tools.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="Security tools: tcpdump, httprobe, nmap and Snort 3">
+  <meta property="og:description" content="Packet capture with BPF filters and TCP flag masks, web-service discovery, nmap scan types and port states, and Snort 3 IDS/IPS rules and modes.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/security-tools.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Part 2 · Network attacks and defence</p>
+        <h1>Security tools: tcpdump, httprobe, nmap and Snort 3</h1>
+        <p>Packet capture with BPF filters and TCP flag masks, web-service discovery, nmap scan types and port states, and Snort 3 IDS/IPS rules and modes.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Network &amp; Systems Security &mdash; refresher notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#tcpdump">tcpdump</a></li><li><a href="#httprobe">httprobe</a></li><li><a href="#nmap">nmap</a></li><li><a href="#snort">Snort 3</a></li><li><a href="#pitfalls">Common pitfalls</a></li></ol></nav>
+
+<h2 id="tcpdump">tcpdump</h2>
+<p>Pipeline: interface &rarr; capture &rarr; libpcap &rarr; in-kernel BPF filter &rarr; tcpdump decoding &rarr; screen or .pcap. It needs root and uses promiscuous mode unless <code>-p</code> is given.</p>
+<table class="data"><thead><tr><th scope="col">Option</th><th scope="col">Effect</th></tr></thead><tbody>
+<tr><td><code>-i eth0 | any</code></td><td>Interface</td></tr>
+<tr><td><code>-n</code> / <code>-nn</code></td><td>No host-name / no host- or port-name resolution</td></tr>
+<tr><td><code>-c N</code></td><td>Stop after N packets</td></tr>
+<tr><td><code>-A</code> / <code>-X</code></td><td>Payload as ASCII / hex + ASCII</td></tr>
+<tr><td><code>-v</code>&hellip;<code>-vvv</code></td><td>More header detail</td></tr>
+<tr><td><code>-s 0</code></td><td>Full packets</td></tr>
+<tr><td><code>-w f.pcap</code> / <code>-r f.pcap</code></td><td>Write / read a capture</td></tr>
+<tr><td><code>-S</code></td><td>Absolute instead of relative sequence numbers</td></tr>
+</tbody></table>
+<pre><code>sudo tcpdump -i eth0 -nn 'udp port 53'                    # DNS
+sudo tcpdump -i any -nn host 192.0.2.10 -s 0 -w cap.pcap  # one host to file
+sudo tcpdump 'src net 192.0.2.0/24 and not port 22'       # subnet, no SSH
+sudo tcpdump 'tcp[13] &amp; 0x12 == 0x02'                    # initial SYNs only
+sudo tcpdump 'tcp[tcpflags] &amp; tcp-rst != 0'              # any RST</code></pre>
+<div class="formula"><p>TCP flags byte <code>tcp[13]</code>: FIN 0x01, SYN 0x02, RST 0x04, PSH 0x08, ACK 0x10, URG 0x20. SYN-ACK = 0x12, PSH-ACK = 0x18, FIN-ACK = 0x11.</p></div>
+<p>Note: <code>tcp[tcpflags] &amp; tcp-syn != 0</code> also matches SYN-ACK, so it overcounts connection attempts.</p>
+
+<h2 id="httprobe">httprobe</h2>
+<p>Reads hosts on standard input and prints the <code>http://</code> and <code>https://</code> URLs that answer. <code>-p http:8080</code> adds ports, <code>-s</code> skips the defaults 80/443, <code>--prefer-https</code> skips HTTP when HTTPS works, <code>-c</code> sets concurrency, <code>-t</code> the timeout in ms. It does not crawl or test for vulnerabilities.</p>
+<pre><code>cat subdomains.txt | httprobe -p http:8080 -p https:8443 --prefer-https | tee live.txt</code></pre>
+
+<h2 id="nmap">nmap</h2>
+<table class="data"><thead><tr><th scope="col">Scan</th><th scope="col">How</th><th scope="col">Notes</th></tr></thead><tbody>
+<tr><td><code>-sn</code></td><td>Host discovery only</td><td><code>-Pn</code> skips discovery</td></tr>
+<tr><td><code>-sS</code></td><td>SYN, read reply, send RST</td><td>Default with root; half-open</td></tr>
+<tr><td><code>-sT</code></td><td>Full connect()</td><td>Used without root</td></tr>
+<tr><td><code>-sU</code></td><td>UDP probes</td><td>Slow; many open|filtered results</td></tr>
+<tr><td><code>-sA</code></td><td>ACK probes</td><td>Maps filtering, not open/closed</td></tr>
+<tr><td><code>-sV</code>, <code>-O</code>, <code>-sC</code>, <code>-A</code></td><td>Versions, OS, default scripts, all of these + traceroute</td><td><code>-T0</code>&hellip;<code>-T5</code> timing; <code>-oN/-oX/-oG/-oA</code> output</td></tr>
+</tbody></table>
+<p>Port states: <strong>open</strong> (SYN-ACK), <strong>closed</strong> (RST), <strong>filtered</strong> (no reply or ICMP unreachable), <strong>unfiltered</strong> (ACK scan got RST), <strong>open|filtered</strong> (no reply in UDP/FIN/NULL/Xmas scans), <strong>closed|filtered</strong> (idle scan only). Port selection: <code>-p 22,80</code>, <code>-p 1-1024</code>, <code>-p-</code> (all), <code>-F</code> (top 100).</p>
+
+<h2 id="snort">Snort 3</h2>
+<p>A passive IDS on a SPAN port alerts without touching traffic; an inline IPS can drop packets but risks false positives. Snort 3 is multi-threaded and configured in Lua (<code>snort.lua</code>). Pipeline: DAQ &rarr; decoder &rarr; inspectors &rarr; detection &rarr; output.</p>
+<pre><code>alert icmp any any -> any any (msg:"ICMP echo request"; itype:8; sid:1000001; rev:1;)
+# action proto src sport -> dst dport (options)
+# actions: alert, log, pass; inline only: drop, block, reject
+# local rules use sid >= 1000000
+
+sudo snort -c /etc/snort/snort.lua -T                                   # test config
+sudo snort -c /etc/snort/snort.lua -R local.rules -i eth0 -A alert_fast # passive IDS
+sudo snort -c /etc/snort/snort.lua -R local.rules -r cap.pcap -A alert_fast  # offline
+sudo snort -c /etc/snort/snort.lua --daq afpacket -i eth0:eth1 -Q       # inline IPS</code></pre>
+<p>There is no <code>--mode inline</code> option in Snort 3; inline mode is <code>-Q</code> with an interface pair.</p>
+
+<h2 id="pitfalls">Common pitfalls</h2>
+<ul class="plain"><li>ICMP type 8 is Echo Request; type 0 is Echo Reply.</li><li>ACK scans cannot tell open from closed.</li><li>Display filters in Wireshark are not BPF capture filters.</li></ul>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>Questions on this topic appear across the daily quiz, from recall to design problems, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/net/">Take today&rsquo;s Networking quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/dns-attacks-firewalls.html" rel="prev">&larr; DNS attacks, amplification and firewalls</a><a href="/learn/classical-crypto.html" rel="next">Symmetric cryptography and classical ciphers &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

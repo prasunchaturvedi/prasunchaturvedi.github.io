@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DNS attacks, amplification and firewalls | Prasun Chaturvedi</title>
+  <meta name="description" content="Pharming and glue poisoning, on-path and off-path cache poisoning, DNS hardening, amplification, and stateless, stateful and proxy firewalls.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/dns-attacks-firewalls.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="DNS attacks, amplification and firewalls">
+  <meta property="og:description" content="Pharming and glue poisoning, on-path and off-path cache poisoning, DNS hardening, amplification, and stateless, stateful and proxy firewalls.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/dns-attacks-firewalls.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Part 2 · Network attacks and defence</p>
+        <h1>DNS attacks, amplification and firewalls</h1>
+        <p>Pharming and glue poisoning, on-path and off-path cache poisoning, DNS hardening, amplification, and stateless, stateful and proxy firewalls.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Network &amp; Systems Security &mdash; refresher notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#dns">DNS attacks</a></li><li><a href="#amp">Amplification</a></li><li><a href="#firewalls">Firewalls</a></li><li><a href="#pitfalls">Common pitfalls</a></li></ol></nav>
+
+<h2 id="dns">DNS attacks</h2>
+<p>A resolver accepts a reply only if it matches the query's IP addresses, UDP ports and 16-bit transaction ID. Attacks aim to supply a forged reply that passes those checks.</p>
+<ul class="plain">
+<li><strong>Pharming</strong>: corrupt the name-to-address mapping (compromised server or spoofed reply); often paired with a phishing replica.</li>
+<li><strong>Glue poisoning</strong>: a compromised authoritative server for univ-a.example adds glue claiming bank.example is at the attacker's address; a naive resolver caches it. Defence: <strong>bailiwick checking</strong> (discard glue outside the queried zone).</li>
+<li><strong>On-path poisoning</strong>: the attacker sees the query's ID and ports, so racing a forged reply is easy.</li>
+<li><strong>Off-path poisoning</strong>: the attacker must guess. With sequential IDs it triggers a query for its own domain, reads ID, then forges replies with ID + 1 for the victim's next lookup.</li>
+</ul>
+<div class="formula"><p>Random 16-bit ID alone: 2<sup>16</sup> = 65,536 guesses. Random ID and random 16-bit source port: 2<sup>16</sup> &times; 2<sup>16</sup> = 2<sup>32</sup> &asymp; 4.29 billion.</p></div>
+<p><strong>DNSSEC</strong> adds signatures to DNS data so resolvers can verify origin and integrity; it does not encrypt queries.</p>
+
+<h2 id="amp">Amplification</h2>
+<p>The attacker sends small queries with the <em>victim's</em> address as source to open servers, which send large replies to the victim. Victim load = attacker rate &times; amplification factor; a 60-byte query that yields 3,000 bytes is a factor of 50, so 10 Mbps of queries become 500 Mbps.</p>
+
+<h2 id="firewalls">Firewalls</h2>
+<p>A firewall is a single choke point that enforces policy and is itself hardened. Three types:</p>
+<table class="data"><thead><tr><th scope="col">Type</th><th scope="col">Decides on</th><th scope="col">Strength</th><th scope="col">Weakness</th></tr></thead><tbody>
+<tr><td>Stateless packet filter</td><td>Each packet's addresses, protocol, ports, TCP flags, ICMP type</td><td>Fast, simple</td><td>Accepts crafted packets that look like replies (e.g. source port 80 with ACK)</td></tr>
+<tr><td>Stateful packet filter</td><td>Headers plus a connection table (TCP handshakes; UDP 4-tuples with short timeouts)</td><td>Only real replies get in</td><td>No view of application content or users</td></tr>
+<tr><td>Application gateway (proxy)</td><td>Application data and user identity</td><td>Per-user, per-command policy</td><td>One gateway per protocol; slower</td></tr>
+</tbody></table>
+<h3>Policy to rule examples</h3>
+<table class="data"><thead><tr><th scope="col">Policy</th><th scope="col">Rule</th></tr></thead><tbody>
+<tr><td>No outside web access</td><td>Drop outgoing TCP to destination port 80 (and 443)</td></tr>
+<tr><td>No inbound connections except to the public web server</td><td>Drop inbound SYN (ACK = 0) except to that server's port 80</td></tr>
+<tr><td>Stop traceroute mapping</td><td>Drop outgoing ICMP Time Exceeded</td></tr>
+<tr><td>Insiders may connect out, outsiders may not connect in</td><td>Drop inbound TCP with ACK = 0</td></tr>
+</tbody></table>
+<div class="worked"><h3>Worked ACL (organisation 222.22/16), first match wins</h3>
+<pre><code>1 allow  222.22/16 -> outside   TCP  >1023 -> 80     any
+2 allow  outside   -> 222.22/16 TCP  80    -> >1023  ACK   [check connection]
+3 allow  222.22/16 -> outside   UDP  >1023 -> 53
+4 allow  outside   -> 222.22/16 UDP  53    -> >1023        [check connection]
+5 deny   all</code></pre>
+<p>A crafted packet from 150.23.23.155:80 to an inside host with ACK set passes rule 2 in a stateless filter. With the stateful &ldquo;check connection&rdquo; column it is dropped, because no inside host opened that connection.</p></div>
+
+<h2 id="pitfalls">Common pitfalls</h2>
+<ul class="plain"><li>Guessing spaces multiply; they do not add.</li><li>Longer TTLs keep poisoned records alive longer.</li><li>Rule order matters: a broad deny above a narrow allow wins.</li></ul>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>Questions on this topic appear across the daily quiz, from recall to design problems, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/net/">Take today&rsquo;s Networking quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/lan-transport-attacks.html" rel="prev">&larr; LAN and transport attacks: ARP, DHCP, SYN flood, hijacking</a><a href="/learn/security-tools.html" rel="next">Security tools: tcpdump, httprobe, nmap and Snort 3 &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

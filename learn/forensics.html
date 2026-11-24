@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>File forensics and EnCase | Prasun Chaturvedi</title>
+  <meta name="description" content="Magic numbers, metadata, deletion and file carving, steganography, write-blocking, E01 images and the EnCase workflow.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/forensics.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="File forensics and EnCase">
+  <meta property="og:description" content="Magic numbers, metadata, deletion and file carving, steganography, write-blocking, E01 images and the EnCase workflow.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/forensics.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Part 4 · Forensics, attack graphs and blockchain security</p>
+        <h1>File forensics and EnCase</h1>
+        <p>Magic numbers, metadata, deletion and file carving, steganography, write-blocking, E01 images and the EnCase workflow.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Network &amp; Systems Security &mdash; refresher notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#magic">Magic numbers</a></li><li><a href="#metadata">Metadata</a></li><li><a href="#carving">Deletion and carving</a></li><li><a href="#stego">Steganography</a></li><li><a href="#encase">EnCase workflow</a></li><li><a href="#pitfalls">Common pitfalls</a></li></ol></nav>
+
+<h2 id="magic">Magic numbers</h2>
+<p>Extensions can lie; the first bytes of a file usually do not.</p>
+<table class="data"><thead><tr><th scope="col">Type</th><th scope="col">Signature (hex)</th><th scope="col">ASCII</th></tr></thead><tbody>
+<tr><td>Windows executable</td><td>4D 5A</td><td>MZ</td></tr>
+<tr><td>PDF</td><td>25 50 44 46</td><td>%PDF</td></tr>
+<tr><td>JPEG</td><td>FF D8 FF &hellip; footer FF D9</td><td></td></tr>
+<tr><td>PNG</td><td>89 50 4E 47</td><td>.PNG</td></tr>
+<tr><td>ZIP / DOCX / XLSX / PPTX</td><td>50 4B 03 04</td><td>PK..</td></tr>
+</tbody></table>
+
+<h2 id="metadata">Metadata</h2>
+<p><strong>System metadata</strong> is kept by the file system: modified/accessed/created times, permissions, owner, sizes. <strong>Application metadata</strong> lives inside the file: EXIF camera settings and GPS, document author, templates and revisions.</p>
+
+<h2 id="carving">Deletion and carving</h2>
+<p>Deleting a file on NTFS marks its MFT record as not in use (flag 0x01 &rarr; 0x00) and frees the clusters; the content stays until overwritten. Carving tools (Scalpel, Foremost) ignore the file system, scan raw sectors for a header (FF D8 FF) and read to the footer (FF D9). Size = last offset &minus; first offset + 1.</p>
+
+<h2 id="stego">Steganography</h2>
+<p>Steganography hides the <em>existence</em> of data. LSB insertion changes the lowest bit of colour values (an 800 &times; 600 RGB image holds 800 &times; 600 &times; 3 bits = 180,000 bytes at 1 bit per channel). Append-hiding puts data after a JPEG's FF D9, where viewers stop rendering but a hex editor shows it.</p>
+
+<h2 id="encase">EnCase workflow</h2>
+<ol class="plain">
+<li>Write-block the media (hardware blocker, or FastBloc SE in software). Golden rule: never change the original.</li>
+<li>Create a case (number, examiner, description) with separate volumes for evidence (read-only), processing cache and outputs.</li>
+<li>Acquire an <strong>.E01/.Ex01</strong> image: case header, data in 64-sector (32 KiB) chunks each carrying a checksum (Adler-32/CRC), and one MD5/SHA-1 (or SHA-256) hash of the whole acquisition for verification.</li>
+<li>Process: signature analysis (extension mismatches), keyword indexing, entropy (0&ndash;8 bits per byte; near 8 suggests encryption or compression), deleted-file recovery, GREP searches such as <code>\d{4}-\d{4}-\d{4}-\d{4}</code>.</li>
+<li>Registry artefacts: <code>HKLM\SYSTEM\CurrentControlSet\Enum\USBSTOR</code> (USB devices and serials) and UserAssist (program runs, names ROT13-encoded: &ldquo;abgrcnq.rkr&rdquo; = notepad.exe).</li>
+<li>Bookmark, report and preserve chain of custody.</li>
+</ol>
+
+<h2 id="pitfalls">Common pitfalls</h2>
+<ul class="plain"><li>DOCX starting with PK is normal, not a mismatch.</li><li>Browsing original media changes access times.</li><li>E01 does not hash every chunk cryptographically; chunks get checksums, the image gets the hash.</li></ul>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>Questions on this topic appear across the daily quiz, from recall to design problems, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/net/">Take today&rsquo;s Networking quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/ipsec.html" rel="prev">&larr; IPsec: AH, ESP, transport and tunnel modes</a><a href="/learn/attack-graphs-blockchain.html" rel="next">Attack graphs, trust scores and Hyperledger Fabric &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

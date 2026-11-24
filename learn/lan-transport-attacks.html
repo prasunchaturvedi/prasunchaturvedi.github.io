@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LAN and transport attacks: ARP, DHCP, SYN flood, hijacking | Prasun Chaturvedi</title>
+  <meta name="description" content="Layer 2 attacks mapped to X.800, DHCP starvation and spoofing, SYN floods and SYN cookies, session hijacking and spoofing, and Ettercap.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/lan-transport-attacks.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="LAN and transport attacks: ARP, DHCP, SYN flood, hijacking">
+  <meta property="og:description" content="Layer 2 attacks mapped to X.800, DHCP starvation and spoofing, SYN floods and SYN cookies, session hijacking and spoofing, and Ettercap.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/lan-transport-attacks.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Part 2 · Network attacks and defence</p>
+        <h1>LAN and transport attacks: ARP, DHCP, SYN flood, hijacking</h1>
+        <p>Layer 2 attacks mapped to X.800, DHCP starvation and spoofing, SYN floods and SYN cookies, session hijacking and spoofing, and Ettercap.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Network &amp; Systems Security &mdash; refresher notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#l2">X.800 attacks at Layer 2</a></li><li><a href="#dhcp">DHCP starvation and rogue servers</a></li><li><a href="#syn">SYN floods</a></li><li><a href="#hijack">Hijacking versus spoofing</a></li><li><a href="#ettercap">Ettercap in practice</a></li><li><a href="#pitfalls">Common pitfalls</a></li></ol></nav>
+
+<h2 id="l2">X.800 attacks at Layer 2</h2>
+<table class="data"><thead><tr><th scope="col">X.800 category</th><th scope="col">Layer 2 form</th></tr></thead><tbody>
+<tr><td>Release of contents</td><td>Promiscuous-mode sniffing, taps, SPAN ports</td></tr>
+<tr><td>Traffic analysis</td><td>Profiling MACs (vendor OUI), frame sizes and timing</td></tr>
+<tr><td>Masquerade</td><td>MAC spoofing; ARP spoofing (claiming the gateway's IP)</td></tr>
+<tr><td>Modification</td><td>ARP-poisoned man-in-the-middle rewriting frames and recomputing the FCS</td></tr>
+<tr><td>Replay</td><td>Re-injecting captured frames (for example ARP replay against old WEP)</td></tr>
+<tr><td>Denial of service</td><td>MAC flooding (CAM overflow), DHCP starvation, Wi-Fi deauthentication floods</td></tr>
+</tbody></table>
+<p>A switch forwards by its CAM table; when MAC flooding fills it, the switch floods unknown destinations to every port and acts like a hub. ARP is stateless and unauthenticated, so hosts accept unsolicited replies and overwrite their caches.</p>
+
+<h2 id="dhcp">DHCP starvation and rogue servers</h2>
+<ul class="plain">
+<li><strong>Starvation</strong>: many DISCOVER/REQUEST messages with spoofed MACs drain the pool (DoS). Behind a relay every frame carries the router's MAC, so the server must inspect the client hardware address (CHADDR) in the DHCP payload.</li>
+<li><strong>Spoofing</strong>: clients take the first OFFER, so a rogue server that answers first sets the victim's gateway (MitM) and DNS server (pharming). Defence: DHCP snooping with trusted ports.</li>
+</ul>
+<div class="worked"><h3>Worked example</h3><p>Pool 254, in use 150, free 104; flood 500 DISCOVER/min. Time = 104 / 500 = 0.208 min = <strong>12.48 s</strong> (one slide prints &ldquo;12.5 minutes&rdquo;, which is a unit error). A 1-hour lease instead of 24 hours does not slow exhaustion; it shortens the outage after the flood stops.</p></div>
+
+<h2 id="syn">SYN floods</h2>
+<p>The server stores state for each SYN in its backlog and answers SYN-ACK; the attacker never sends the final ACK, so half-open entries fill the queue. Spoofing a live host fails because that host replies RST; attackers use offline addresses or botnets that ignore SYN-ACKs.</p>
+<div class="formula"><p>Fill time = backlog capacity / SYN rate. Example: 8,192 / 50,000 per s = 0.164 s, so cutting the timeout from 30 s to 5 s changes nothing.</p></div>
+<p>Defences: filtering, ingress filtering at the edge (drop inbound packets claiming your own prefix, and outbound packets not from it), and <strong>SYN cookies</strong>: the server keeps no state and encodes addresses, ports, time, MSS and a secret into its ISN, rebuilding state when a valid ACK returns.</p>
+
+<h2 id="hijack">Hijacking versus spoofing</h2>
+<table class="data"><thead><tr><th scope="col"></th><th scope="col">Session hijacking</th><th scope="col">Session spoofing</th></tr></thead><tbody>
+<tr><td>Target</td><td>An established connection</td><td>A new connection</td></tr>
+<tr><td>Needs</td><td>Sniffed 4-tuple and current seq/ack; desynchronise the real client (flood or forged RST)</td><td>Trusted host taken offline (else it sends RST); blind prediction of the server's ISN</td></tr>
+</tbody></table>
+<p>Random initial sequence numbers exist to keep old, delayed segments out of new connections and to make blind prediction hard.</p>
+
+<h2 id="ettercap">Ettercap in practice</h2>
+<pre><code>sudo ettercap -T -i eth0 -M arp:remote /192.168.1.1// /192.168.1.50//
+#  -T text UI   -G GUI   -q quiet   -i interface   -w file.pcap  save
+#  -M arp:remote  two-way ARP poisoning between the two targets
+etterfilter swap.filter -o swap.ef      # compile a content-rewriting filter
+sudo ettercap -T -i eth0 -F swap.ef -M arp:remote // //</code></pre>
+<p>Defences: Dynamic ARP Inspection backed by DHCP snooping, static ARP for critical hosts, client isolation on Wi-Fi, and TLS everywhere so a MitM cannot read or alter content.</p>
+
+<h2 id="pitfalls">Common pitfalls</h2>
+<ul class="plain"><li>Watch units in rate problems (minutes versus seconds).</li><li>Shorter timeouts do not beat floods that refill faster than they expire.</li><li>MAC limiting at a remote DHCP server sees only the relay's MAC.</li></ul>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>Questions on this topic appear across the daily quiz, from recall to design problems, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/net/">Take today&rsquo;s Networking quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/security-fundamentals.html" rel="prev">&larr; Security goals, attacks and X.800</a><a href="/learn/dns-attacks-firewalls.html" rel="next">DNS attacks, amplification and firewalls &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

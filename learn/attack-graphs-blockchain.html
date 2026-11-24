@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Attack graphs, trust scores and Hyperledger Fabric | Prasun Chaturvedi</title>
+  <meta name="description" content="Formal attack graphs, network model inputs, minimum hitting sets, trust-score arithmetic, and the Fabric pharma chaincode lab.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/attack-graphs-blockchain.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="Attack graphs, trust scores and Hyperledger Fabric">
+  <meta property="og:description" content="Formal attack graphs, network model inputs, minimum hitting sets, trust-score arithmetic, and the Fabric pharma chaincode lab.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/attack-graphs-blockchain.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Part 4 · Forensics, attack graphs and blockchain security</p>
+        <h1>Attack graphs, trust scores and Hyperledger Fabric</h1>
+        <p>Formal attack graphs, network model inputs, minimum hitting sets, trust-score arithmetic, and the Fabric pharma chaincode lab.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Network &amp; Systems Security &mdash; refresher notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#model">Formal attack graphs</a></li><li><a href="#trust">Trust-score propagation</a></li><li><a href="#fabric">Hyperledger Fabric</a></li><li><a href="#pitfalls">Common pitfalls</a></li></ol></nav>
+
+<h2 id="model">Formal attack graphs</h2>
+<p>Scanners list bugs host by host; attack graphs show how an intruder <em>chains</em> them. The system is a finite-state model M = (S, &tau;, s<sub>0</sub>): S is the product of the states of the intruder (E), defender/IDS (D) and network (N); &tau; is the set of allowed transitions; s<sub>0</sub> is the start. A security property P is a set of safe executions (for example, &ldquo;the intruder never gets root on the database host&rdquo;). The <strong>attack graph</strong> is L(M) \ P: every execution that violates P.</p>
+<table class="data"><thead><tr><th scope="col">Input</th><th scope="col">Meaning</th></tr></thead><tbody>
+<tr><td>H</td><td>Hosts: services, software, vulnerabilities</td></tr>
+<tr><td>C</td><td>Connectivity C(h1, h2, port), reflecting links and firewall rules</td></tr>
+<tr><td>T</td><td>Trust relations between hosts</td></tr>
+<tr><td>I</td><td>Intruder knowledge and privilege plvl(h) &isin; {none, user, root}</td></tr>
+<tr><td>A</td><td>Actions with intruder/network preconditions and effects</td></tr>
+<tr><td>Ids</td><td>Whether an action between two hosts is detectable, stealthy or both</td></tr>
+</tbody></table>
+<p>The <strong>minimum hitting set</strong> (critical action set) is the smallest set of actions to remove, by patching or firewalling, so that no path reaches the goal.</p>
+<div class="worked"><h3>Case study: DMZ to internal database</h3><p>Shortest path: web-server buffer overflow (root on the DMZ host) &rarr; proxy misconfiguration used for a port scan (knowledge) &rarr; chat-client remote-to-user exploit (user on Linux) &rarr; local setuid buffer overflow (root on Linux). If an IDS watches the DMZ-to-Linux link, the attacker pivots through the internal Windows host. Both paths share the chat-client exploit, so fixing that one action cuts both.</p></div>
+
+<h2 id="trust">Trust-score propagation</h2>
+<div class="formula"><p>Series (hops in sequence): T = T<sub>1</sub> &times; T<sub>2</sub> &times; &hellip; &times; T<sub>k</sub></p>
+<p>Parallel (alternative paths into one node): T = T<sub>A</sub> + T<sub>B</sub> &minus; T<sub>A</sub>T<sub>B</sub></p></div>
+<div class="worked"><h3>Worked example</h3><p>Path A: 0.8 &times; 0.9 = 0.72; path B = 0.10. Parallel: 0.72 + 0.10 &minus; 0.072 = 0.748. A final hop of 0.8 gives 0.748 &times; 0.8 = 0.598.</p></div>
+
+<h2 id="fabric">Hyperledger Fabric</h2>
+<p>Fabric is a permissioned blockchain: every organisation, peer and user has an X.509 identity from a Membership Service Provider. Components: peers (ledger and world state, endorse and validate), the ordering service (orders transactions into blocks; never runs chaincode), channels (private ledgers), chaincode (smart contracts) and MSPs.</p>
+<p>Transaction flow is <strong>execute &rarr; order &rarr; validate</strong>: endorsing peers simulate the chaincode and sign read/write sets; the orderer builds blocks; every peer checks the endorsement policy and MVCC read versions before committing. A successful endorsement is not a commit, so always query afterwards. Evaluate (read-only) transactions create no block.</p>
+<table class="data"><thead><tr><th scope="col">Function</th><th scope="col">Caller</th><th scope="col">Precondition</th><th scope="col">Result</th></tr></thead><tbody>
+<tr><td>CreateBatch(id, product, qty)</td><td>Org1MSP</td><td>New id, product set, qty &gt; 0</td><td>owner Org1MSP, CREATED</td></tr>
+<tr><td>ReleaseBatch(id)</td><td>Org2MSP (QA)</td><td>CREATED</td><td>QA_RELEASED</td></tr>
+<tr><td>TransferBatch(id, newOwner)</td><td>Current owner</td><td>QA_RELEASED, new owner &ne; caller</td><td>owner Org2MSP, IN_TRANSIT</td></tr>
+<tr><td>ReceiveBatch(id)</td><td>Current owner</td><td>IN_TRANSIT</td><td>RECEIVED</td></tr>
+</tbody></table>
+<p>Negative tests check that duplicates, zero quantity, unknown IDs, release by Org1, transfer before release, receive before transfer and transfer by a non-owner are all rejected.</p>
+<pre><code>./network.sh up createChannel -ca
+./network.sh deployCC -ccn pharma -ccp ../pharma-chaincode-java -ccl java
+peer chaincode query -C mychannel -n pharma -c '{"function":"ReadBatch","Args":["BATCH-1001"]}'
+./network.sh down</code></pre>
+
+<h2 id="pitfalls">Common pitfalls</h2>
+<ul class="plain"><li>Parallel trust is not a plain sum.</li><li>The orderer does not validate business logic.</li><li>A port scan changes knowledge, not privilege.</li></ul>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>Questions on this topic appear across the daily quiz, from recall to design problems, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/net/">Take today&rsquo;s Networking quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/forensics.html" rel="prev">&larr; File forensics and EnCase</a><span></span></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

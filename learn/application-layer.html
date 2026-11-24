@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Application layer: HTTP, DNS, e-mail and FTP | Prasun Chaturvedi</title>
+  <meta name="description" content="HTTP methods and persistence, DNS hierarchy and resolution, SMTP/POP/IMAP with MIME, and FTP&#x27;s two connections.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/application-layer.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="Application layer: HTTP, DNS, e-mail and FTP">
+  <meta property="og:description" content="HTTP methods and persistence, DNS hierarchy and resolution, SMTP/POP/IMAP with MIME, and FTP&#x27;s two connections.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/application-layer.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Part 1 · Networking foundations</p>
+        <h1>Application layer: HTTP, DNS, e-mail and FTP</h1>
+        <p>HTTP methods and persistence, DNS hierarchy and resolution, SMTP/POP/IMAP with MIME, and FTP&#x27;s two connections.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Network &amp; Systems Security &mdash; refresher notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#http">HTTP</a></li><li><a href="#dns">DNS</a></li><li><a href="#email">E-mail: SMTP, POP3/IMAP and MIME</a></li><li><a href="#ftp">FTP</a></li><li><a href="#pitfalls">Common pitfalls</a></li></ol></nav>
+
+<h2 id="http">HTTP</h2>
+<p>HTTP runs over TCP (port 80; HTTPS on 443). It is <strong>stateless</strong>: each request stands alone, and cookies or tokens carry state such as logins. It is <strong>in-band</strong>: commands and content share one connection.</p>
+<table class="data"><thead><tr><th scope="col">Method</th><th scope="col">Purpose</th><th scope="col">Note</th></tr></thead><tbody>
+<tr><td>GET</td><td>Fetch a resource</td><td>Safe, idempotent; parameters in the URL</td></tr>
+<tr><td>HEAD</td><td>Headers only</td><td>Check size or freshness without the body</td></tr>
+<tr><td>PUT</td><td>Store or replace at a URI</td><td>Idempotent</td></tr>
+<tr><td>POST</td><td>Submit data for processing</td><td>Not idempotent: a retry may duplicate</td></tr>
+<tr><td>DELETE</td><td>Remove a resource</td><td>Idempotent</td></tr>
+<tr><td>TRACE</td><td>Echo the request</td><td>Often disabled (cross-site tracing)</td></tr>
+<tr><td>CONNECT</td><td>Open a tunnel via a proxy</td><td>Used for HTTPS through proxies</td></tr>
+<tr><td>OPTIONS</td><td>List allowed methods</td><td>Used in CORS pre-flight</td></tr>
+</tbody></table>
+<h3>Persistent versus non-persistent connections</h3>
+<div class="formula"><p>Non-persistent (HTTP/1.0): about 2 RTT per object (handshake + request). Persistent (HTTP/1.1 keep-alive, no pipelining): 1 RTT for the handshake, then 1 RTT per object.</p></div>
+<div class="worked"><h3>Worked example</h3><p>Page = 1 HTML + 5 images = 6 objects. Non-persistent serial: 6 &times; 2 = <strong>12 RTT</strong> and 6 TCP connections. Persistent: 1 + 6 = <strong>7 RTT</strong> on one connection.</p></div>
+
+<h2 id="dns">DNS</h2>
+<p>DNS maps names to addresses (and back). Ordinary queries use <strong>UDP 53</strong>; zone transfers and large answers use TCP 53. The namespace is an inverted tree: root (13 logical root server addresses, A&ndash;M, served by anycast), top-level domains (generic such as .com, .org; country such as .in) and authoritative servers for each zone. Reverse lookups use PTR records.</p>
+<table class="data"><thead><tr><th scope="col">Mode</th><th scope="col">Who does the walking</th><th scope="col">Typical use</th></tr></thead><tbody>
+<tr><td>Recursive</td><td>Each server asks the next on the requester's behalf and passes the answer back</td><td>Client &rarr; local resolver</td></tr>
+<tr><td>Iterative</td><td>The local resolver receives referrals (root &rarr; TLD &rarr; authoritative) and queries each itself</td><td>Resolver &rarr; hierarchy</td></tr>
+</tbody></table>
+<p>The resolver caches answers for the record's TTL, so repeat lookups skip the walk (the cost of the full walk is the &ldquo;DNS overhead&rdquo;).</p>
+
+<h2 id="email">E-mail: SMTP, POP3/IMAP and MIME</h2>
+<ul class="plain">
+<li><strong>SMTP</strong> (TCP 25) is a <em>push</em> protocol: client to its server, then server to server (mail transfer agents). Store-and-forward means the recipient need not be online.</li>
+<li><strong>POP3 / IMAP</strong> are <em>pull</em> protocols used by the recipient's mail access agent.</li>
+<li><strong>MIME</strong> lets 7-bit ASCII SMTP carry binary and non-Latin content: headers <code>MIME-Version</code>, <code>Content-Type</code> (e.g. <code>application/pdf</code>) and <code>Content-Transfer-Encoding</code> (e.g. <code>base64</code>). Base64 turns every 3 bytes into 4 characters, so 3,000 bytes become 4,000 characters.</li>
+<li><strong>Webmail</strong>: the browser speaks HTTP(S) to a web front end; SMTP still moves mail between providers behind it.</li>
+</ul>
+
+<h2 id="ftp">FTP</h2>
+<p>FTP is <strong>out-of-band</strong>: a persistent control connection on TCP 21 carries commands and replies, and a separate data connection (port 20 in active mode, or a negotiated port) carries each listing or file. A firewall that allows only port 21 lets you log in but not transfer.</p>
+
+<h2 id="pitfalls">Common pitfalls</h2>
+<ul class="plain">
+<li>Persistent connections are not a session mechanism; cookies are.</li>
+<li>In iterative resolution the root never contacts the TLD itself; it refers the resolver there.</li>
+<li>MIME encodes; it does not encrypt.</li>
+</ul>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>Questions on this topic appear across the daily quiz, from recall to design problems, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/net/">Take today&rsquo;s Networking quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/ipv4-addressing.html" rel="prev">&larr; IPv4 addressing, subnetting and CIDR</a><a href="/learn/transport-sockets.html" rel="next">TCP, UDP, sockets and CRC &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

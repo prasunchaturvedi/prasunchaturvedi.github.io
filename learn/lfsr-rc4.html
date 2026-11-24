@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stream ciphers: LFSR and RC4 | Prasun Chaturvedi</title>
+  <meta name="description" content="How LFSRs work and why they fail alone, RC4&#x27;s KSA and PRGA step by step, its biases, and the RC4 chat lab.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/learn/lfsr-rc4.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="Stream ciphers: LFSR and RC4">
+  <meta property="og:description" content="How LFSRs work and why they fail alone, RC4&#x27;s KSA and PRGA step by step, its biases, and the RC4 chat lab.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/learn/lfsr-rc4.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/" aria-current="page">Learn</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="/learn/">Learn</a> &rsaquo; Part 3 · Cryptography and secure protocols</p>
+        <h1>Stream ciphers: LFSR and RC4</h1>
+        <p>How LFSRs work and why they fail alone, RC4&#x27;s KSA and PRGA step by step, its biases, and the RC4 chat lab.</p>
+      </div>
+    </div>
+    <section class="notes" aria-label="Notes">
+      <div class="wrap">
+        <p class="byline">Network &amp; Systems Security &mdash; refresher notes by Prasun Chaturvedi</p>
+        <nav class="toc" aria-label="On this page"><h2>On this page</h2><ol><li><a href="#lfsr">Linear feedback shift registers</a></li><li><a href="#rc4">RC4</a></li><li><a href="#weak">Weaknesses</a></li><li><a href="#lab">RC4 chat lab</a></li><li><a href="#pitfalls">Common pitfalls</a></li></ol></nav>
+
+<h2 id="lfsr">Linear feedback shift registers</h2>
+<p>An L-stage LFSR holds bits z<sub>0</sub>&hellip;z<sub>L&minus;1</sub>. Each clock: output z<sub>0</sub>, shift every bit one place left, and insert a feedback bit = XOR of the tapped stages. A primitive feedback polynomial gives the maximum period 2<sup>L</sup> &minus; 1 (the all-zero state is excluded).</p>
+<div class="worked"><h3>Worked example</h3><p>L = 4, seed (z0, z1, z2, z3) = (1, 0, 0, 1), feedback z0 &oplus; z1 (polynomial x<sup>4</sup> + x + 1). Output: 1 0 0 1 1 0 1 0 &hellip; with period 15.</p></div>
+<p><strong>Why it fails alone</strong>: feedback is linear over GF(2), so about 2L consecutive output bits let an attacker solve for the taps and the state (Berlekamp&ndash;Massey). Multi-LFSR designs such as DVD CSS (17- and 25-bit registers), GSM A5/1 and Bluetooth E0 have all been broken.</p>
+
+<h2 id="rc4">RC4</h2>
+<p>A byte-oriented stream cipher with a 40&ndash;256-bit key, very fast in software. Ciphertext = plaintext &oplus; keystream; decryption is the same operation.</p>
+<pre><code># 1. Initialisation
+for i in 0..255:  S[i] = i;  T[i] = K[i mod keylen]
+
+# 2. Key scheduling (KSA)
+j = 0
+for i in 0..255:
+    j = (j + S[i] + T[i]) mod 256
+    swap(S[i], S[j])
+
+# 3. Keystream generation (PRGA)
+i = j = 0
+repeat:
+    i = (i + 1) mod 256
+    j = (j + S[i]) mod 256
+    swap(S[i], S[j])
+    t = (S[i] + S[j]) mod 256
+    output k = S[t]          # C = P XOR k</code></pre>
+<div class="worked"><h3>Worked example: first KSA steps, key [3, 1, 4]</h3><p>i = 0: j = 0 + 0 + 3 = 3, swap S[0] and S[3] &rarr; S starts 3, 1, 2, 0. i = 1: j = 3 + 1 + 1 = 5, swap S[1] and S[5]. With the key &ldquo;Key&rdquo;, the first keystream byte is 0xEB, so plaintext &lsquo;P&rsquo; (0x50) encrypts to 0xBB.</p></div>
+
+<h2 id="weak">Weaknesses</h2>
+<ul class="plain">
+<li><strong>Second-byte bias</strong>: the second output byte is 0 with probability about 2/256, twice the random rate; with many encryptions of the same plaintext this reveals plaintext bytes.</li>
+<li>Early output bytes correlate with key bytes; WEP prepended a public 24-bit IV to the key and used the keystream from byte one, so tools recovered keys from captured traffic.</li>
+<li>Dropping the first bytes (RC4-drop[768]) removes the worst early bias but not long-term biases; RC4 is now prohibited in TLS.</li>
+<li>Restarting RC4 with the same key repeats the keystream (pad reuse).</li>
+</ul>
+
+<h2 id="lab">RC4 chat lab</h2>
+<p>A relay server on TCP 8080 forwards bytes between two clients. The clients agree a shared secret with Diffie&ndash;Hellman (g = 3, p = 19), seed RC4 with it and encrypt locally, so the relay sees only ciphertext&hellip; until it brute-forces the tiny discrete log (see the Diffie&ndash;Hellman page). Wireshark, nmap and traceroute are used alongside to observe traffic, open ports and paths.</p>
+
+<h2 id="pitfalls">Common pitfalls</h2>
+<ul class="plain"><li>KSA uses T; PRGA does not.</li><li>The output is S[t], not t.</li><li>Increment i, update j and swap before computing the output.</li></ul>
+
+        <aside class="test-yourself" aria-label="Test yourself">
+          <h2>Test yourself</h2>
+          <p>Questions on this topic appear across the daily quiz, from recall to design problems, each with a model answer.</p>
+          <p><a class="btn btn-primary" href="/quiz/net/">Take today&rsquo;s Networking quiz</a></p>
+        </aside>
+        <nav class="pager" aria-label="Topic navigation"><a href="/learn/classical-crypto.html" rel="prev">&larr; Symmetric cryptography and classical ciphers</a><a href="/learn/dh-rsa.html" rel="next">Diffie–Hellman, RSA and man-in-the-middle &rarr;</a></nav>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
