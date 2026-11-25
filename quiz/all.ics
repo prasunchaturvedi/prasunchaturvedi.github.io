@@ -381,6 +381,81 @@ TRIGGER:PT0M
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
+UID:bca-quiz-day11@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261205T053000Z
+DTEND:20261205T054500Z
+SUMMARY:Blockchain & Access Control Quiz #11 is live
+DESCRIPTION:Blockchain & Access Control daily quiz #11 (30 questions) is no
+ w open: https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #11 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day12@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261206T053000Z
+DTEND:20261206T054500Z
+SUMMARY:Blockchain & Access Control Quiz #12 is live
+DESCRIPTION:Blockchain & Access Control daily quiz #12 (30 questions) is no
+ w open: https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #12 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day13@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261207T053000Z
+DTEND:20261207T054500Z
+SUMMARY:Blockchain & Access Control Quiz #13 is live
+DESCRIPTION:Blockchain & Access Control daily quiz #13 (30 questions) is no
+ w open: https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #13 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day14@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261208T053000Z
+DTEND:20261208T054500Z
+SUMMARY:Blockchain & Access Control Quiz #14 is live
+DESCRIPTION:Blockchain & Access Control daily quiz #14 (30 questions) is no
+ w open: https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #14 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day15@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261209T053000Z
+DTEND:20261209T054500Z
+SUMMARY:Blockchain & Access Control Quiz #15 is live
+DESCRIPTION:Blockchain & Access Control daily quiz #15 (30 questions) is no
+ w open: https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #15 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 UID:ml-quiz-day1@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
 DTSTART:20261125T033000Z
