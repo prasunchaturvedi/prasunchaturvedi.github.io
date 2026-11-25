@@ -87,11 +87,27 @@
     var d = Math.floor(s / 86400), h = Math.floor((s % 86400) / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
     return (d ? d + "d " : "") + h + "h " + m + "m " + sec + "s";
   }
+  // Adaptive order: the learner picks the level of the next question.
+  var LEVELS = ["Easy", "Intermediate", "Hard"];
+  function lvl(q) { var i = LEVELS.indexOf(q.difficulty); return i < 0 ? 1 : i; }
+  // qs: the quiz's questions; used: {index:true} already served; target: wanted level index;
+  // dir: -1 easier / 0 same / +1 harder (tie-break when the target level is exhausted).
+  function pickNext(qs, used, target, dir) {
+    var best = -1, bestKey = null;
+    qs.forEach(function (q, k) {
+      if (used[k]) return;
+      var d = Math.abs(lvl(q) - target), side = (lvl(q) - target) * (dir || 1) >= 0 ? 0 : 1;
+      var key = [d, side, q.position || k];
+      if (!bestKey || key[0] < bestKey[0] || (key[0] === bestKey[0] && (key[1] < bestKey[1] || (key[1] === bestKey[1] && key[2] < bestKey[2])))) { best = k; bestKey = key; }
+    });
+    return best;
+  }
+  function hasLevel(qs, used, test) { return qs.some(function (q, k) { return !used[k] && test(lvl(q)); }); }
   // Hook for a future anonymous leaderboard. Returns null until a real data source exists.
   function getPeerStats(day, score) { return null; }
 
   var api = { SUBJECTS: SUBJECTS, releaseTime: releaseTime, releaseLabel: releaseLabel, unlockMs: unlockMs, isUnlocked: isUnlocked, currentDay: currentDay, nextUnlock: nextUnlock, withSchedule: withSchedule,
-    tierFor: tierFor, benchmark: benchmark, istDate: istDate, countdown: countdown, getPeerStats: getPeerStats, QUOTES: QUOTES };
+    LEVELS: LEVELS, pickNext: pickNext, tierFor: tierFor, benchmark: benchmark, istDate: istDate, countdown: countdown, getPeerStats: getPeerStats, QUOTES: QUOTES };
   if (typeof module !== "undefined" && module.exports) { module.exports = api; }
   if (typeof document === "undefined") return;
 
@@ -177,6 +193,7 @@
     })
     .then(function (doc) {
       state.bank = doc.questions;
+      state.topics = doc.topics || {};
       var now = Date.now();
       var today = currentDay(subj, now);
       var want = parseInt(params.get("n") || params.get("day"), 10);
@@ -263,14 +280,22 @@
       state.started = Date.now();
       state.finished = 0;
     }
+    state.served = [];
+    var served = saved && saved.served;
+    if (!served || served.length < state.answers.length) served = state.answers.map(function (_, k) { return k; }); // older saves: sequential
+    state.served = served.slice(0, Math.max(state.answers.length, 0));
     state.i = Math.min(state.answers.length, qs.length);
-    if (state.i >= qs.length) showResult(); else showQuestion();
+    if (state.i >= qs.length) { showResult(); return; }
+    state.served[state.i] = pickNext(qs, usedMap(), state.i ? lvl(qs[state.served[state.i - 1]]) : 0, 0);
+    showQuestion();
   }
 
   function persist() {
-    if (state.sk) save(state.sk, { answers: state.answers, started: state.started, finished: state.finished });
+    if (state.sk) save(state.sk, { answers: state.answers, served: state.served, started: state.started, finished: state.finished });
   }
 
+  function usedMap() { var u = {}; state.served.forEach(function (k, j) { if (j < state.answers.length || j === state.i) u[k] = true; }); return u; }
+  function cur() { return state.qs[state.served[state.i]]; }
   function progressHTML() {
     var n = state.qs.length, done = state.answers.length;
     return '<div class="quiz-progress"><div class="quiz-progress-label">Question ' + Math.min(state.i + 1, n) + " of " + n +
@@ -279,7 +304,7 @@
   }
 
   function showQuestion() {
-    var q = state.qs[state.i];
+    var q = cur();
     var html = progressHTML() +
       '<article class="quiz-card" aria-labelledby="q-stem">' +
       '<div class="quiz-meta"><span class="badge badge-' + q.difficulty.toLowerCase() + '">' + esc(q.difficulty) + '</span>' +
@@ -290,23 +315,32 @@
       html += '<li><button type="button" class="quiz-opt" data-k="' + k + '"><span class="quiz-key" aria-hidden="true">' + (k + 1) +
         "</span><span class=\"quiz-opt-text\">" + esc(o) + '</span><span class="quiz-mark" aria-hidden="true"></span></button></li>';
     });
-    html += '</ol><div class="quiz-feedback" data-feedback aria-live="polite"></div>' +
-      '<p class="quiz-hint">Keys: 1–4 to answer, Enter for the next question.</p></article>';
+    html += '</ol><p class="quiz-skip-row"><button type="button" class="btn btn-ghost" data-skip>Skip \u2014 I don\u2019t know</button></p>' +
+      '<div class="quiz-feedback" data-feedback aria-live="polite"></div>' +
+      '<p class="quiz-hint">Keys: 1–4 to answer, S to skip. After each question: E easier, Enter same level, H harder.</p></article>';
     panel.innerHTML = html;
     panel.querySelector("#q-stem").focus({ preventScroll: true });
     panel.querySelector(".quiz-options").addEventListener("click", function (e) {
       var b = e.target.closest("button[data-k]");
       if (b) answer(parseInt(b.getAttribute("data-k"), 10));
     });
+    panel.querySelector("[data-skip]").addEventListener("click", function () { answer(-1); });
   }
 
   function answer(k) {
     if (state.answers.length > state.i) return; // already answered
-    var q = state.qs[state.i];
-    var ok = k === q.answer;
+    var q = cur();
+    var ok = k === q.answer, skipped = k === -1;
+    var sk = panel.querySelector("[data-skip]"); if (sk) sk.parentNode.removeChild(sk);
     state.answers.push(k);
     if (state.answers.length === state.qs.length) state.finished = Date.now();
     persist();
+    if (skipped) {
+      Array.prototype.forEach.call(panel.querySelectorAll(".quiz-opt"), function (b) { b.disabled = true; });
+      panel.querySelector("[data-feedback]").innerHTML = '<p class="quiz-verdict skip"><span aria-hidden="true">\u21b7</span> Skipped. ' +
+        'The answer stays hidden; you can try this question again at the end.</p>' + nextControls(state.i === state.qs.length - 1, lvl(q));
+      wireNext(); return;
+    }
     Array.prototype.forEach.call(panel.querySelectorAll(".quiz-opt"), function (b) {
       var bk = parseInt(b.getAttribute("data-k"), 10);
       b.disabled = true;
@@ -316,21 +350,43 @@
     });
     var last = state.i === state.qs.length - 1;
     panel.querySelector("[data-feedback]").innerHTML =
-      '<p class="quiz-verdict ' + (ok ? "ok" : "no") + '"><span aria-hidden="true">' + (ok ? "✔" : "✖") + "</span> " +
+      '<p class="quiz-verdict ' + (ok ? "ok" : (skipped ? "skip" : "no")) + '"><span aria-hidden="true">' + (ok ? "✔" : (skipped ? "\u21b7" : "✖")) + "</span> " +
       (ok ? "Correct." : "Not quite. The correct answer is option " + (q.answer + 1) + ".") + "</p>" +
       '<div class="quiz-model"><h3>Model answer</h3><p>' + esc(q.explanation) + "</p>" +
       '<p class="quiz-concept"><strong>Key concept:</strong> ' + esc(q.concept) + "</p>" +
       (q.source ? '<p class="quiz-source">' + esc(q.source) + "</p>" : "") +
       (q.ref ? '<p><a href="' + esc(q.ref) + '">Revise this topic in the notes</a></p>' : "") + '</div>' +
-      '<button type="button" class="btn btn-primary" data-next>' + (last ? "See my score" : "Next question") + "</button>";
-    var next = panel.querySelector("[data-next]");
-    next.addEventListener("click", goNext);
-    next.focus({ preventScroll: true });
+      nextControls(last, lvl(q));
+    wireNext();
+  }
+  function wireNext() {
+    var fb = panel.querySelector("[data-feedback]");
+    fb.addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-next]");
+      if (b && !b.disabled) goNext(parseInt(b.getAttribute("data-next"), 10));
+    });
+    panel.querySelector('[data-next="0"]').focus({ preventScroll: true });
   }
 
-  function goNext() {
+  function nextControls(last, L) {
+    if (last) return '<button type="button" class="btn btn-primary" data-next="0">See my score</button>';
+    var used = usedMap();
+    var easier = hasLevel(state.qs, used, function (x) { return x < L; });
+    var harder = hasLevel(state.qs, used, function (x) { return x > L; });
+    return '<div class="quiz-level" role="group" aria-label="Choose the level of the next question">' +
+      '<span class="quiz-level-label">Next question:</span>' +
+      '<button type="button" class="btn btn-outline" data-next="-1"' + (easier ? "" : " disabled") + '>\u25bc Easier</button>' +
+      '<button type="button" class="btn btn-primary" data-next="0">Same level</button>' +
+      '<button type="button" class="btn btn-outline" data-next="1"' + (harder ? "" : " disabled") + '>Harder \u25b2</button></div>';
+  }
+
+  function goNext(dir) {
+    var L = lvl(cur());
     state.i += 1;
-    if (state.i >= state.qs.length) showResult(); else showQuestion();
+    if (state.i >= state.qs.length) { showResult(); return; }
+    state.served[state.i] = pickNext(state.qs, usedMap(), Math.max(0, Math.min(2, L + (dir || 0))), dir || 0);
+    persist();
+    showQuestion();
     window.scrollTo({ top: root.offsetTop - 16, behavior: reduceMotion ? "auto" : "smooth" });
   }
 
@@ -339,18 +395,25 @@
     if (!panel.querySelector(".quiz-options")) return;
     var tag = (e.target && e.target.tagName) || "";
     if (tag === "INPUT" || tag === "TEXTAREA") return;
-    if (/^[1-4]$/.test(e.key) && state.answers.length === state.i) { answer(parseInt(e.key, 10) - 1); e.preventDefault(); }
-    else if (e.key === "Enter" && state.answers.length > state.i && e.target.tagName !== "A") {
+    var open = state.answers.length === state.i, k = e.key.toLowerCase();
+    if (/^[1-4]$/.test(e.key) && open) { answer(parseInt(e.key, 10) - 1); e.preventDefault(); }
+    else if (k === "s" && open) { answer(-1); e.preventDefault(); }
+    else if (!open && (k === "e" || k === "h")) {
+      var b = panel.querySelector('[data-next="' + (k === "e" ? -1 : 1) + '"]');
+      if (b && !b.disabled) { goNext(k === "e" ? -1 : 1); e.preventDefault(); }
+    }
+    else if (e.key === "Enter" && !open && e.target.tagName !== "A") {
       if (e.target.matches && e.target.matches("[data-next]")) return; // native button click handles it
-      goNext(); e.preventDefault();
+      goNext(0); e.preventDefault();
     }
   });
 
   function breakdown(field, order) {
     var rows = {};
-    state.qs.forEach(function (q, k) {
+    state.served.forEach(function (qi, j) {
+      var q = state.qs[qi];
       var r = rows[q[field]] || (rows[q[field]] = { n: 0, ok: 0 });
-      r.n++; if (state.answers[k] === q.answer) r.ok++;
+      r.n++; if (state.answers[j] === q.answer) r.ok++;
     });
     return order.filter(function (o) { return rows[o]; }).map(function (o) {
       return "<tr><th scope=\"row\">" + o + "</th><td>" + rows[o].ok + " / " + rows[o].n + "</td><td>" + Math.round(rows[o].ok / rows[o].n * 100) + "%</td></tr>";
@@ -371,14 +434,46 @@
       '<text x="70" y="90" text-anchor="middle" font-size="11" fill="#23262b">' + (tier.key === "retry" ? "NOT YET" : tier.label.toUpperCase()) + "</text></svg>";
   }
 
+  // Further reading (APA 7): shown only on the score page, collapsed, from /quiz/refs.json.
+  var refsDoc = null;
+  function apaHTML(t) { return esc(t).replace(/\*([^*]+)\*/g, "<em>$1</em>").replace(/(https?:\/\/[^\s<]+[^\s<.,;)])/g, '<a href="$1" rel="noopener">$1</a>'); }
+  function addReading(box) {
+    var run = function (doc) {
+      if (!doc || !box.isConnected) return;
+      var rules = (doc.rules || {})[subj.code] || [], labels = (doc.labels || {})[subj.code] || {};
+      var seen = {}, topicRows = [], used = {};
+      state.served.forEach(function (qi) {
+        var t = state.qs[qi].topic; if (seen[t]) return; seen[t] = true;
+        var rule = null; for (var r = 0; r < rules.length && !rule; r++) { if (new RegExp(rules[r].match, "i").test(t)) rule = rules[r]; }
+        if (!rule) return;
+        var name = (state.topics[t] && state.topics[t].title) || labels[t] || t;
+        rule.refs.forEach(function (k) { used[k] = true; });
+        topicRows.push("<li><strong>" + esc(name) + "</strong>: " + "(" + rule.refs.map(function (k) { return esc(doc.refs[k].cite); }).join("; ") + ")" + "</li>");
+      });
+      var list = Object.keys(used).map(function (k) { return doc.refs[k]; })
+        .sort(function (a, b) { return a.apa.localeCompare(b.apa); });
+      if (!list.length) return;
+      var d = document.createElement("details");
+      d.className = "quiz-reading";
+      d.innerHTML = "<summary>Further reading on these topics (APA 7) \u2014 " + list.length + " reference" + (list.length === 1 ? "" : "s") + "</summary>" +
+        '<h4>By topic</h4><ul class="reading-topics">' + topicRows.join("") + "</ul>" +
+        '<h4>References</h4><ul class="reading-refs">' + list.map(function (x) { return "<li>" + apaHTML(x.apa) + "</li>"; }).join("") + "</ul>";
+      var act = box.querySelector(".actions"); box.insertBefore(d, act);
+    };
+    if (refsDoc) run(refsDoc); else getJSON("/quiz/refs.json").then(function (j) { refsDoc = j; run(j); }, function () {});
+  }
+
   function fmtTime(ms) {
     var s = Math.round(ms / 1000);
     return Math.floor(s / 60) + " min " + (s % 60) + " s";
   }
 
   function showResult() {
-    var n = state.qs.length, score = 0, missed = [];
-    state.qs.forEach(function (q, k) { if (state.answers[k] === q.answer) score++; else missed.push(q); });
+    var n = state.qs.length, score = 0, missed = [], skippedN = 0;
+    state.served.forEach(function (qi, j) {
+      var q = state.qs[qi], a = state.answers[j];
+      if (a === q.answer) score++; else { if (a === -1) skippedN++; missed.push({ q: q, skipped: a === -1 }); }
+    });
     var pct = Math.round(score / n * 100);
     var tier = tierFor(pct);
     var bench = benchmark(state.qs);
@@ -402,6 +497,7 @@
       '<h2 id="res-h" tabindex="-1">Your score for ' + dayLabel + "</h2>" +
       '<div class="result-top">' + sealSVG(pct, tier) +
       '<div><p class="result-score"><strong>' + score + " / " + n + "</strong> (" + pct + "%)</p>" +
+      (skippedN ? "<p>Skipped: " + skippedN + " (counted as not correct)</p>" : "") +
       '<p class="result-tier">Result: <strong>' + esc(tier.label) + "</strong></p>" +
       (state.finished ? '<p>Time taken: ' + fmtTime(state.finished - state.started) + "</p>" : "") +
       '<blockquote class="result-quote"><p>“' + esc(quote[0]) + '”</p><footer>— ' + esc(quote[1]) + "</footer></blockquote></div></div>" +
@@ -415,11 +511,14 @@
       (peers ? "<p>" + esc(peers.summary) + "</p>" : "") +
       (mine.length > 1 ? "<p>Your attempts at " + dayLabel + ": " + mine.map(function (h) { return h.pct + "%"; }).join(", ") + ".</p>" : "") +
       (!state.sample ? "<p>Quizzes completed on this device: " + Object.keys(daysDone).length + " of " + subj.days + "; current streak: " + streak + " day" + (streak === 1 ? "" : "s") + ".</p>" : "") +
-      (missed.length ? "<h3>Questions to revisit (" + missed.length + ")</h3><ol class=\"missed\">" + missed.map(function (q) {
-        return '<li><span class="quiz-id">' + esc(q.id) + "</span> " + esc(q.stem) + '<br><strong>Answer:</strong> ' + esc(q.options[q.answer]) +
+      (missed.length ? "<h3>Questions to revisit (" + missed.length + ")</h3><ol class=\"missed\">" + missed.map(function (m) {
+        var q = m.q;
+        return '<li><span class="quiz-id">' + esc(q.id) + "</span> " + (m.skipped ? '<em>(skipped \u2014 answer hidden until you attempt it)</em> ' : "") + esc(q.stem) +
+          (m.skipped ? "" : '<br><strong>Answer:</strong> ' + esc(q.options[q.answer])) +
           (q.ref ? ' · <a href="' + esc(q.ref) + '">notes</a>' : "") + '</li>';
       }).join("") + "</ol>" : "<p>No misses. Excellent work.</p>") +
-      '<div class="actions"><button type="button" class="btn btn-primary" data-retry>Retry ' + dayLabel + "</button>" +
+      '<div class="actions">' + (skippedN ? '<button type="button" class="btn btn-primary" data-skipped>Try my ' + skippedN + ' skipped question' + (skippedN === 1 ? "" : "s") + '</button>' : "") +
+      '<button type="button" class="btn ' + (skippedN ? "btn-outline" : "btn-primary") + '" data-retry>Retry ' + dayLabel + "</button>" +
       '<button type="button" class="btn btn-outline" data-share>Share my score</button></div>' +
       '<p class="quiz-note" data-share-msg aria-live="polite"></p></section>';
     panel.innerHTML = html;
@@ -431,10 +530,20 @@
       var h = copy.querySelector("h2"); if (h) { var h3 = document.createElement("h3"); h3.textContent = h.textContent; h.replaceWith(h3); }
       panel.querySelector(".quiz-result").appendChild(copy);
     }
+    addReading(panel.querySelector(".quiz-result"));
     panel.querySelector("#res-h").focus({ preventScroll: true });
     panel.querySelector("[data-retry]").addEventListener("click", function () {
       if (state.sk) save(state.sk, null);
       startQuiz(state.qs, state.sk);
+    });
+    var ts = panel.querySelector("[data-skipped]");
+    if (ts) ts.addEventListener("click", function () {
+      var sv = [], an = [];
+      state.served.forEach(function (qi, j) { if (state.answers[j] !== -1) { sv.push(qi); an.push(state.answers[j]); } });
+      state.served = sv; state.answers = an; state.finished = 0; state.i = an.length;
+      var used = usedMap();
+      state.served[state.i] = pickNext(state.qs, used, 0, 0);
+      persist(); showQuestion();
     });
     panel.querySelector("[data-share]").addEventListener("click", function () {
       var msg = panel.querySelector("[data-share-msg]");

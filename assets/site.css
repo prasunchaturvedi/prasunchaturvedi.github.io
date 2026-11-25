@@ -297,3 +297,17 @@ pre code { background: none; color: inherit; padding: 0; font-size: .875rem; }
 .hub-next, .hub-archive { font-size: .9375rem; color: var(--slate); }
 .hub-next strong { font-variant-numeric: tabular-nums; color: var(--navy); }
 .hub-archive a { margin-right: .35rem; }
+
+/* quiz: skip + choose next level */
+.btn-ghost { background: transparent; border-color: transparent; color: var(--slate); text-decoration: underline; padding-left: 0; }
+.btn-ghost:hover { color: var(--navy); }
+.quiz-skip-row { margin: .5rem 0 0; }
+.quiz-verdict.skip { color: var(--slate); }
+.quiz-level { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-top: 1rem; }
+.quiz-level-label { font-weight: 600; margin-right: .25rem; }
+.quiz-level .btn[disabled] { opacity: .4; cursor: not-allowed; }
+.quiz-reading { margin: 1.25rem 0; border: 1px solid #e5e2da; border-radius: 8px; padding: .75rem 1rem; }
+.quiz-reading summary { cursor: pointer; font-weight: 600; color: var(--navy); }
+.quiz-reading h4 { margin: 1rem 0 .25rem; font-size: 1rem; }
+.reading-refs li { padding-left: 2em; text-indent: -2em; list-style: none; margin-bottom: .5rem; overflow-wrap: anywhere; }
+.reading-refs { padding-left: 0; }

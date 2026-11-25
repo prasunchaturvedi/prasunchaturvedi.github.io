@@ -1,0 +1,676 @@
+{
+ "refs": {
+  "forouzan": {
+   "cite": "Forouzan, 2013",
+   "apa": "Forouzan, B. A. (2013). *Data communications and networking* (5th ed.). McGraw-Hill."
+  },
+  "kurose": {
+   "cite": "Kurose & Ross, 2021",
+   "apa": "Kurose, J. F., & Ross, K. W. (2021). *Computer networking: A top-down approach* (8th ed.). Pearson."
+  },
+  "tanenbaum": {
+   "cite": "Tanenbaum & Wetherall, 2011",
+   "apa": "Tanenbaum, A. S., & Wetherall, D. J. (2011). *Computer networks* (5th ed.). Pearson."
+  },
+  "stallings-nse": {
+   "cite": "Stallings, 2017a",
+   "apa": "Stallings, W. (2017a). *Network security essentials: Applications and standards* (6th ed.). Pearson."
+  },
+  "stallings-cns": {
+   "cite": "Stallings, 2017b",
+   "apa": "Stallings, W. (2017b). *Cryptography and network security: Principles and practice* (7th ed.). Pearson."
+  },
+  "kps": {
+   "cite": "Kaufman et al., 2002",
+   "apa": "Kaufman, C., Perlman, R., & Speciner, M. (2002). *Network security: Private communication in a public world* (2nd ed.). Prentice Hall."
+  },
+  "paar": {
+   "cite": "Paar & Pelzl, 2010",
+   "apa": "Paar, C., & Pelzl, J. (2010). *Understanding cryptography: A textbook for students and practitioners*. Springer. https://doi.org/10.1007/978-3-642-04101-3"
+  },
+  "x800": {
+   "cite": "ITU-T, 1991",
+   "apa": "International Telecommunication Union. (1991). *Security architecture for Open Systems Interconnection for CCITT applications* (ITU-T Recommendation X.800)."
+  },
+  "rfc4301": {
+   "cite": "Kent & Seo, 2005",
+   "apa": "Kent, S., & Seo, K. (2005). *Security architecture for the Internet Protocol* (RFC 4301). Internet Engineering Task Force. https://doi.org/10.17487/RFC4301"
+  },
+  "rfc4303": {
+   "cite": "Kent, 2005",
+   "apa": "Kent, S. (2005). *IP encapsulating security payload (ESP)* (RFC 4303). Internet Engineering Task Force. https://doi.org/10.17487/RFC4303"
+  },
+  "rfc2131": {
+   "cite": "Droms, 1997",
+   "apa": "Droms, R. (1997). *Dynamic host configuration protocol* (RFC 2131). Internet Engineering Task Force. https://doi.org/10.17487/RFC2131"
+  },
+  "dh": {
+   "cite": "Diffie & Hellman, 1976",
+   "apa": "Diffie, W., & Hellman, M. E. (1976). New directions in cryptography. *IEEE Transactions on Information Theory, 22*(6), 644–654. https://doi.org/10.1109/TIT.1976.1055638"
+  },
+  "rsa": {
+   "cite": "Rivest et al., 1978",
+   "apa": "Rivest, R. L., Shamir, A., & Adleman, L. (1978). A method for obtaining digital signatures and public-key cryptosystems. *Communications of the ACM, 21*(2), 120–126. https://doi.org/10.1145/359340.359342"
+  },
+  "nmap": {
+   "cite": "Lyon, 2009",
+   "apa": "Lyon, G. F. (2009). *Nmap network scanning: The official Nmap project guide to network discovery and security scanning*. Insecure.Com LLC."
+  },
+  "snort": {
+   "cite": "Roesch, 1999",
+   "apa": "Roesch, M. (1999). Snort: Lightweight intrusion detection for networks. In *Proceedings of the 13th USENIX Conference on System Administration (LISA '99)* (pp. 229–238). USENIX Association."
+  },
+  "carrier": {
+   "cite": "Carrier, 2005",
+   "apa": "Carrier, B. (2005). *File system forensic analysis*. Addison-Wesley."
+  },
+  "sheyner": {
+   "cite": "Sheyner et al., 2002",
+   "apa": "Sheyner, O., Haines, J., Jha, S., Lippmann, R., & Wing, J. M. (2002). Automated generation and analysis of attack graphs. In *Proceedings 2002 IEEE Symposium on Security and Privacy* (pp. 273–284). IEEE. https://doi.org/10.1109/SECPRI.2002.1004377"
+  },
+  "fabric": {
+   "cite": "Androulaki et al., 2018",
+   "apa": "Androulaki, E., Barger, A., Bortnikov, V., Cachin, C., Christidis, K., De Caro, A., Enyeart, D., Ferris, C., Laventman, G., Manevich, Y., Muralidharan, S., Murthy, C., Nguyen, B., Sethi, M., Singh, G., Smith, K., Sorniotti, A., Stathakopoulou, C., Vukolić, M., . . . Yellick, J. (2018). Hyperledger Fabric: A distributed operating system for permissioned blockchains. In *Proceedings of the Thirteenth EuroSys Conference* (Article 30). ACM. https://doi.org/10.1145/3190508.3190538"
+  },
+  "fabric-docs": {
+   "cite": "Hyperledger Foundation, n.d.",
+   "apa": "Hyperledger Foundation. (n.d.). *Hyperledger Fabric documentation*. Retrieved November 25, 2026, from https://hyperledger-fabric.readthedocs.io/"
+  },
+  "clrs": {
+   "cite": "Cormen et al., 2022",
+   "apa": "Cormen, T. H., Leiserson, C. E., Rivest, R. L., & Stein, C. (2022). *Introduction to algorithms* (4th ed.). MIT Press."
+  },
+  "kt": {
+   "cite": "Kleinberg & Tardos, 2006",
+   "apa": "Kleinberg, J., & Tardos, É. (2006). *Algorithm design*. Pearson Addison-Wesley."
+  },
+  "dijkstra": {
+   "cite": "Dijkstra, 1959",
+   "apa": "Dijkstra, E. W. (1959). A note on two problems in connexion with graphs. *Numerische Mathematik, 1*, 269–271. https://doi.org/10.1007/BF01386390"
+  },
+  "kruskal": {
+   "cite": "Kruskal, 1956",
+   "apa": "Kruskal, J. B. (1956). On the shortest spanning subtree of a graph and the traveling salesman problem. *Proceedings of the American Mathematical Society, 7*(1), 48–50. https://doi.org/10.1090/S0002-9939-1956-0078686-7"
+  },
+  "prim": {
+   "cite": "Prim, 1957",
+   "apa": "Prim, R. C. (1957). Shortest connection networks and some generalizations. *Bell System Technical Journal, 36*(6), 1389–1401. https://doi.org/10.1002/j.1538-7305.1957.tb01515.x"
+  },
+  "kahn": {
+   "cite": "Kahn, 1962",
+   "apa": "Kahn, A. B. (1962). Topological sorting of large networks. *Communications of the ACM, 5*(11), 558–562. https://doi.org/10.1145/368996.369025"
+  },
+  "nakamoto": {
+   "cite": "Nakamoto, 2008",
+   "apa": "Nakamoto, S. (2008). *Bitcoin: A peer-to-peer electronic cash system*. https://bitcoin.org/bitcoin.pdf"
+  },
+  "narayanan": {
+   "cite": "Narayanan et al., 2016",
+   "apa": "Narayanan, A., Bonneau, J., Felten, E., Miller, A., & Goldfeder, S. (2016). *Bitcoin and cryptocurrency technologies: A comprehensive introduction*. Princeton University Press."
+  },
+  "bgp": {
+   "cite": "Lamport et al., 1982",
+   "apa": "Lamport, L., Shostak, R., & Pease, M. (1982). The Byzantine generals problem. *ACM Transactions on Programming Languages and Systems, 4*(3), 382–401. https://doi.org/10.1145/357172.357176"
+  },
+  "pbft": {
+   "cite": "Castro & Liskov, 1999",
+   "apa": "Castro, M., & Liskov, B. (1999). Practical Byzantine fault tolerance. In *Proceedings of the Third Symposium on Operating Systems Design and Implementation* (pp. 173–186). USENIX Association."
+  },
+  "gasper": {
+   "cite": "Buterin et al., 2020",
+   "apa": "Buterin, V., Hernandez, D., Kamphefner, T., Pham, K., Qiao, Z., Ryan, D., Sin, J., Wang, Y., & Zhang, Y. X. (2020). *Combining GHOST and Casper*. arXiv. https://doi.org/10.48550/arXiv.2003.03052"
+  },
+  "merkle": {
+   "cite": "Merkle, 1988",
+   "apa": "Merkle, R. C. (1988). A digital signature based on a conventional encryption function. In C. Pomerance (Ed.), *Advances in cryptology — CRYPTO '87* (pp. 369–378). Springer. https://doi.org/10.1007/3-540-48184-2_32"
+  },
+  "hps": {
+   "cite": "Hoffstein et al., 2014",
+   "apa": "Hoffstein, J., Pipher, J., & Silverman, J. H. (2014). *An introduction to mathematical cryptography* (2nd ed.). Springer. https://doi.org/10.1007/978-1-4939-1711-2"
+  },
+  "hac": {
+   "cite": "Menezes et al., 1996",
+   "apa": "Menezes, A. J., van Oorschot, P. C., & Vanstone, S. A. (1996). *Handbook of applied cryptography*. CRC Press."
+  },
+  "koblitz": {
+   "cite": "Koblitz, 1987",
+   "apa": "Koblitz, N. (1987). Elliptic curve cryptosystems. *Mathematics of Computation, 48*(177), 203–209. https://doi.org/10.1090/S0025-5718-1987-0866109-5"
+  },
+  "elgamal": {
+   "cite": "ElGamal, 1985",
+   "apa": "ElGamal, T. (1985). A public key cryptosystem and a signature scheme based on discrete logarithms. *IEEE Transactions on Information Theory, 31*(4), 469–472. https://doi.org/10.1109/TIT.1985.1057074"
+  },
+  "mh": {
+   "cite": "Merkle & Hellman, 1978",
+   "apa": "Merkle, R., & Hellman, M. (1978). Hiding information and signatures in trapdoor knapsacks. *IEEE Transactions on Information Theory, 24*(5), 525–530. https://doi.org/10.1109/TIT.1978.1055927"
+  },
+  "kocher": {
+   "cite": "Kocher, 1996",
+   "apa": "Kocher, P. C. (1996). Timing attacks on implementations of Diffie-Hellman, RSA, DSS, and other systems. In N. Koblitz (Ed.), *Advances in cryptology — CRYPTO '96* (pp. 104–113). Springer. https://doi.org/10.1007/3-540-68697-5_9"
+  },
+  "ro": {
+   "cite": "Bellare & Rogaway, 1993",
+   "apa": "Bellare, M., & Rogaway, P. (1993). Random oracles are practical: A paradigm for designing efficient protocols. In *Proceedings of the 1st ACM Conference on Computer and Communications Security* (pp. 62–73). ACM. https://doi.org/10.1145/168588.168596"
+  },
+  "fips180": {
+   "cite": "NIST, 2015",
+   "apa": "National Institute of Standards and Technology. (2015). *Secure hash standard (SHS)* (FIPS PUB 180-4). https://doi.org/10.6028/NIST.FIPS.180-4"
+  },
+  "rfc1321": {
+   "cite": "Rivest, 1992",
+   "apa": "Rivest, R. (1992). *The MD5 message-digest algorithm* (RFC 1321). Internet Engineering Task Force. https://doi.org/10.17487/RFC1321"
+  },
+  "rbac": {
+   "cite": "Sandhu et al., 1996",
+   "apa": "Sandhu, R. S., Coyne, E. J., Feinstein, H. L., & Youman, C. E. (1996). Role-based access control models. *Computer, 29*(2), 38–47. https://doi.org/10.1109/2.485845"
+  },
+  "samarati": {
+   "cite": "Samarati & de Capitani di Vimercati, 2001",
+   "apa": "Samarati, P., & de Capitani di Vimercati, S. (2001). Access control: Policies, models, and mechanisms. In R. Focardi & R. Gorrieri (Eds.), *Foundations of security analysis and design* (pp. 137–196). Springer. https://doi.org/10.1007/3-540-45608-2_3"
+  },
+  "islr": {
+   "cite": "James et al., 2021",
+   "apa": "James, G., Witten, D., Hastie, T., & Tibshirani, R. (2021). *An introduction to statistical learning: With applications in R* (2nd ed.). Springer. https://doi.org/10.1007/978-1-0716-1418-1"
+  },
+  "esl": {
+   "cite": "Hastie et al., 2009",
+   "apa": "Hastie, T., Tibshirani, R., & Friedman, J. (2009). *The elements of statistical learning: Data mining, inference, and prediction* (2nd ed.). Springer. https://doi.org/10.1007/978-0-387-84858-7"
+  },
+  "bishop": {
+   "cite": "Bishop, 2006",
+   "apa": "Bishop, C. M. (2006). *Pattern recognition and machine learning*. Springer."
+  },
+  "mitchell": {
+   "cite": "Mitchell, 1997",
+   "apa": "Mitchell, T. M. (1997). *Machine learning*. McGraw-Hill."
+  },
+  "svm": {
+   "cite": "Cortes & Vapnik, 1995",
+   "apa": "Cortes, C., & Vapnik, V. (1995). Support-vector networks. *Machine Learning, 20*(3), 273–297. https://doi.org/10.1007/BF00994018"
+  },
+  "lloyd": {
+   "cite": "Lloyd, 1982",
+   "apa": "Lloyd, S. (1982). Least squares quantization in PCM. *IEEE Transactions on Information Theory, 28*(2), 129–137. https://doi.org/10.1109/TIT.1982.1056489"
+  },
+  "knn": {
+   "cite": "Cover & Hart, 1967",
+   "apa": "Cover, T., & Hart, P. (1967). Nearest neighbor pattern classification. *IEEE Transactions on Information Theory, 13*(1), 21–27. https://doi.org/10.1109/TIT.1967.1053964"
+  },
+  "aloha": {
+   "cite": "Abramson, 1970",
+   "apa": "Abramson, N. (1970). The ALOHA system: Another alternative for computer communications. In *Proceedings of the November 17–19, 1970, Fall Joint Computer Conference* (pp. 281–285). ACM. https://doi.org/10.1145/1478462.1478502"
+  },
+  "csma": {
+   "cite": "Kleinrock & Tobagi, 1975",
+   "apa": "Kleinrock, L., & Tobagi, F. (1975). Packet switching in radio channels: Part I—Carrier sense multiple-access modes and their throughput-delay characteristics. *IEEE Transactions on Communications, 23*(12), 1400–1416. https://doi.org/10.1109/TCOM.1975.1092768"
+  },
+  "coap": {
+   "cite": "Shelby et al., 2014",
+   "apa": "Shelby, Z., Hartke, K., & Bormann, C. (2014). *The Constrained Application Protocol (CoAP)* (RFC 7252). Internet Engineering Task Force. https://doi.org/10.17487/RFC7252"
+  },
+  "mqtt": {
+   "cite": "Banks et al., 2019",
+   "apa": "Banks, A., Briggs, E., Borgendale, K., & Gupta, R. (Eds.). (2019). *MQTT version 5.0* [OASIS Standard]. OASIS Open. https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html"
+  },
+  "dds": {
+   "cite": "Object Management Group, 2015",
+   "apa": "Object Management Group. (2015). *Data Distribution Service (DDS)* (Version 1.4). https://www.omg.org/spec/DDS/1.4"
+  },
+  "alfuqaha": {
+   "cite": "Al-Fuqaha et al., 2015",
+   "apa": "Al-Fuqaha, A., Guizani, M., Mohammadi, M., Aledhari, M., & Ayyash, M. (2015). Internet of things: A survey on enabling technologies, protocols, and applications. *IEEE Communications Surveys & Tutorials, 17*(4), 2347–2376. https://doi.org/10.1109/COMST.2015.2444095"
+  },
+  "atzori": {
+   "cite": "Atzori et al., 2010",
+   "apa": "Atzori, L., Iera, A., & Morabito, G. (2010). The Internet of Things: A survey. *Computer Networks, 54*(15), 2787–2805. https://doi.org/10.1016/j.comnet.2010.05.010"
+  },
+  "lee-cps": {
+   "cite": "Lee, 2008",
+   "apa": "Lee, E. A. (2008). Cyber physical systems: Design challenges. In *2008 11th IEEE International Symposium on Object and Component-Oriented Real-Time Distributed Computing (ISORC)* (pp. 363–369). IEEE. https://doi.org/10.1109/ISORC.2008.25"
+  },
+  "want": {
+   "cite": "Want, 2006",
+   "apa": "Want, R. (2006). An introduction to RFID technology. *IEEE Pervasive Computing, 5*(1), 25–33. https://doi.org/10.1109/MPRV.2006.2"
+  },
+  "fraden": {
+   "cite": "Fraden, 2016",
+   "apa": "Fraden, J. (2016). *Handbook of modern sensors: Physics, designs, and applications* (5th ed.). Springer. https://doi.org/10.1007/978-3-319-19303-8"
+  },
+  "walden": {
+   "cite": "Walden, 1999",
+   "apa": "Walden, R. H. (1999). Analog-to-digital converter survey and analysis. *IEEE Journal on Selected Areas in Communications, 17*(4), 539–550. https://doi.org/10.1109/49.761034"
+  },
+  "tinysec": {
+   "cite": "Karlof et al., 2004",
+   "apa": "Karlof, C., Sastry, N., & Wagner, D. (2004). TinySec: A link layer security architecture for wireless sensor networks. In *Proceedings of the 2nd International Conference on Embedded Networked Sensor Systems* (pp. 162–175). ACM. https://doi.org/10.1145/1031495.1031515"
+  }
+ },
+ "rules": {
+  "NET": [
+   {
+    "match": "osi",
+    "refs": [
+     "forouzan",
+     "kurose",
+     "x800"
+    ]
+   },
+   {
+    "match": "ipv4|subnet",
+    "refs": [
+     "forouzan",
+     "kurose"
+    ]
+   },
+   {
+    "match": "application",
+    "refs": [
+     "kurose",
+     "forouzan"
+    ]
+   },
+   {
+    "match": "transport|socket",
+    "refs": [
+     "kurose",
+     "forouzan"
+    ]
+   },
+   {
+    "match": "arp|dhcp",
+    "refs": [
+     "forouzan",
+     "rfc2131"
+    ]
+   },
+   {
+    "match": "lan-transport",
+    "refs": [
+     "stallings-nse",
+     "kps"
+    ]
+   },
+   {
+    "match": "dns-attack|firewall",
+    "refs": [
+     "stallings-nse",
+     "kurose"
+    ]
+   },
+   {
+    "match": "security-tools",
+    "refs": [
+     "nmap",
+     "snort"
+    ]
+   },
+   {
+    "match": "classical",
+    "refs": [
+     "stallings-cns",
+     "paar"
+    ]
+   },
+   {
+    "match": "dh-rsa",
+    "refs": [
+     "dh",
+     "rsa",
+     "stallings-cns"
+    ]
+   },
+   {
+    "match": "ipsec",
+    "refs": [
+     "rfc4301",
+     "rfc4303",
+     "stallings-nse"
+    ]
+   },
+   {
+    "match": "forensic",
+    "refs": [
+     "carrier"
+    ]
+   },
+   {
+    "match": "fundamentals",
+    "refs": [
+     "x800",
+     "stallings-nse"
+    ]
+   },
+   {
+    "match": "lfsr|rc4",
+    "refs": [
+     "paar",
+     "stallings-cns"
+    ]
+   },
+   {
+    "match": "attack-graph",
+    "refs": [
+     "sheyner",
+     "fabric"
+    ]
+   },
+   {
+    "match": ".",
+    "refs": [
+     "stallings-nse"
+    ]
+   }
+  ],
+  "AA": [
+   {
+    "match": "dijkstra",
+    "refs": [
+     "dijkstra",
+     "clrs"
+    ]
+   },
+   {
+    "match": "spanning",
+    "refs": [
+     "kruskal",
+     "prim",
+     "kt"
+    ]
+   },
+   {
+    "match": "kahn|kosaraju|bipartite",
+    "refs": [
+     "kahn",
+     "clrs",
+     "kt"
+    ]
+   },
+   {
+    "match": "topological|dfs",
+    "refs": [
+     "clrs",
+     "kt"
+    ]
+   },
+   {
+    "match": "greedy|inversion|divide|bfs|dynamic",
+    "refs": [
+     "kt",
+     "clrs"
+    ]
+   },
+   {
+    "match": ".",
+    "refs": [
+     "clrs",
+     "kt"
+    ]
+   }
+  ],
+  "BCA": [
+   {
+    "match": "fabric|chaincode|endorsement",
+    "refs": [
+     "fabric",
+     "fabric-docs"
+    ]
+   },
+   {
+    "match": "role-based",
+    "refs": [
+     "rbac"
+    ]
+   },
+   {
+    "match": "access control",
+    "refs": [
+     "samarati",
+     "rbac"
+    ]
+   },
+   {
+    "match": "byzantine|distributed consensus|consensus & fault",
+    "refs": [
+     "bgp",
+     "pbft",
+     "narayanan"
+    ]
+   },
+   {
+    "match": "ethereum|pos",
+    "refs": [
+     "gasper",
+     "narayanan"
+    ]
+   },
+   {
+    "match": "merkle tree",
+    "refs": [
+     "merkle",
+     "narayanan"
+    ]
+   },
+   {
+    "match": "merkle–hellman|knapsack",
+    "refs": [
+     "mh",
+     "hac"
+    ]
+   },
+   {
+    "match": "bitcoin|utxo|proof of work|mining|double spend|decentrali|privacy|fundamentals",
+    "refs": [
+     "nakamoto",
+     "narayanan"
+    ]
+   },
+   {
+    "match": "random oracle|birthday",
+    "refs": [
+     "ro",
+     "hac"
+    ]
+   },
+   {
+    "match": "md5|sha|iterated",
+    "refs": [
+     "fips180",
+     "rfc1321"
+    ]
+   },
+   {
+    "match": "hash|mac",
+    "refs": [
+     "hac",
+     "narayanan"
+    ]
+   },
+   {
+    "match": "diffie",
+    "refs": [
+     "dh",
+     "hps"
+    ]
+   },
+   {
+    "match": "elgamal",
+    "refs": [
+     "elgamal",
+     "hps"
+    ]
+   },
+   {
+    "match": "elliptic|ecc",
+    "refs": [
+     "koblitz",
+     "hps"
+    ]
+   },
+   {
+    "match": "^rsa$|rsa",
+    "refs": [
+     "rsa",
+     "hps"
+    ]
+   },
+   {
+    "match": "timing",
+    "refs": [
+     "kocher"
+    ]
+   },
+   {
+    "match": ".",
+    "refs": [
+     "hps",
+     "hac"
+    ]
+   }
+  ],
+  "ML": [
+   {
+    "match": "svm",
+    "refs": [
+     "svm",
+     "islr"
+    ]
+   },
+   {
+    "match": "kmeans",
+    "refs": [
+     "lloyd",
+     "islr"
+    ]
+   },
+   {
+    "match": "knn",
+    "refs": [
+     "knn",
+     "islr"
+    ]
+   },
+   {
+    "match": "nb",
+    "refs": [
+     "mitchell",
+     "bishop"
+    ]
+   },
+   {
+    "match": "gd",
+    "refs": [
+     "bishop",
+     "esl"
+    ]
+   },
+   {
+    "match": "found",
+    "refs": [
+     "mitchell",
+     "islr"
+    ]
+   },
+   {
+    "match": ".",
+    "refs": [
+     "islr",
+     "esl"
+    ]
+   }
+  ],
+  "IOT": [
+   {
+    "match": "aloha",
+    "refs": [
+     "aloha",
+     "tanenbaum"
+    ]
+   },
+   {
+    "match": "csma",
+    "refs": [
+     "csma",
+     "tanenbaum"
+    ]
+   },
+   {
+    "match": "coap",
+    "refs": [
+     "coap"
+    ]
+   },
+   {
+    "match": "mqtt",
+    "refs": [
+     "mqtt"
+    ]
+   },
+   {
+    "match": "dds",
+    "refs": [
+     "dds"
+    ]
+   },
+   {
+    "match": "rfid",
+    "refs": [
+     "want"
+    ]
+   },
+   {
+    "match": "sensor",
+    "refs": [
+     "fraden"
+    ]
+   },
+   {
+    "match": "adc",
+    "refs": [
+     "walden",
+     "fraden"
+    ]
+   },
+   {
+    "match": "mac-layer security",
+    "refs": [
+     "tinysec"
+    ]
+   },
+   {
+    "match": "mac|networking",
+    "refs": [
+     "tanenbaum"
+    ]
+   },
+   {
+    "match": "cps|digital twin",
+    "refs": [
+     "lee-cps"
+    ]
+   },
+   {
+    "match": ".",
+    "refs": [
+     "alfuqaha",
+     "atzori"
+    ]
+   }
+  ]
+ },
+ "labels": {
+  "ML": {
+   "BIASVAR": "Bias–variance trade-off",
+   "CV": "Cross-validation",
+   "EVAL": "Model evaluation",
+   "FOUND": "ML foundations",
+   "GD": "Gradient descent",
+   "KMEANS": "k-means clustering",
+   "KNN": "k-nearest neighbours",
+   "LINREG": "Linear regression",
+   "LOGREG": "Logistic regression",
+   "NB": "Naive Bayes",
+   "REG": "Regularisation",
+   "SVM": "Support vector machines"
+  }
+ }
+}
