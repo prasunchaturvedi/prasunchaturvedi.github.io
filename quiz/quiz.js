@@ -121,6 +121,19 @@
     return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; });
   }
 
+  // ---------- anonymous usage events (GoatCounter; no cookies, no personal data) ----------
+  var gcQueue = [];
+  function track(path, title) {
+    var send = function () { window.goatcounter.count({ path: path, title: title || path, event: true }); };
+    if (window.goatcounter && window.goatcounter.count) { try { send(); } catch (e) {} return; }
+    gcQueue.push([path, title]);
+  }
+  window.addEventListener("load", function () {
+    var flush = function () { if (window.goatcounter && window.goatcounter.count) { gcQueue.splice(0).forEach(function (x) { track(x[0], x[1]); }); return true; } };
+    if (!flush()) { var tries = 0, t = setInterval(function () { if (flush() || ++tries > 20) clearInterval(t); }, 500); }
+  });
+  function quizTag() { return subj.code + "-" + (state.sample ? "sample" : state.day); }
+
   // ---------- shared loading ----------
   var params = new URLSearchParams(window.location.search);
   var preview = params.get("preview") === "all";
@@ -333,6 +346,8 @@
     var ok = k === q.answer, skipped = k === -1;
     var sk = panel.querySelector("[data-skip]"); if (sk) sk.parentNode.removeChild(sk);
     state.answers.push(k);
+    if (state.answers.length === 1) track("quiz-start/" + quizTag(), "Quiz started: " + subj.label + " " + (state.sample ? "sample" : "#" + state.day));
+    if (skipped) track("quiz-skip/" + quizTag(), "Question skipped");
     if (state.answers.length === state.qs.length) state.finished = Date.now();
     persist();
     if (skipped) {
@@ -480,7 +495,7 @@
     var hist = load(histKey, []);
     if (!state.sample && state.sk) {
       var already = hist.some(function (h) { return h.day === state.day && h.finished === state.finished; });
-      if (!already) { hist.push({ day: state.day, score: score, n: n, pct: pct, finished: state.finished || Date.now() }); save(histKey, hist); }
+      if (!already) { track("quiz-finish/" + quizTag() + "/" + tier.key, "Quiz finished: " + subj.label + " #" + state.day + " (" + tier.label + ")"); hist.push({ day: state.day, score: score, n: n, pct: pct, finished: state.finished || Date.now() }); save(histKey, hist); }
     }
     var mine = hist.filter(function (h) { return h.day === state.day; });
     var daysDone = {}; hist.forEach(function (h) { daysDone[h.day] = true; });
@@ -536,6 +551,7 @@
       if (state.sk) save(state.sk, null);
       startQuiz(state.qs, state.sk);
     });
+    if (state.sample) track("quiz-finish/" + quizTag() + "/" + tier.key, "Sample finished (" + tier.label + ")");
     var ts = panel.querySelector("[data-skipped]");
     if (ts) ts.addEventListener("click", function () {
       var sv = [], an = [];
