@@ -311,3 +311,5 @@ pre code { background: none; color: inherit; padding: 0; font-size: .875rem; }
 .quiz-reading h4 { margin: 1rem 0 .25rem; font-size: 1rem; }
 .reading-refs li { padding-left: 2em; text-indent: -2em; list-style: none; margin-bottom: .5rem; overflow-wrap: anywhere; }
 .reading-refs { padding-left: 0; }
+.visit-counter { flex-basis: 100%; margin: .5rem 0 0; font-size: .875rem; opacity: .9; }
+.visit-counter strong { font-variant-numeric: tabular-nums; }
