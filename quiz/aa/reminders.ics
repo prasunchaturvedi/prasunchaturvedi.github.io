@@ -11,8 +11,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261125T033000Z
 DTEND:20261125T034500Z
 SUMMARY:Algorithm Analysis Quiz #1 is live
-DESCRIPTION:Algorithm Analysis daily quiz #1 (30 questions) is now open: ht
- tps://prasunchaturvedi.in/quiz/aa/
+DESCRIPTION:Algorithm Analysis quiz #1 (30 questions) is now open: https://
+ prasunchaturvedi.in/quiz/aa/
 URL:https://prasunchaturvedi.in/quiz/aa/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -26,8 +26,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261126T033000Z
 DTEND:20261126T034500Z
 SUMMARY:Algorithm Analysis Quiz #2 is live
-DESCRIPTION:Algorithm Analysis daily quiz #2 (30 questions) is now open: ht
- tps://prasunchaturvedi.in/quiz/aa/
+DESCRIPTION:Algorithm Analysis quiz #2 (30 questions) is now open: https://
+ prasunchaturvedi.in/quiz/aa/
 URL:https://prasunchaturvedi.in/quiz/aa/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -41,8 +41,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261127T033000Z
 DTEND:20261127T034500Z
 SUMMARY:Algorithm Analysis Quiz #3 is live
-DESCRIPTION:Algorithm Analysis daily quiz #3 (30 questions) is now open: ht
- tps://prasunchaturvedi.in/quiz/aa/
+DESCRIPTION:Algorithm Analysis quiz #3 (30 questions) is now open: https://
+ prasunchaturvedi.in/quiz/aa/
 URL:https://prasunchaturvedi.in/quiz/aa/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -53,11 +53,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:aa-quiz-day4@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261128T033000Z
-DTEND:20261128T034500Z
+DTSTART:20261128T043000Z
+DTEND:20261128T044500Z
 SUMMARY:Algorithm Analysis Quiz #4 is live
-DESCRIPTION:Algorithm Analysis daily quiz #4 (30 questions) is now open: ht
- tps://prasunchaturvedi.in/quiz/aa/
+DESCRIPTION:Algorithm Analysis quiz #4 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/aa/
 URL:https://prasunchaturvedi.in/quiz/aa/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -68,15 +68,75 @@ END:VEVENT
 BEGIN:VEVENT
 UID:aa-quiz-day5@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261129T033000Z
-DTEND:20261129T034500Z
+DTSTART:20261128T083000Z
+DTEND:20261128T084500Z
 SUMMARY:Algorithm Analysis Quiz #5 is live
-DESCRIPTION:Algorithm Analysis daily quiz #5 (30 questions) is now open: ht
- tps://prasunchaturvedi.in/quiz/aa/
+DESCRIPTION:Algorithm Analysis quiz #5 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/aa/
 URL:https://prasunchaturvedi.in/quiz/aa/
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Algorithm Analysis Quiz #5 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:aa-quiz-day6@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261128T123000Z
+DTEND:20261128T124500Z
+SUMMARY:Algorithm Analysis Quiz #6 is live
+DESCRIPTION:Algorithm Analysis quiz #6 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/aa/
+URL:https://prasunchaturvedi.in/quiz/aa/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Algorithm Analysis Quiz #6 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:aa-quiz-day7@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261129T043000Z
+DTEND:20261129T044500Z
+SUMMARY:Algorithm Analysis Quiz #7 is live
+DESCRIPTION:Algorithm Analysis quiz #7 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/aa/
+URL:https://prasunchaturvedi.in/quiz/aa/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Algorithm Analysis Quiz #7 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:aa-quiz-day8@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261129T083000Z
+DTEND:20261129T084500Z
+SUMMARY:Algorithm Analysis Quiz #8 is live
+DESCRIPTION:Algorithm Analysis quiz #8 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/aa/
+URL:https://prasunchaturvedi.in/quiz/aa/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Algorithm Analysis Quiz #8 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:aa-quiz-day9@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261129T123000Z
+DTEND:20261129T124500Z
+SUMMARY:Algorithm Analysis Quiz #9 is live
+DESCRIPTION:Algorithm Analysis quiz #9 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/aa/
+URL:https://prasunchaturvedi.in/quiz/aa/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Algorithm Analysis Quiz #9 is live
 TRIGGER:PT0M
 END:VALARM
 END:VEVENT

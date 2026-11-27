@@ -11,8 +11,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261125T033000Z
 DTEND:20261125T034500Z
 SUMMARY:Networking Quiz #1 is live
-DESCRIPTION:Networking daily quiz #1 (30 questions) is now open: https://pr
- asunchaturvedi.in/quiz/net/
+DESCRIPTION:Networking quiz #1 (30 questions) is now open: https://prasunch
+ aturvedi.in/quiz/net/
 URL:https://prasunchaturvedi.in/quiz/net/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -26,8 +26,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261126T033000Z
 DTEND:20261126T034500Z
 SUMMARY:Networking Quiz #2 is live
-DESCRIPTION:Networking daily quiz #2 (30 questions) is now open: https://pr
- asunchaturvedi.in/quiz/net/
+DESCRIPTION:Networking quiz #2 (30 questions) is now open: https://prasunch
+ aturvedi.in/quiz/net/
 URL:https://prasunchaturvedi.in/quiz/net/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -41,8 +41,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261127T033000Z
 DTEND:20261127T034500Z
 SUMMARY:Networking Quiz #3 is live
-DESCRIPTION:Networking daily quiz #3 (30 questions) is now open: https://pr
- asunchaturvedi.in/quiz/net/
+DESCRIPTION:Networking quiz #3 (30 questions) is now open: https://prasunch
+ aturvedi.in/quiz/net/
 URL:https://prasunchaturvedi.in/quiz/net/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -56,8 +56,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261128T033000Z
 DTEND:20261128T034500Z
 SUMMARY:Networking Quiz #4 is live
-DESCRIPTION:Networking daily quiz #4 (30 questions) is now open: https://pr
- asunchaturvedi.in/quiz/net/
+DESCRIPTION:Networking quiz #4 (10 questions) is now open: https://prasunch
+ aturvedi.in/quiz/net/
 URL:https://prasunchaturvedi.in/quiz/net/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -68,11 +68,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:nss-quiz-day5@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261129T033000Z
-DTEND:20261129T034500Z
+DTSTART:20261128T073000Z
+DTEND:20261128T074500Z
 SUMMARY:Networking Quiz #5 is live
-DESCRIPTION:Networking daily quiz #5 (30 questions) is now open: https://pr
- asunchaturvedi.in/quiz/net/
+DESCRIPTION:Networking quiz #5 (10 questions) is now open: https://prasunch
+ aturvedi.in/quiz/net/
 URL:https://prasunchaturvedi.in/quiz/net/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -83,11 +83,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:nss-quiz-day6@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261130T033000Z
-DTEND:20261130T034500Z
+DTSTART:20261128T113000Z
+DTEND:20261128T114500Z
 SUMMARY:Networking Quiz #6 is live
-DESCRIPTION:Networking daily quiz #6 (30 questions) is now open: https://pr
- asunchaturvedi.in/quiz/net/
+DESCRIPTION:Networking quiz #6 (10 questions) is now open: https://prasunch
+ aturvedi.in/quiz/net/
 URL:https://prasunchaturvedi.in/quiz/net/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -98,11 +98,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:nss-quiz-day7@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261207T033000Z
-DTEND:20261207T034500Z
+DTSTART:20261129T033000Z
+DTEND:20261129T034500Z
 SUMMARY:Networking Quiz #7 is live
-DESCRIPTION:Networking daily quiz #7 (30 questions) is now open: https://pr
- asunchaturvedi.in/quiz/net/
+DESCRIPTION:Networking quiz #7 (10 questions) is now open: https://prasunch
+ aturvedi.in/quiz/net/
 URL:https://prasunchaturvedi.in/quiz/net/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -113,11 +113,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:nss-quiz-day8@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261214T033000Z
-DTEND:20261214T034500Z
+DTSTART:20261129T073000Z
+DTEND:20261129T074500Z
 SUMMARY:Networking Quiz #8 is live
-DESCRIPTION:Networking daily quiz #8 (30 questions) is now open: https://pr
- asunchaturvedi.in/quiz/net/
+DESCRIPTION:Networking quiz #8 (10 questions) is now open: https://prasunch
+ aturvedi.in/quiz/net/
 URL:https://prasunchaturvedi.in/quiz/net/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -128,11 +128,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:nss-quiz-day9@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261221T033000Z
-DTEND:20261221T034500Z
+DTSTART:20261129T113000Z
+DTEND:20261129T114500Z
 SUMMARY:Networking Quiz #9 is live
-DESCRIPTION:Networking daily quiz #9 (30 questions) is now open: https://pr
- asunchaturvedi.in/quiz/net/
+DESCRIPTION:Networking quiz #9 (10 questions) is now open: https://prasunch
+ aturvedi.in/quiz/net/
 URL:https://prasunchaturvedi.in/quiz/net/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -143,15 +143,225 @@ END:VEVENT
 BEGIN:VEVENT
 UID:nss-quiz-day10@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261228T033000Z
-DTEND:20261228T034500Z
+DTSTART:20261130T033000Z
+DTEND:20261130T034500Z
 SUMMARY:Networking Quiz #10 is live
-DESCRIPTION:Networking daily quiz #10 (30 questions) is now open: https://p
- rasunchaturvedi.in/quiz/net/
+DESCRIPTION:Networking quiz #10 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
 URL:https://prasunchaturvedi.in/quiz/net/
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Networking Quiz #10 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day11@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261130T073000Z
+DTEND:20261130T074500Z
+SUMMARY:Networking Quiz #11 is live
+DESCRIPTION:Networking quiz #11 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #11 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day12@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261130T113000Z
+DTEND:20261130T114500Z
+SUMMARY:Networking Quiz #12 is live
+DESCRIPTION:Networking quiz #12 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #12 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day13@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261201T033000Z
+DTEND:20261201T034500Z
+SUMMARY:Networking Quiz #13 is live
+DESCRIPTION:Networking quiz #13 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #13 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day14@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261201T073000Z
+DTEND:20261201T074500Z
+SUMMARY:Networking Quiz #14 is live
+DESCRIPTION:Networking quiz #14 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #14 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day15@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261201T113000Z
+DTEND:20261201T114500Z
+SUMMARY:Networking Quiz #15 is live
+DESCRIPTION:Networking quiz #15 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #15 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day16@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261202T033000Z
+DTEND:20261202T034500Z
+SUMMARY:Networking Quiz #16 is live
+DESCRIPTION:Networking quiz #16 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #16 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day17@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261202T073000Z
+DTEND:20261202T074500Z
+SUMMARY:Networking Quiz #17 is live
+DESCRIPTION:Networking quiz #17 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #17 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day18@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261202T113000Z
+DTEND:20261202T114500Z
+SUMMARY:Networking Quiz #18 is live
+DESCRIPTION:Networking quiz #18 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #18 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day19@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261203T033000Z
+DTEND:20261203T034500Z
+SUMMARY:Networking Quiz #19 is live
+DESCRIPTION:Networking quiz #19 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #19 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day20@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261203T073000Z
+DTEND:20261203T074500Z
+SUMMARY:Networking Quiz #20 is live
+DESCRIPTION:Networking quiz #20 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #20 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day21@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261203T113000Z
+DTEND:20261203T114500Z
+SUMMARY:Networking Quiz #21 is live
+DESCRIPTION:Networking quiz #21 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #21 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day22@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261207T033000Z
+DTEND:20261207T034500Z
+SUMMARY:Networking Quiz #22 is live
+DESCRIPTION:Networking quiz #22 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #22 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day23@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261214T033000Z
+DTEND:20261214T034500Z
+SUMMARY:Networking Quiz #23 is live
+DESCRIPTION:Networking quiz #23 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #23 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day24@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261221T033000Z
+DTEND:20261221T034500Z
+SUMMARY:Networking Quiz #24 is live
+DESCRIPTION:Networking quiz #24 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #24 is live
 TRIGGER:PT0M
 END:VALARM
 END:VEVENT
@@ -161,8 +371,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261125T033000Z
 DTEND:20261125T034500Z
 SUMMARY:Algorithm Analysis Quiz #1 is live
-DESCRIPTION:Algorithm Analysis daily quiz #1 (30 questions) is now open: ht
- tps://prasunchaturvedi.in/quiz/aa/
+DESCRIPTION:Algorithm Analysis quiz #1 (30 questions) is now open: https://
+ prasunchaturvedi.in/quiz/aa/
 URL:https://prasunchaturvedi.in/quiz/aa/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -176,8 +386,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261126T033000Z
 DTEND:20261126T034500Z
 SUMMARY:Algorithm Analysis Quiz #2 is live
-DESCRIPTION:Algorithm Analysis daily quiz #2 (30 questions) is now open: ht
- tps://prasunchaturvedi.in/quiz/aa/
+DESCRIPTION:Algorithm Analysis quiz #2 (30 questions) is now open: https://
+ prasunchaturvedi.in/quiz/aa/
 URL:https://prasunchaturvedi.in/quiz/aa/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -191,8 +401,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261127T033000Z
 DTEND:20261127T034500Z
 SUMMARY:Algorithm Analysis Quiz #3 is live
-DESCRIPTION:Algorithm Analysis daily quiz #3 (30 questions) is now open: ht
- tps://prasunchaturvedi.in/quiz/aa/
+DESCRIPTION:Algorithm Analysis quiz #3 (30 questions) is now open: https://
+ prasunchaturvedi.in/quiz/aa/
 URL:https://prasunchaturvedi.in/quiz/aa/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -203,11 +413,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:aa-quiz-day4@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261128T033000Z
-DTEND:20261128T034500Z
+DTSTART:20261128T043000Z
+DTEND:20261128T044500Z
 SUMMARY:Algorithm Analysis Quiz #4 is live
-DESCRIPTION:Algorithm Analysis daily quiz #4 (30 questions) is now open: ht
- tps://prasunchaturvedi.in/quiz/aa/
+DESCRIPTION:Algorithm Analysis quiz #4 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/aa/
 URL:https://prasunchaturvedi.in/quiz/aa/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -218,15 +428,75 @@ END:VEVENT
 BEGIN:VEVENT
 UID:aa-quiz-day5@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261129T033000Z
-DTEND:20261129T034500Z
+DTSTART:20261128T083000Z
+DTEND:20261128T084500Z
 SUMMARY:Algorithm Analysis Quiz #5 is live
-DESCRIPTION:Algorithm Analysis daily quiz #5 (30 questions) is now open: ht
- tps://prasunchaturvedi.in/quiz/aa/
+DESCRIPTION:Algorithm Analysis quiz #5 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/aa/
 URL:https://prasunchaturvedi.in/quiz/aa/
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Algorithm Analysis Quiz #5 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:aa-quiz-day6@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261128T123000Z
+DTEND:20261128T124500Z
+SUMMARY:Algorithm Analysis Quiz #6 is live
+DESCRIPTION:Algorithm Analysis quiz #6 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/aa/
+URL:https://prasunchaturvedi.in/quiz/aa/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Algorithm Analysis Quiz #6 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:aa-quiz-day7@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261129T043000Z
+DTEND:20261129T044500Z
+SUMMARY:Algorithm Analysis Quiz #7 is live
+DESCRIPTION:Algorithm Analysis quiz #7 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/aa/
+URL:https://prasunchaturvedi.in/quiz/aa/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Algorithm Analysis Quiz #7 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:aa-quiz-day8@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261129T083000Z
+DTEND:20261129T084500Z
+SUMMARY:Algorithm Analysis Quiz #8 is live
+DESCRIPTION:Algorithm Analysis quiz #8 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/aa/
+URL:https://prasunchaturvedi.in/quiz/aa/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Algorithm Analysis Quiz #8 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:aa-quiz-day9@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261129T123000Z
+DTEND:20261129T124500Z
+SUMMARY:Algorithm Analysis Quiz #9 is live
+DESCRIPTION:Algorithm Analysis quiz #9 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/aa/
+URL:https://prasunchaturvedi.in/quiz/aa/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Algorithm Analysis Quiz #9 is live
 TRIGGER:PT0M
 END:VALARM
 END:VEVENT
@@ -236,8 +506,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261125T053000Z
 DTEND:20261125T054500Z
 SUMMARY:Blockchain & Access Control Quiz #1 is live
-DESCRIPTION:Blockchain & Access Control daily quiz #1 (30 questions) is now
-  open: https://prasunchaturvedi.in/quiz/bca/
+DESCRIPTION:Blockchain & Access Control quiz #1 (30 questions) is now open:
+  https://prasunchaturvedi.in/quiz/bca/
 URL:https://prasunchaturvedi.in/quiz/bca/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -251,8 +521,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261126T053000Z
 DTEND:20261126T054500Z
 SUMMARY:Blockchain & Access Control Quiz #2 is live
-DESCRIPTION:Blockchain & Access Control daily quiz #2 (30 questions) is now
-  open: https://prasunchaturvedi.in/quiz/bca/
+DESCRIPTION:Blockchain & Access Control quiz #2 (30 questions) is now open:
+  https://prasunchaturvedi.in/quiz/bca/
 URL:https://prasunchaturvedi.in/quiz/bca/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -266,8 +536,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261127T053000Z
 DTEND:20261127T054500Z
 SUMMARY:Blockchain & Access Control Quiz #3 is live
-DESCRIPTION:Blockchain & Access Control daily quiz #3 (30 questions) is now
-  open: https://prasunchaturvedi.in/quiz/bca/
+DESCRIPTION:Blockchain & Access Control quiz #3 (30 questions) is now open:
+  https://prasunchaturvedi.in/quiz/bca/
 URL:https://prasunchaturvedi.in/quiz/bca/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -281,8 +551,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261128T053000Z
 DTEND:20261128T054500Z
 SUMMARY:Blockchain & Access Control Quiz #4 is live
-DESCRIPTION:Blockchain & Access Control daily quiz #4 (30 questions) is now
-  open: https://prasunchaturvedi.in/quiz/bca/
+DESCRIPTION:Blockchain & Access Control quiz #4 (10 questions) is now open:
+  https://prasunchaturvedi.in/quiz/bca/
 URL:https://prasunchaturvedi.in/quiz/bca/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -293,11 +563,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:bca-quiz-day5@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261129T053000Z
-DTEND:20261129T054500Z
+DTSTART:20261128T093000Z
+DTEND:20261128T094500Z
 SUMMARY:Blockchain & Access Control Quiz #5 is live
-DESCRIPTION:Blockchain & Access Control daily quiz #5 (30 questions) is now
-  open: https://prasunchaturvedi.in/quiz/bca/
+DESCRIPTION:Blockchain & Access Control quiz #5 (10 questions) is now open:
+  https://prasunchaturvedi.in/quiz/bca/
 URL:https://prasunchaturvedi.in/quiz/bca/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -308,11 +578,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:bca-quiz-day6@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261130T053000Z
-DTEND:20261130T054500Z
+DTSTART:20261128T133000Z
+DTEND:20261128T134500Z
 SUMMARY:Blockchain & Access Control Quiz #6 is live
-DESCRIPTION:Blockchain & Access Control daily quiz #6 (30 questions) is now
-  open: https://prasunchaturvedi.in/quiz/bca/
+DESCRIPTION:Blockchain & Access Control quiz #6 (10 questions) is now open:
+  https://prasunchaturvedi.in/quiz/bca/
 URL:https://prasunchaturvedi.in/quiz/bca/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -323,11 +593,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:bca-quiz-day7@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261201T053000Z
-DTEND:20261201T054500Z
+DTSTART:20261129T053000Z
+DTEND:20261129T054500Z
 SUMMARY:Blockchain & Access Control Quiz #7 is live
-DESCRIPTION:Blockchain & Access Control daily quiz #7 (30 questions) is now
-  open: https://prasunchaturvedi.in/quiz/bca/
+DESCRIPTION:Blockchain & Access Control quiz #7 (10 questions) is now open:
+  https://prasunchaturvedi.in/quiz/bca/
 URL:https://prasunchaturvedi.in/quiz/bca/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -338,11 +608,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:bca-quiz-day8@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261202T053000Z
-DTEND:20261202T054500Z
+DTSTART:20261129T093000Z
+DTEND:20261129T094500Z
 SUMMARY:Blockchain & Access Control Quiz #8 is live
-DESCRIPTION:Blockchain & Access Control daily quiz #8 (30 questions) is now
-  open: https://prasunchaturvedi.in/quiz/bca/
+DESCRIPTION:Blockchain & Access Control quiz #8 (10 questions) is now open:
+  https://prasunchaturvedi.in/quiz/bca/
 URL:https://prasunchaturvedi.in/quiz/bca/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -353,11 +623,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:bca-quiz-day9@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261203T053000Z
-DTEND:20261203T054500Z
+DTSTART:20261129T133000Z
+DTEND:20261129T134500Z
 SUMMARY:Blockchain & Access Control Quiz #9 is live
-DESCRIPTION:Blockchain & Access Control daily quiz #9 (30 questions) is now
-  open: https://prasunchaturvedi.in/quiz/bca/
+DESCRIPTION:Blockchain & Access Control quiz #9 (10 questions) is now open:
+  https://prasunchaturvedi.in/quiz/bca/
 URL:https://prasunchaturvedi.in/quiz/bca/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -368,11 +638,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:bca-quiz-day10@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261204T053000Z
-DTEND:20261204T054500Z
+DTSTART:20261130T053000Z
+DTEND:20261130T054500Z
 SUMMARY:Blockchain & Access Control Quiz #10 is live
-DESCRIPTION:Blockchain & Access Control daily quiz #10 (30 questions) is no
- w open: https://prasunchaturvedi.in/quiz/bca/
+DESCRIPTION:Blockchain & Access Control quiz #10 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
 URL:https://prasunchaturvedi.in/quiz/bca/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -383,11 +653,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:bca-quiz-day11@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261205T053000Z
-DTEND:20261205T054500Z
+DTSTART:20261130T093000Z
+DTEND:20261130T094500Z
 SUMMARY:Blockchain & Access Control Quiz #11 is live
-DESCRIPTION:Blockchain & Access Control daily quiz #11 (30 questions) is no
- w open: https://prasunchaturvedi.in/quiz/bca/
+DESCRIPTION:Blockchain & Access Control quiz #11 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
 URL:https://prasunchaturvedi.in/quiz/bca/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -398,11 +668,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:bca-quiz-day12@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261206T053000Z
-DTEND:20261206T054500Z
+DTSTART:20261130T133000Z
+DTEND:20261130T134500Z
 SUMMARY:Blockchain & Access Control Quiz #12 is live
-DESCRIPTION:Blockchain & Access Control daily quiz #12 (30 questions) is no
- w open: https://prasunchaturvedi.in/quiz/bca/
+DESCRIPTION:Blockchain & Access Control quiz #12 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
 URL:https://prasunchaturvedi.in/quiz/bca/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -413,11 +683,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:bca-quiz-day13@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261207T053000Z
-DTEND:20261207T054500Z
+DTSTART:20261201T053000Z
+DTEND:20261201T054500Z
 SUMMARY:Blockchain & Access Control Quiz #13 is live
-DESCRIPTION:Blockchain & Access Control daily quiz #13 (30 questions) is no
- w open: https://prasunchaturvedi.in/quiz/bca/
+DESCRIPTION:Blockchain & Access Control quiz #13 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
 URL:https://prasunchaturvedi.in/quiz/bca/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -428,11 +698,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:bca-quiz-day14@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261208T053000Z
-DTEND:20261208T054500Z
+DTSTART:20261201T093000Z
+DTEND:20261201T094500Z
 SUMMARY:Blockchain & Access Control Quiz #14 is live
-DESCRIPTION:Blockchain & Access Control daily quiz #14 (30 questions) is no
- w open: https://prasunchaturvedi.in/quiz/bca/
+DESCRIPTION:Blockchain & Access Control quiz #14 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
 URL:https://prasunchaturvedi.in/quiz/bca/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -443,15 +713,375 @@ END:VEVENT
 BEGIN:VEVENT
 UID:bca-quiz-day15@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261209T053000Z
-DTEND:20261209T054500Z
+DTSTART:20261201T133000Z
+DTEND:20261201T134500Z
 SUMMARY:Blockchain & Access Control Quiz #15 is live
-DESCRIPTION:Blockchain & Access Control daily quiz #15 (30 questions) is no
- w open: https://prasunchaturvedi.in/quiz/bca/
+DESCRIPTION:Blockchain & Access Control quiz #15 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
 URL:https://prasunchaturvedi.in/quiz/bca/
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Blockchain & Access Control Quiz #15 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day16@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261202T053000Z
+DTEND:20261202T054500Z
+SUMMARY:Blockchain & Access Control Quiz #16 is live
+DESCRIPTION:Blockchain & Access Control quiz #16 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #16 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day17@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261202T093000Z
+DTEND:20261202T094500Z
+SUMMARY:Blockchain & Access Control Quiz #17 is live
+DESCRIPTION:Blockchain & Access Control quiz #17 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #17 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day18@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261202T133000Z
+DTEND:20261202T134500Z
+SUMMARY:Blockchain & Access Control Quiz #18 is live
+DESCRIPTION:Blockchain & Access Control quiz #18 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #18 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day19@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261203T053000Z
+DTEND:20261203T054500Z
+SUMMARY:Blockchain & Access Control Quiz #19 is live
+DESCRIPTION:Blockchain & Access Control quiz #19 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #19 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day20@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261203T093000Z
+DTEND:20261203T094500Z
+SUMMARY:Blockchain & Access Control Quiz #20 is live
+DESCRIPTION:Blockchain & Access Control quiz #20 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #20 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day21@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261203T133000Z
+DTEND:20261203T134500Z
+SUMMARY:Blockchain & Access Control Quiz #21 is live
+DESCRIPTION:Blockchain & Access Control quiz #21 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #21 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day22@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261204T053000Z
+DTEND:20261204T054500Z
+SUMMARY:Blockchain & Access Control Quiz #22 is live
+DESCRIPTION:Blockchain & Access Control quiz #22 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #22 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day23@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261205T053000Z
+DTEND:20261205T054500Z
+SUMMARY:Blockchain & Access Control Quiz #23 is live
+DESCRIPTION:Blockchain & Access Control quiz #23 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #23 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day24@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261206T053000Z
+DTEND:20261206T054500Z
+SUMMARY:Blockchain & Access Control Quiz #24 is live
+DESCRIPTION:Blockchain & Access Control quiz #24 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #24 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day25@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261207T053000Z
+DTEND:20261207T054500Z
+SUMMARY:Blockchain & Access Control Quiz #25 is live
+DESCRIPTION:Blockchain & Access Control quiz #25 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #25 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day26@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261208T053000Z
+DTEND:20261208T054500Z
+SUMMARY:Blockchain & Access Control Quiz #26 is live
+DESCRIPTION:Blockchain & Access Control quiz #26 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #26 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day27@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261209T053000Z
+DTEND:20261209T054500Z
+SUMMARY:Blockchain & Access Control Quiz #27 is live
+DESCRIPTION:Blockchain & Access Control quiz #27 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #27 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day28@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261210T053000Z
+DTEND:20261210T054500Z
+SUMMARY:Blockchain & Access Control Quiz #28 is live
+DESCRIPTION:Blockchain & Access Control quiz #28 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #28 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day29@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261211T053000Z
+DTEND:20261211T054500Z
+SUMMARY:Blockchain & Access Control Quiz #29 is live
+DESCRIPTION:Blockchain & Access Control quiz #29 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #29 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day30@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261212T053000Z
+DTEND:20261212T054500Z
+SUMMARY:Blockchain & Access Control Quiz #30 is live
+DESCRIPTION:Blockchain & Access Control quiz #30 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #30 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day31@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261213T053000Z
+DTEND:20261213T054500Z
+SUMMARY:Blockchain & Access Control Quiz #31 is live
+DESCRIPTION:Blockchain & Access Control quiz #31 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #31 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day32@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261214T053000Z
+DTEND:20261214T054500Z
+SUMMARY:Blockchain & Access Control Quiz #32 is live
+DESCRIPTION:Blockchain & Access Control quiz #32 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #32 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day33@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261215T053000Z
+DTEND:20261215T054500Z
+SUMMARY:Blockchain & Access Control Quiz #33 is live
+DESCRIPTION:Blockchain & Access Control quiz #33 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #33 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day34@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261216T053000Z
+DTEND:20261216T054500Z
+SUMMARY:Blockchain & Access Control Quiz #34 is live
+DESCRIPTION:Blockchain & Access Control quiz #34 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #34 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day35@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261217T053000Z
+DTEND:20261217T054500Z
+SUMMARY:Blockchain & Access Control Quiz #35 is live
+DESCRIPTION:Blockchain & Access Control quiz #35 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #35 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day36@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261218T053000Z
+DTEND:20261218T054500Z
+SUMMARY:Blockchain & Access Control Quiz #36 is live
+DESCRIPTION:Blockchain & Access Control quiz #36 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #36 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day37@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261219T053000Z
+DTEND:20261219T054500Z
+SUMMARY:Blockchain & Access Control Quiz #37 is live
+DESCRIPTION:Blockchain & Access Control quiz #37 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #37 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day38@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261220T053000Z
+DTEND:20261220T054500Z
+SUMMARY:Blockchain & Access Control Quiz #38 is live
+DESCRIPTION:Blockchain & Access Control quiz #38 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #38 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bca-quiz-day39@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261221T053000Z
+DTEND:20261221T054500Z
+SUMMARY:Blockchain & Access Control Quiz #39 is live
+DESCRIPTION:Blockchain & Access Control quiz #39 (10 questions) is now open
+ : https://prasunchaturvedi.in/quiz/bca/
+URL:https://prasunchaturvedi.in/quiz/bca/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Blockchain & Access Control Quiz #39 is live
 TRIGGER:PT0M
 END:VALARM
 END:VEVENT
@@ -461,8 +1091,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261125T033000Z
 DTEND:20261125T034500Z
 SUMMARY:Machine Learning Quiz #1 is live
-DESCRIPTION:Machine Learning daily quiz #1 (30 questions) is now open: http
- s://prasunchaturvedi.in/quiz/ml/
+DESCRIPTION:Machine Learning quiz #1 (30 questions) is now open: https://pr
+ asunchaturvedi.in/quiz/ml/
 URL:https://prasunchaturvedi.in/quiz/ml/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -476,8 +1106,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261126T033000Z
 DTEND:20261126T034500Z
 SUMMARY:Machine Learning Quiz #2 is live
-DESCRIPTION:Machine Learning daily quiz #2 (30 questions) is now open: http
- s://prasunchaturvedi.in/quiz/ml/
+DESCRIPTION:Machine Learning quiz #2 (30 questions) is now open: https://pr
+ asunchaturvedi.in/quiz/ml/
 URL:https://prasunchaturvedi.in/quiz/ml/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -491,8 +1121,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261127T033000Z
 DTEND:20261127T034500Z
 SUMMARY:Machine Learning Quiz #3 is live
-DESCRIPTION:Machine Learning daily quiz #3 (30 questions) is now open: http
- s://prasunchaturvedi.in/quiz/ml/
+DESCRIPTION:Machine Learning quiz #3 (30 questions) is now open: https://pr
+ asunchaturvedi.in/quiz/ml/
 URL:https://prasunchaturvedi.in/quiz/ml/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -503,11 +1133,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ml-quiz-day4@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261128T033000Z
-DTEND:20261128T034500Z
+DTSTART:20261128T063000Z
+DTEND:20261128T064500Z
 SUMMARY:Machine Learning Quiz #4 is live
-DESCRIPTION:Machine Learning daily quiz #4 (30 questions) is now open: http
- s://prasunchaturvedi.in/quiz/ml/
+DESCRIPTION:Machine Learning quiz #4 (10 questions) is now open: https://pr
+ asunchaturvedi.in/quiz/ml/
 URL:https://prasunchaturvedi.in/quiz/ml/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -518,15 +1148,75 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ml-quiz-day5@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261129T033000Z
-DTEND:20261129T034500Z
+DTSTART:20261128T103000Z
+DTEND:20261128T104500Z
 SUMMARY:Machine Learning Quiz #5 is live
-DESCRIPTION:Machine Learning daily quiz #5 (30 questions) is now open: http
- s://prasunchaturvedi.in/quiz/ml/
+DESCRIPTION:Machine Learning quiz #5 (10 questions) is now open: https://pr
+ asunchaturvedi.in/quiz/ml/
 URL:https://prasunchaturvedi.in/quiz/ml/
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Machine Learning Quiz #5 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ml-quiz-day6@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261128T143000Z
+DTEND:20261128T144500Z
+SUMMARY:Machine Learning Quiz #6 is live
+DESCRIPTION:Machine Learning quiz #6 (10 questions) is now open: https://pr
+ asunchaturvedi.in/quiz/ml/
+URL:https://prasunchaturvedi.in/quiz/ml/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Machine Learning Quiz #6 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ml-quiz-day7@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261129T063000Z
+DTEND:20261129T064500Z
+SUMMARY:Machine Learning Quiz #7 is live
+DESCRIPTION:Machine Learning quiz #7 (10 questions) is now open: https://pr
+ asunchaturvedi.in/quiz/ml/
+URL:https://prasunchaturvedi.in/quiz/ml/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Machine Learning Quiz #7 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ml-quiz-day8@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261129T103000Z
+DTEND:20261129T104500Z
+SUMMARY:Machine Learning Quiz #8 is live
+DESCRIPTION:Machine Learning quiz #8 (10 questions) is now open: https://pr
+ asunchaturvedi.in/quiz/ml/
+URL:https://prasunchaturvedi.in/quiz/ml/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Machine Learning Quiz #8 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ml-quiz-day9@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261129T143000Z
+DTEND:20261129T144500Z
+SUMMARY:Machine Learning Quiz #9 is live
+DESCRIPTION:Machine Learning quiz #9 (10 questions) is now open: https://pr
+ asunchaturvedi.in/quiz/ml/
+URL:https://prasunchaturvedi.in/quiz/ml/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Machine Learning Quiz #9 is live
 TRIGGER:PT0M
 END:VALARM
 END:VEVENT
@@ -536,8 +1226,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261125T033000Z
 DTEND:20261125T034500Z
 SUMMARY:Internet of Things Quiz #1 is live
-DESCRIPTION:Internet of Things daily quiz #1 (30 questions) is now open: ht
- tps://prasunchaturvedi.in/quiz/iot/
+DESCRIPTION:Internet of Things quiz #1 (30 questions) is now open: https://
+ prasunchaturvedi.in/quiz/iot/
 URL:https://prasunchaturvedi.in/quiz/iot/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -551,8 +1241,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261126T033000Z
 DTEND:20261126T034500Z
 SUMMARY:Internet of Things Quiz #2 is live
-DESCRIPTION:Internet of Things daily quiz #2 (30 questions) is now open: ht
- tps://prasunchaturvedi.in/quiz/iot/
+DESCRIPTION:Internet of Things quiz #2 (30 questions) is now open: https://
+ prasunchaturvedi.in/quiz/iot/
 URL:https://prasunchaturvedi.in/quiz/iot/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -566,8 +1256,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261127T033000Z
 DTEND:20261127T034500Z
 SUMMARY:Internet of Things Quiz #3 is live
-DESCRIPTION:Internet of Things daily quiz #3 (30 questions) is now open: ht
- tps://prasunchaturvedi.in/quiz/iot/
+DESCRIPTION:Internet of Things quiz #3 (30 questions) is now open: https://
+ prasunchaturvedi.in/quiz/iot/
 URL:https://prasunchaturvedi.in/quiz/iot/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -578,11 +1268,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:iot-quiz-day4@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261128T033000Z
-DTEND:20261128T034500Z
+DTSTART:20261128T073000Z
+DTEND:20261128T074500Z
 SUMMARY:Internet of Things Quiz #4 is live
-DESCRIPTION:Internet of Things daily quiz #4 (30 questions) is now open: ht
- tps://prasunchaturvedi.in/quiz/iot/
+DESCRIPTION:Internet of Things quiz #4 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/iot/
 URL:https://prasunchaturvedi.in/quiz/iot/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -593,15 +1283,75 @@ END:VEVENT
 BEGIN:VEVENT
 UID:iot-quiz-day5@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261129T033000Z
-DTEND:20261129T034500Z
+DTSTART:20261128T113000Z
+DTEND:20261128T114500Z
 SUMMARY:Internet of Things Quiz #5 is live
-DESCRIPTION:Internet of Things daily quiz #5 (30 questions) is now open: ht
- tps://prasunchaturvedi.in/quiz/iot/
+DESCRIPTION:Internet of Things quiz #5 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/iot/
 URL:https://prasunchaturvedi.in/quiz/iot/
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Internet of Things Quiz #5 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:iot-quiz-day6@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261128T153000Z
+DTEND:20261128T154500Z
+SUMMARY:Internet of Things Quiz #6 is live
+DESCRIPTION:Internet of Things quiz #6 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/iot/
+URL:https://prasunchaturvedi.in/quiz/iot/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Internet of Things Quiz #6 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:iot-quiz-day7@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261129T073000Z
+DTEND:20261129T074500Z
+SUMMARY:Internet of Things Quiz #7 is live
+DESCRIPTION:Internet of Things quiz #7 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/iot/
+URL:https://prasunchaturvedi.in/quiz/iot/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Internet of Things Quiz #7 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:iot-quiz-day8@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261129T113000Z
+DTEND:20261129T114500Z
+SUMMARY:Internet of Things Quiz #8 is live
+DESCRIPTION:Internet of Things quiz #8 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/iot/
+URL:https://prasunchaturvedi.in/quiz/iot/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Internet of Things Quiz #8 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:iot-quiz-day9@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261129T153000Z
+DTEND:20261129T154500Z
+SUMMARY:Internet of Things Quiz #9 is live
+DESCRIPTION:Internet of Things quiz #9 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/iot/
+URL:https://prasunchaturvedi.in/quiz/iot/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Internet of Things Quiz #9 is live
 TRIGGER:PT0M
 END:VALARM
 END:VEVENT

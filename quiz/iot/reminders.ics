@@ -11,8 +11,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261125T033000Z
 DTEND:20261125T034500Z
 SUMMARY:Internet of Things Quiz #1 is live
-DESCRIPTION:Internet of Things daily quiz #1 (30 questions) is now open: ht
- tps://prasunchaturvedi.in/quiz/iot/
+DESCRIPTION:Internet of Things quiz #1 (30 questions) is now open: https://
+ prasunchaturvedi.in/quiz/iot/
 URL:https://prasunchaturvedi.in/quiz/iot/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -26,8 +26,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261126T033000Z
 DTEND:20261126T034500Z
 SUMMARY:Internet of Things Quiz #2 is live
-DESCRIPTION:Internet of Things daily quiz #2 (30 questions) is now open: ht
- tps://prasunchaturvedi.in/quiz/iot/
+DESCRIPTION:Internet of Things quiz #2 (30 questions) is now open: https://
+ prasunchaturvedi.in/quiz/iot/
 URL:https://prasunchaturvedi.in/quiz/iot/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -41,8 +41,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261127T033000Z
 DTEND:20261127T034500Z
 SUMMARY:Internet of Things Quiz #3 is live
-DESCRIPTION:Internet of Things daily quiz #3 (30 questions) is now open: ht
- tps://prasunchaturvedi.in/quiz/iot/
+DESCRIPTION:Internet of Things quiz #3 (30 questions) is now open: https://
+ prasunchaturvedi.in/quiz/iot/
 URL:https://prasunchaturvedi.in/quiz/iot/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -53,11 +53,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:iot-quiz-day4@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261128T033000Z
-DTEND:20261128T034500Z
+DTSTART:20261128T073000Z
+DTEND:20261128T074500Z
 SUMMARY:Internet of Things Quiz #4 is live
-DESCRIPTION:Internet of Things daily quiz #4 (30 questions) is now open: ht
- tps://prasunchaturvedi.in/quiz/iot/
+DESCRIPTION:Internet of Things quiz #4 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/iot/
 URL:https://prasunchaturvedi.in/quiz/iot/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -68,15 +68,75 @@ END:VEVENT
 BEGIN:VEVENT
 UID:iot-quiz-day5@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261129T033000Z
-DTEND:20261129T034500Z
+DTSTART:20261128T113000Z
+DTEND:20261128T114500Z
 SUMMARY:Internet of Things Quiz #5 is live
-DESCRIPTION:Internet of Things daily quiz #5 (30 questions) is now open: ht
- tps://prasunchaturvedi.in/quiz/iot/
+DESCRIPTION:Internet of Things quiz #5 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/iot/
 URL:https://prasunchaturvedi.in/quiz/iot/
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Internet of Things Quiz #5 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:iot-quiz-day6@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261128T153000Z
+DTEND:20261128T154500Z
+SUMMARY:Internet of Things Quiz #6 is live
+DESCRIPTION:Internet of Things quiz #6 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/iot/
+URL:https://prasunchaturvedi.in/quiz/iot/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Internet of Things Quiz #6 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:iot-quiz-day7@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261129T073000Z
+DTEND:20261129T074500Z
+SUMMARY:Internet of Things Quiz #7 is live
+DESCRIPTION:Internet of Things quiz #7 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/iot/
+URL:https://prasunchaturvedi.in/quiz/iot/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Internet of Things Quiz #7 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:iot-quiz-day8@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261129T113000Z
+DTEND:20261129T114500Z
+SUMMARY:Internet of Things Quiz #8 is live
+DESCRIPTION:Internet of Things quiz #8 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/iot/
+URL:https://prasunchaturvedi.in/quiz/iot/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Internet of Things Quiz #8 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:iot-quiz-day9@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261129T153000Z
+DTEND:20261129T154500Z
+SUMMARY:Internet of Things Quiz #9 is live
+DESCRIPTION:Internet of Things quiz #9 (10 questions) is now open: https://
+ prasunchaturvedi.in/quiz/iot/
+URL:https://prasunchaturvedi.in/quiz/iot/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Internet of Things Quiz #9 is live
 TRIGGER:PT0M
 END:VALARM
 END:VEVENT

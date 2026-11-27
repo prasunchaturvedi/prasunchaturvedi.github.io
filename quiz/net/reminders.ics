@@ -11,8 +11,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261125T033000Z
 DTEND:20261125T034500Z
 SUMMARY:Networking Quiz #1 is live
-DESCRIPTION:Networking daily quiz #1 (30 questions) is now open: https://pr
- asunchaturvedi.in/quiz/net/
+DESCRIPTION:Networking quiz #1 (30 questions) is now open: https://prasunch
+ aturvedi.in/quiz/net/
 URL:https://prasunchaturvedi.in/quiz/net/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -26,8 +26,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261126T033000Z
 DTEND:20261126T034500Z
 SUMMARY:Networking Quiz #2 is live
-DESCRIPTION:Networking daily quiz #2 (30 questions) is now open: https://pr
- asunchaturvedi.in/quiz/net/
+DESCRIPTION:Networking quiz #2 (30 questions) is now open: https://prasunch
+ aturvedi.in/quiz/net/
 URL:https://prasunchaturvedi.in/quiz/net/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -41,8 +41,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261127T033000Z
 DTEND:20261127T034500Z
 SUMMARY:Networking Quiz #3 is live
-DESCRIPTION:Networking daily quiz #3 (30 questions) is now open: https://pr
- asunchaturvedi.in/quiz/net/
+DESCRIPTION:Networking quiz #3 (30 questions) is now open: https://prasunch
+ aturvedi.in/quiz/net/
 URL:https://prasunchaturvedi.in/quiz/net/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -56,8 +56,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261128T033000Z
 DTEND:20261128T034500Z
 SUMMARY:Networking Quiz #4 is live
-DESCRIPTION:Networking daily quiz #4 (30 questions) is now open: https://pr
- asunchaturvedi.in/quiz/net/
+DESCRIPTION:Networking quiz #4 (10 questions) is now open: https://prasunch
+ aturvedi.in/quiz/net/
 URL:https://prasunchaturvedi.in/quiz/net/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -68,11 +68,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:nss-quiz-day5@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261129T033000Z
-DTEND:20261129T034500Z
+DTSTART:20261128T073000Z
+DTEND:20261128T074500Z
 SUMMARY:Networking Quiz #5 is live
-DESCRIPTION:Networking daily quiz #5 (30 questions) is now open: https://pr
- asunchaturvedi.in/quiz/net/
+DESCRIPTION:Networking quiz #5 (10 questions) is now open: https://prasunch
+ aturvedi.in/quiz/net/
 URL:https://prasunchaturvedi.in/quiz/net/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -83,11 +83,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:nss-quiz-day6@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261130T033000Z
-DTEND:20261130T034500Z
+DTSTART:20261128T113000Z
+DTEND:20261128T114500Z
 SUMMARY:Networking Quiz #6 is live
-DESCRIPTION:Networking daily quiz #6 (30 questions) is now open: https://pr
- asunchaturvedi.in/quiz/net/
+DESCRIPTION:Networking quiz #6 (10 questions) is now open: https://prasunch
+ aturvedi.in/quiz/net/
 URL:https://prasunchaturvedi.in/quiz/net/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -98,11 +98,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:nss-quiz-day7@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261207T033000Z
-DTEND:20261207T034500Z
+DTSTART:20261129T033000Z
+DTEND:20261129T034500Z
 SUMMARY:Networking Quiz #7 is live
-DESCRIPTION:Networking daily quiz #7 (30 questions) is now open: https://pr
- asunchaturvedi.in/quiz/net/
+DESCRIPTION:Networking quiz #7 (10 questions) is now open: https://prasunch
+ aturvedi.in/quiz/net/
 URL:https://prasunchaturvedi.in/quiz/net/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -113,11 +113,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:nss-quiz-day8@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261214T033000Z
-DTEND:20261214T034500Z
+DTSTART:20261129T073000Z
+DTEND:20261129T074500Z
 SUMMARY:Networking Quiz #8 is live
-DESCRIPTION:Networking daily quiz #8 (30 questions) is now open: https://pr
- asunchaturvedi.in/quiz/net/
+DESCRIPTION:Networking quiz #8 (10 questions) is now open: https://prasunch
+ aturvedi.in/quiz/net/
 URL:https://prasunchaturvedi.in/quiz/net/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -128,11 +128,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:nss-quiz-day9@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261221T033000Z
-DTEND:20261221T034500Z
+DTSTART:20261129T113000Z
+DTEND:20261129T114500Z
 SUMMARY:Networking Quiz #9 is live
-DESCRIPTION:Networking daily quiz #9 (30 questions) is now open: https://pr
- asunchaturvedi.in/quiz/net/
+DESCRIPTION:Networking quiz #9 (10 questions) is now open: https://prasunch
+ aturvedi.in/quiz/net/
 URL:https://prasunchaturvedi.in/quiz/net/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -143,15 +143,225 @@ END:VEVENT
 BEGIN:VEVENT
 UID:nss-quiz-day10@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261228T033000Z
-DTEND:20261228T034500Z
+DTSTART:20261130T033000Z
+DTEND:20261130T034500Z
 SUMMARY:Networking Quiz #10 is live
-DESCRIPTION:Networking daily quiz #10 (30 questions) is now open: https://p
- rasunchaturvedi.in/quiz/net/
+DESCRIPTION:Networking quiz #10 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
 URL:https://prasunchaturvedi.in/quiz/net/
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Networking Quiz #10 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day11@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261130T073000Z
+DTEND:20261130T074500Z
+SUMMARY:Networking Quiz #11 is live
+DESCRIPTION:Networking quiz #11 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #11 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day12@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261130T113000Z
+DTEND:20261130T114500Z
+SUMMARY:Networking Quiz #12 is live
+DESCRIPTION:Networking quiz #12 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #12 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day13@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261201T033000Z
+DTEND:20261201T034500Z
+SUMMARY:Networking Quiz #13 is live
+DESCRIPTION:Networking quiz #13 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #13 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day14@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261201T073000Z
+DTEND:20261201T074500Z
+SUMMARY:Networking Quiz #14 is live
+DESCRIPTION:Networking quiz #14 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #14 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day15@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261201T113000Z
+DTEND:20261201T114500Z
+SUMMARY:Networking Quiz #15 is live
+DESCRIPTION:Networking quiz #15 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #15 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day16@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261202T033000Z
+DTEND:20261202T034500Z
+SUMMARY:Networking Quiz #16 is live
+DESCRIPTION:Networking quiz #16 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #16 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day17@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261202T073000Z
+DTEND:20261202T074500Z
+SUMMARY:Networking Quiz #17 is live
+DESCRIPTION:Networking quiz #17 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #17 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day18@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261202T113000Z
+DTEND:20261202T114500Z
+SUMMARY:Networking Quiz #18 is live
+DESCRIPTION:Networking quiz #18 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #18 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day19@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261203T033000Z
+DTEND:20261203T034500Z
+SUMMARY:Networking Quiz #19 is live
+DESCRIPTION:Networking quiz #19 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #19 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day20@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261203T073000Z
+DTEND:20261203T074500Z
+SUMMARY:Networking Quiz #20 is live
+DESCRIPTION:Networking quiz #20 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #20 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day21@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261203T113000Z
+DTEND:20261203T114500Z
+SUMMARY:Networking Quiz #21 is live
+DESCRIPTION:Networking quiz #21 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #21 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day22@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261207T033000Z
+DTEND:20261207T034500Z
+SUMMARY:Networking Quiz #22 is live
+DESCRIPTION:Networking quiz #22 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #22 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day23@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261214T033000Z
+DTEND:20261214T034500Z
+SUMMARY:Networking Quiz #23 is live
+DESCRIPTION:Networking quiz #23 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #23 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:nss-quiz-day24@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261221T033000Z
+DTEND:20261221T034500Z
+SUMMARY:Networking Quiz #24 is live
+DESCRIPTION:Networking quiz #24 (10 questions) is now open: https://prasunc
+ haturvedi.in/quiz/net/
+URL:https://prasunchaturvedi.in/quiz/net/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Networking Quiz #24 is live
 TRIGGER:PT0M
 END:VALARM
 END:VEVENT

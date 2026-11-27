@@ -54,7 +54,7 @@ under its code, at 09:00 IST by default. BCA releases at 11:00 IST (`RELEASE` in
 | `ref` | string | Site-relative link to revision notes, e.g. `/learn/osi-model.html`, or `""` if none |
 | `source` | string, optional | Citation line, e.g. `"Scenario type: Stallings, Network Security Essentials, ch. 8"` |
 
-Per quiz: 30 questions = 12 Easy + 15 Intermediate + 3 Hard. Spread correct-answer positions evenly.
+Per quiz: 10 questions = 4 Easy + 5 Intermediate + 1 Hard (quizzes #1-3 of each subject were 30 = 12 + 15 + 3). Spread correct-answer positions evenly, and never let the correct option be the uniquely longest one (run `python3 scripts/check_banks.py`).
 
 ### Example
 
@@ -93,6 +93,6 @@ UTF-8, header row, one row per question, columns in this order:
 { "NET": ["2026-11-25", "2026-11-26"], "AA": ["2026-11-25"] }
 ```
 
-Dates are `YYYY-MM-DD`; each unlocks at the subject's release time (default 09:00 IST / 03:30 UTC; BCA 11:00 IST / 05:30 UTC). After editing, run
+Entries are `YYYY-MM-DD` or `YYYY-MM-DDTHH:MM` (IST, for several quizzes a day; slots per subject in `scripts/quizlib.py` SLOTS). A plain date unlocks at the subject's release time (default 09:00 IST / 03:30 UTC; BCA 11:00 IST / 05:30 UTC). After editing, run
 `python3 scripts/build_ics.py` to regenerate `quiz/<code>/reminders.ics` and `quiz/all.ics`.
 - **Further reading (APA 7)**: `/quiz/refs.json` holds `refs` (key → in-text `cite` + full `apa`, `*italics*` marked with asterisks) and per-subject `rules` (first regex matching the question's `topic` wins; `"."` is the fallback). The score page shows a collapsed "Further reading" panel: topics covered with author–date citations, then an alphabetical reference list. Nothing is shown during the quiz. New topics fall back to the subject's core textbooks until a rule is added.

@@ -11,8 +11,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261125T033000Z
 DTEND:20261125T034500Z
 SUMMARY:Machine Learning Quiz #1 is live
-DESCRIPTION:Machine Learning daily quiz #1 (30 questions) is now open: http
- s://prasunchaturvedi.in/quiz/ml/
+DESCRIPTION:Machine Learning quiz #1 (30 questions) is now open: https://pr
+ asunchaturvedi.in/quiz/ml/
 URL:https://prasunchaturvedi.in/quiz/ml/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -26,8 +26,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261126T033000Z
 DTEND:20261126T034500Z
 SUMMARY:Machine Learning Quiz #2 is live
-DESCRIPTION:Machine Learning daily quiz #2 (30 questions) is now open: http
- s://prasunchaturvedi.in/quiz/ml/
+DESCRIPTION:Machine Learning quiz #2 (30 questions) is now open: https://pr
+ asunchaturvedi.in/quiz/ml/
 URL:https://prasunchaturvedi.in/quiz/ml/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -41,8 +41,8 @@ DTSTAMP:20261124T000000Z
 DTSTART:20261127T033000Z
 DTEND:20261127T034500Z
 SUMMARY:Machine Learning Quiz #3 is live
-DESCRIPTION:Machine Learning daily quiz #3 (30 questions) is now open: http
- s://prasunchaturvedi.in/quiz/ml/
+DESCRIPTION:Machine Learning quiz #3 (30 questions) is now open: https://pr
+ asunchaturvedi.in/quiz/ml/
 URL:https://prasunchaturvedi.in/quiz/ml/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -53,11 +53,11 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ml-quiz-day4@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261128T033000Z
-DTEND:20261128T034500Z
+DTSTART:20261128T063000Z
+DTEND:20261128T064500Z
 SUMMARY:Machine Learning Quiz #4 is live
-DESCRIPTION:Machine Learning daily quiz #4 (30 questions) is now open: http
- s://prasunchaturvedi.in/quiz/ml/
+DESCRIPTION:Machine Learning quiz #4 (10 questions) is now open: https://pr
+ asunchaturvedi.in/quiz/ml/
 URL:https://prasunchaturvedi.in/quiz/ml/
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -68,15 +68,75 @@ END:VEVENT
 BEGIN:VEVENT
 UID:ml-quiz-day5@prasunchaturvedi.in
 DTSTAMP:20261124T000000Z
-DTSTART:20261129T033000Z
-DTEND:20261129T034500Z
+DTSTART:20261128T103000Z
+DTEND:20261128T104500Z
 SUMMARY:Machine Learning Quiz #5 is live
-DESCRIPTION:Machine Learning daily quiz #5 (30 questions) is now open: http
- s://prasunchaturvedi.in/quiz/ml/
+DESCRIPTION:Machine Learning quiz #5 (10 questions) is now open: https://pr
+ asunchaturvedi.in/quiz/ml/
 URL:https://prasunchaturvedi.in/quiz/ml/
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Machine Learning Quiz #5 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ml-quiz-day6@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261128T143000Z
+DTEND:20261128T144500Z
+SUMMARY:Machine Learning Quiz #6 is live
+DESCRIPTION:Machine Learning quiz #6 (10 questions) is now open: https://pr
+ asunchaturvedi.in/quiz/ml/
+URL:https://prasunchaturvedi.in/quiz/ml/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Machine Learning Quiz #6 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ml-quiz-day7@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261129T063000Z
+DTEND:20261129T064500Z
+SUMMARY:Machine Learning Quiz #7 is live
+DESCRIPTION:Machine Learning quiz #7 (10 questions) is now open: https://pr
+ asunchaturvedi.in/quiz/ml/
+URL:https://prasunchaturvedi.in/quiz/ml/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Machine Learning Quiz #7 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ml-quiz-day8@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261129T103000Z
+DTEND:20261129T104500Z
+SUMMARY:Machine Learning Quiz #8 is live
+DESCRIPTION:Machine Learning quiz #8 (10 questions) is now open: https://pr
+ asunchaturvedi.in/quiz/ml/
+URL:https://prasunchaturvedi.in/quiz/ml/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Machine Learning Quiz #8 is live
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ml-quiz-day9@prasunchaturvedi.in
+DTSTAMP:20261124T000000Z
+DTSTART:20261129T143000Z
+DTEND:20261129T144500Z
+SUMMARY:Machine Learning Quiz #9 is live
+DESCRIPTION:Machine Learning quiz #9 (10 questions) is now open: https://pr
+ asunchaturvedi.in/quiz/ml/
+URL:https://prasunchaturvedi.in/quiz/ml/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Machine Learning Quiz #9 is live
 TRIGGER:PT0M
 END:VALARM
 END:VEVENT

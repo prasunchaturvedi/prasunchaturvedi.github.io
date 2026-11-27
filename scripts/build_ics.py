@@ -36,7 +36,11 @@ def events(code, dates, stamp):
     label, folder = LABELS[code], code.lower()
     url = f"{SITE}/quiz/{folder}/"
     for n, d in enumerate(dates, 1):
-        start = datetime.strptime(d, "%Y-%m-%d").replace(hour=RELEASE_UTC.get(code, (3, 30))[0], minute=RELEASE_UTC.get(code, (3, 30))[1], tzinfo=timezone.utc)
+        if "T" in d:  # entry carries its own IST release time
+            start = (datetime.strptime(d, "%Y-%m-%dT%H:%M") - timedelta(hours=5, minutes=30)).replace(tzinfo=timezone.utc)
+        else:
+            start = datetime.strptime(d, "%Y-%m-%d").replace(hour=RELEASE_UTC.get(code, (3, 30))[0], minute=RELEASE_UTC.get(code, (3, 30))[1], tzinfo=timezone.utc)
+        size = 10 if "T" in d else 30
         end = start + timedelta(minutes=15)
         yield [
             "BEGIN:VEVENT",
@@ -45,7 +49,7 @@ def events(code, dates, stamp):
             f"DTSTART:{start:%Y%m%dT%H%M%SZ}",
             f"DTEND:{end:%Y%m%dT%H%M%SZ}",
             f"SUMMARY:{esc(f'{label} Quiz #{n} is live')}",
-            f"DESCRIPTION:{esc(f'{label} daily quiz #{n} (30 questions) is now open: {url}')}",
+            f"DESCRIPTION:{esc(f'{label} quiz #{n} ({size} questions) is now open: {url}')}",
             f"URL:{url}",
             "BEGIN:VALARM",
             "ACTION:DISPLAY",

@@ -1,0 +1,15 @@
+E = {
+"NET-SECFUND-002": {3: "Masquerade by an impostor and analysis of the traffic"},
+"NET-DNSFW-020": {1: "Blocking UDP port 53 at the resolver and allowing only ICMP, so that spoofed DNS replies cannot arrive"},
+"NET-AGRAPH-001": {2: "The set of executions of the model M that satisfy the stated security property P, i.e. the safe runs"},
+"NET-TOOLS-012": {3: "Both reported as open|filtered"},
+"NET-DHRSA-012": {2: "3, shared with nobody at all", 0: "27, shared with Bob only"},
+"AA-GREEDY-014": {3: "Run Dijkstra from every rat and give each rat the free hole with the shortest path"},
+"AA-GRAPH-010": {3: "Compute SCCs, topologically sort them, check each consecutive Cᵢ→Cᵢ₊₁ has an edge", 0: "Compute the SCCs, then check that the resulting component DAG has exactly one source vertex"},
+"BCA-FABRIC-119": {1: "One shared channel without any PDCs; chaincode queries are filtered by MSP ID"},
+"BCA-FABRIC-096": {1: "The ordering service's Raft log of all past consensus entries"},
+"ML-LINREG-008": {2: "Both are pulled equally, because both losses are minimised over the same set of training points"},
+"ML-KNN-009": {1: "KNN cannot compute meaningful Euclidean distances once there are more than three input features at all"},
+"ML-SVM-016": {1: "It is non-linear in w, so the training optimisation becomes non-convex with many poor local minima"},
+"ML-REG-006": {2: "Ridge regression, keeping all 5,000 features in the model but shrinking every coefficient towards zero"},
+}
