@@ -170,7 +170,7 @@
       if (!s.ready) {
         body = '<p class="hub-status">Coming soon</p><p>This subject\u2019s questions are being prepared.</p>';
       } else {
-        body = (today ? '<p class="hub-status live">Live today: Quiz #' + today + "</p><p>" + esc(istDate(unlockMs(s, today))) +
+        body = (today ? '<p class="hub-status live">Live now: Quiz #' + today + "</p><p>" + esc(istDate(unlockMs(s, today))) +
           ' · ' + slotLabel(s, today) + '</p><p><a class="btn btn-primary" href="' + url + "&n=" + today + '">Take Quiz #' + today + "</a></p>"
           : '<p class="hub-status">Starts ' + esc(istDate(unlockMs(s, 1))) + ', ' + slotLabel(s, 1) + '</p><p><a class="btn btn-primary" href="' + url + '">Try the free sample</a></p>') +
           (next ? '<p class="hub-next">Quiz #' + next + ' opens in <strong data-until="' + unlockMs(s, next) + '"></strong></p>' : "<p class=\"hub-next\">All quizzes released.</p>") +
