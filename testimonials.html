@@ -23,6 +23,7 @@
     .t-card { background: #fff; border: 1px solid var(--rule); border-top: 4px solid var(--navy); border-radius: .5rem; padding: 1.25rem 1.35rem; margin: 0; }
     .t-card[data-rel="classmate"] { border-top-color: #c9a227; }
     .t-card[data-rel="client"] { border-top-color: var(--scarlet); }
+    .t-card[data-rel="mentor"] { border-top-color: #2f6f5e; }
     .t-card blockquote { margin: 0 0 1rem; font-family: var(--serif); font-size: 1.0625rem; line-height: 1.6; color: var(--ink); }
     .t-card figcaption { font-size: .9375rem; color: var(--slate); }
     .t-card figcaption b { display: block; color: var(--navy); }
@@ -99,10 +100,12 @@
           <button type="button" data-f="client" aria-pressed="false">Clients &amp; partners</button>
           <button type="button" data-f="policy" aria-pressed="false">Policy &amp; community</button>
           <button type="button" data-f="learner" aria-pressed="false">Learners</button>
+          <button type="button" data-f="mentor" aria-pressed="false">Mentors</button>
+          <button type="button" data-f="other" aria-pressed="false">Peers &amp; others</button>
         </div>
 
         <!-- APPROVED TESTIMONIALS: add one <li> per approved entry. Template:
-        <li><figure class="t-card" data-rel="classmate|colleague|client|policy|learner">
+        <li><figure class="t-card" data-rel="classmate|colleague|client|policy|learner|mentor|other">
           <span class="t-tag">Classmate · XIMB 2005–07</span>
           <blockquote><p>Text…</p></blockquote>
           <figcaption><b>Name</b>Role, place</figcaption>
@@ -142,6 +145,10 @@
                 <label for="r-policy"><b>Policy &amp; community</b><span>Think tanks, industry bodies, alumni and diaspora forums</span></label>
                 <input type="radio" name="relationship" id="r-learner" value="Learner or mentee" data-k="learner">
                 <label for="r-learner"><b>Learner or mentee</b><span>Quiz takers, students, people I have mentored</span></label>
+                <input type="radio" name="relationship" id="r-mentor" value="Mentor, teacher or guide" data-k="mentor">
+                <label for="r-mentor"><b>Mentor, teacher or guide</b><span>Professors, research guides, mentors</span></label>
+                <input type="radio" name="relationship" id="r-other" value="Other" data-k="other">
+                <label for="r-other"><b>Other</b><span>Industry peer, competitor, fellow alumnus, acquaintance</span></label>
               </div>
             </fieldset>
 
@@ -267,6 +274,30 @@
         "I would tell other learners that…"
       ],
       k: ["exam-ready", "concepts made simple", "consistent practice", "patient mentor", "honest feedback", "career clarity", "well-structured", "motivating", "practical examples"]
+    },
+    mentor: {
+      t: "For mentors, teachers and guides: the student, scholar or mentee you saw",
+      tip: "Speak from where you stood: his approach to learning, his growth, the questions he asked.",
+      ctx: "e.g. PhD guide, XIM University",
+      p: [
+        "As his teacher, I noticed that Prasun…",
+        "What distinguishes him as a learner is…",
+        "Over the years I have seen him grow into…",
+        "He brings to research and study a rare…"
+      ],
+      k: ["intellectually curious", "rigorous", "asks the right questions", "disciplined", "lifelong learner", "practitioner-scholar", "receptive to feedback", "original thinking", "balances work and study", "research with real-world impact"]
+    },
+    other: {
+      t: "For industry peers, fellow alumni and others: an outside view",
+      tip: "Say how our paths crossed and the impression he left. Respect earned from the other side of the table counts most.",
+      ctx: "e.g. Industry peer, technology sector, Odisha",
+      p: [
+        "Our paths crossed when…",
+        "Even as a competitor, I respected how he…",
+        "In the wider industry, Prasun is known for…",
+        "What stays with me from our interactions is…"
+      ],
+      k: ["respected across the industry", "plays fair", "professional integrity", "well-networked", "generous with insights", "credible voice", "collaborative spirit", "gracious", "worthy competitor"]
     }
   };
 
