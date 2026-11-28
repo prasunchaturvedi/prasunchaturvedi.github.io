@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Testimonials | Prasun Chaturvedi</title>
+  <meta name="description" content="What classmates, colleagues, clients and policy partners say about working with Prasun Chaturvedi, and a guided form to share your own experience.">
+  <link rel="canonical" href="https://prasunchaturvedi.in/testimonials.html">
+  <meta name="theme-color" content="#14213d">
+  <meta name="author" content="Prasun Chaturvedi">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Prasun Chaturvedi">
+  <meta property="og:title" content="Testimonials | Prasun Chaturvedi">
+  <meta property="og:description" content="Words from classmates, colleagues, clients and policy partners. Share your own.">
+  <meta property="og:url" content="https://prasunchaturvedi.in/testimonials.html">
+  <meta property="og:image" content="https://prasunchaturvedi.in/assets/og.jpg">
+  <meta property="og:locale" content="en_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/site.css">
+  <style>
+    .t-wall { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); margin: 1.5rem 0 0; padding: 0; list-style: none; }
+    .t-card { background: #fff; border: 1px solid var(--rule); border-top: 4px solid var(--navy); border-radius: .5rem; padding: 1.25rem 1.35rem; margin: 0; }
+    .t-card[data-rel="classmate"] { border-top-color: #c9a227; }
+    .t-card[data-rel="client"] { border-top-color: var(--scarlet); }
+    .t-card blockquote { margin: 0 0 1rem; font-family: var(--serif); font-size: 1.0625rem; line-height: 1.6; color: var(--ink); }
+    .t-card figcaption { font-size: .9375rem; color: var(--slate); }
+    .t-card figcaption b { display: block; color: var(--navy); }
+    .t-tag { display: inline-block; font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; color: var(--slate); margin-bottom: .6rem; }
+    .t-empty { color: var(--slate); font-style: italic; }
+    .t-filter { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+    .t-filter button, .t-rel label, .kw button { font: inherit; cursor: pointer; }
+    .t-filter button { border: 1px solid var(--navy); background: transparent; color: var(--navy); border-radius: 999px; padding: .35rem .9rem; font-size: .9375rem; }
+    .t-filter button[aria-pressed="true"] { background: var(--navy); color: #fff; }
+
+    .t-form-wrap { background: #fff; border: 1px solid var(--rule); border-radius: .75rem; padding: clamp(1.25rem, 3vw, 2.25rem); margin-top: 1.5rem; }
+    .t-form-wrap label, .t-form-wrap legend { color: var(--ink); font-weight: 600; }
+    .t-form-wrap .opt { color: var(--slate); }
+    .t-form-wrap .form-note { color: var(--slate); }
+    .t-form-wrap input:focus-visible, .t-form-wrap textarea:focus-visible, .t-form-wrap select:focus-visible { outline: 3px solid var(--navy); }
+    .t-form-wrap select { width: 100%; font: inherit; border: 2px solid var(--mist); border-radius: .375rem; padding: .65rem .8rem; background: #fff; color: var(--ink); }
+    fieldset { border: 0; padding: 0; margin: 0; }
+    .t-rel { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); margin-top: .5rem; }
+    .t-rel input { position: absolute; opacity: 0; }
+    .t-rel label { display: block; border: 2px solid var(--mist); border-radius: .5rem; padding: .8rem .9rem; font-weight: 400; height: 100%; }
+    .t-rel label b { display: block; color: var(--navy); }
+    .t-rel label span { font-size: .875rem; color: var(--slate); }
+    .t-rel input:checked + label { border-color: var(--scarlet); background: #fdf4f5; }
+    .t-rel input:focus-visible + label { outline: 3px solid var(--navy); outline-offset: 2px; }
+    .t-guide { background: var(--paper); border-left: 4px solid var(--scarlet); border-radius: .375rem; padding: 1rem 1.25rem; }
+    .t-guide h3 { margin: 0 0 .4rem; font-size: 1.0625rem; color: var(--navy); }
+    .t-guide p { margin: 0 0 .6rem; color: var(--slate); }
+    .t-guide ol { margin: 0 0 .75rem 1.1rem; padding: 0; }
+    .t-guide li { margin-bottom: .35rem; }
+    .t-guide li button { border: 0; background: none; color: var(--scarlet); text-decoration: underline; padding: 0; font: inherit; cursor: pointer; text-align: left; }
+    .kw { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .kw button { border: 1px solid var(--slate); background: #fff; color: var(--ink); border-radius: 999px; padding: .25rem .7rem; font-size: .875rem; }
+    .kw button:hover, .kw button.used { background: var(--navy); color: #fff; border-color: var(--navy); }
+    .t-count { font-size: .875rem; color: var(--slate); text-align: right; margin-top: -.6rem; }
+    .t-check { display: flex; gap: .6rem; align-items: flex-start; font-weight: 400 !important; }
+    .t-check input { margin-top: .3rem; }
+    .t-sent { background: #eef6ee; border: 1px solid #9cc79c; border-radius: .5rem; padding: 1rem 1.25rem; margin-bottom: 1.5rem; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">Prasun Chaturvedi</a>
+      <nav class="nav" aria-label="Main">
+        <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/writing.html">Writing</a></li>
+        <li><a href="/learn/">Learn</a></li>
+        <li><a href="/testimonials.html" aria-current="page">Testimonials</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <div class="page-head">
+      <div class="wrap">
+        <h1>Testimonials</h1>
+        <p>In the words of the people I have studied with, worked alongside and served.</p>
+      </div>
+    </div>
+
+    <section aria-labelledby="wall-title">
+      <div class="wrap">
+        <p class="t-sent" id="t-sent" role="status" hidden><b>Thank you.</b> Your testimonial has reached me. I read every one personally before it appears here, so it may take a few days to show.</p>
+        <h2 id="wall-title">What people say</h2>
+        <div class="t-filter" role="group" aria-label="Filter testimonials">
+          <button type="button" data-f="all" aria-pressed="true">All</button>
+          <button type="button" data-f="classmate" aria-pressed="false">Classmates</button>
+          <button type="button" data-f="colleague" aria-pressed="false">Colleagues</button>
+          <button type="button" data-f="client" aria-pressed="false">Clients &amp; partners</button>
+          <button type="button" data-f="policy" aria-pressed="false">Policy &amp; community</button>
+          <button type="button" data-f="learner" aria-pressed="false">Learners</button>
+        </div>
+
+        <!-- APPROVED TESTIMONIALS: add one <li> per approved entry. Template:
+        <li><figure class="t-card" data-rel="classmate|colleague|client|policy|learner">
+          <span class="t-tag">Classmate · XIMB 2005–07</span>
+          <blockquote><p>Text…</p></blockquote>
+          <figcaption><b>Name</b>Role, place</figcaption>
+        </figure></li>
+        -->
+        <ul class="t-wall" id="t-wall">
+        </ul>
+        <p class="t-empty" id="t-empty">The first testimonials are being reviewed. Yours could be the first one here.</p>
+        <p class="more"><a href="#write">Write a testimonial</a></p>
+      </div>
+    </section>
+
+    <section id="write" aria-labelledby="write-title">
+      <div class="wrap">
+        <h2 id="write-title">Share your experience</h2>
+        <p class="section-intro">Pick how we know each other and you will get a few prompts and words to start from. Two or three honest sentences are worth more than a long tribute.</p>
+
+        <div class="t-form-wrap">
+          <form id="t-form" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="792ed4ea-7ba3-450b-8cd4-c520c617be72">
+            <input type="hidden" name="subject" id="t-subject" value="Testimonial for review via prasunchaturvedi.in">
+            <input type="hidden" name="from_name" value="prasunchaturvedi.in testimonials">
+            <input type="hidden" name="redirect" value="https://prasunchaturvedi.in/testimonials.html?sent=1">
+            <input type="hidden" name="form_type" value="testimonial">
+            <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <fieldset>
+              <legend>How do you know me?</legend>
+              <div class="t-rel">
+                <input type="radio" name="relationship" id="r-classmate" value="Classmate" data-k="classmate" required>
+                <label for="r-classmate"><b>Classmate</b><span>Utkal, XIMB, Columbia, XIM University, IIT Bhubaneswar</span></label>
+                <input type="radio" name="relationship" id="r-colleague" value="Colleague" data-k="colleague">
+                <label for="r-colleague"><b>Colleague</b><span>Manager, peer or team member</span></label>
+                <input type="radio" name="relationship" id="r-client" value="Client or partner" data-k="client">
+                <label for="r-client"><b>Client or partner</b><span>Government, enterprise or industry partner</span></label>
+                <input type="radio" name="relationship" id="r-policy" value="Policy or community" data-k="policy">
+                <label for="r-policy"><b>Policy &amp; community</b><span>Think tanks, industry bodies, alumni and diaspora forums</span></label>
+                <input type="radio" name="relationship" id="r-learner" value="Learner or mentee" data-k="learner">
+                <label for="r-learner"><b>Learner or mentee</b><span>Quiz takers, students, people I have mentored</span></label>
+              </div>
+            </fieldset>
+
+            <div class="t-guide" id="t-guide" aria-live="polite">
+              <h3>Choose a relationship above</h3>
+              <p>You will see prompts suited to how we know each other. Click a prompt to start your text, or click words to add them.</p>
+            </div>
+
+            <div class="field">
+              <label for="t-context">Context <span class="opt">(shown with your testimonial)</span></label>
+              <input id="t-context" name="context" type="text" maxlength="90" placeholder="e.g. XIMB batchmate, 2005–07">
+            </div>
+
+            <div class="field">
+              <label for="t-text">Your testimonial</label>
+              <textarea id="t-text" name="testimonial" rows="7" minlength="60" maxlength="1200" required></textarea>
+            </div>
+            <p class="t-count" id="t-count" aria-live="polite">0 / 1200</p>
+
+            <div class="field">
+              <label for="t-name">Your name</label>
+              <input id="t-name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="t-role">Your current role and organisation <span class="opt">(optional)</span></label>
+              <input id="t-role" name="role" type="text" autocomplete="organization-title">
+            </div>
+            <div class="field">
+              <label for="t-email">Email <span class="opt">(never published; only to confirm it is you)</span></label>
+              <input id="t-email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="t-li">LinkedIn profile <span class="opt">(optional, helps me verify)</span></label>
+              <input id="t-li" name="linkedin" type="text" inputmode="url" placeholder="linkedin.com/in/…">
+            </div>
+            <div class="field">
+              <label for="t-display">Show my name as</label>
+              <select id="t-display" name="display_as">
+                <option>Full name</option>
+                <option>First name and initial</option>
+                <option>Context only (no name)</option>
+              </select>
+            </div>
+
+            <label class="t-check"><input type="checkbox" name="consent" value="yes" required> I agree that this testimonial may be published on prasunchaturvedi.in and lightly edited for length or clarity. Nothing appears until it has been reviewed.</label>
+
+            <div><button class="btn btn-primary" type="submit">Submit for review</button></div>
+            <p class="form-note">Every testimonial is read personally before it is published. Please describe organisations by the work rather than by name where they have confidentiality norms.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; 2026 Prasun Chaturvedi</p>
+      <ul>
+        <li><a href="https://www.linkedin.com/in/prasunchaturvedi" rel="me noopener">LinkedIn</a></li>
+        <li><a href="https://prasunchaturvedi.substack.com/subscribe" rel="noopener">Subscribe</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+<script>
+(function () {
+  var G = {
+    classmate: {
+      t: "For classmates: warm, personal, a memory you still smile about",
+      tip: "Write as you would at a reunion. A small story says more than adjectives.",
+      ctx: "e.g. XIMB batchmate, 2005–07",
+      p: [
+        "The Prasun I remember from our college days was…",
+        "One memory from campus that still makes me smile is…",
+        "Even back then, he was the one who…",
+        "Years later, what has not changed about him is…"
+      ],
+      k: ["dependable friend", "late-night study sessions", "always had our back", "infectious curiosity", "the go-to person", "quiet leader", "brought everyone together", "generous with his time", "grounded", "sense of humour", "still the same Prasun"]
+    },
+    colleague: {
+      t: "For colleagues: leadership, judgement and how he builds teams",
+      tip: "Name a situation, what he did, and what changed because of it.",
+      ctx: "e.g. Worked together in Qatar, 2016–19",
+      p: [
+        "I worked with Prasun when…",
+        "What sets him apart as a leader is…",
+        "In a difficult moment, I saw him…",
+        "He made the team better by…"
+      ],
+      k: ["clear-headed under pressure", "builds trust", "develops people", "strategic thinker", "decisive", "leads from the front", "cross-cultural leadership", "P&L ownership", "calm in a crisis", "fair and transparent", "sets high standards"]
+    },
+    client: {
+      t: "For clients and partners: outcomes, business acumen and reliability",
+      tip: "What problem did you bring, what did he do, and what was the result? Numbers help.",
+      ctx: "e.g. Senior official, a state government agency",
+      p: [
+        "We engaged Prasun to…",
+        "His understanding of our business helped us…",
+        "The outcome we achieved together was…",
+        "I would recommend him to anyone who needs…"
+      ],
+      k: ["business acumen", "delivered on time", "understands government processes", "solution-oriented", "commercially sharp", "responsive", "trusted advisor", "end-to-end ownership", "secure and compliant", "long-term partner", "goes beyond the brief"]
+    },
+    policy: {
+      t: "For policy and community partners: insight, public value and engagement",
+      tip: "Describe the forum or consultation and what his contribution added.",
+      ctx: "e.g. Fellow member, XIMBAA Bhubaneswar Chapter",
+      p: [
+        "In policy discussions, Prasun brings…",
+        "His contribution to our forum was…",
+        "He connects technology and governance by…",
+        "Our community benefited when he…"
+      ],
+      k: ["evidence-based", "practitioner insight", "bridges industry and government", "Odisha's digital future", "institution builder", "community-minded", "thoughtful contributor", "big-picture view", "inclusive", "follows through"]
+    },
+    learner: {
+      t: "For learners and mentees: what you learnt and how it helped",
+      tip: "Mention a concept that clicked or a decision his advice shaped.",
+      ctx: "e.g. M.Tech student, daily quiz participant",
+      p: [
+        "The daily quizzes helped me…",
+        "Before talking to Prasun, I was unsure about…",
+        "What I learnt from him was…",
+        "I would tell other learners that…"
+      ],
+      k: ["exam-ready", "concepts made simple", "consistent practice", "patient mentor", "honest feedback", "career clarity", "well-structured", "motivating", "practical examples"]
+    }
+  };
+
+  var guide = document.getElementById("t-guide");
+  var ta = document.getElementById("t-text");
+  var ctx = document.getElementById("t-context");
+  var subj = document.getElementById("t-subject");
+  var count = document.getElementById("t-count");
+
+  function insert(str, asOpener) {
+    var v = ta.value;
+    if (asOpener) {
+      ta.value = v.trim() ? v.replace(/\s*$/, "") + "\n\n" + str + " " : str + " ";
+    } else {
+      var sep = !v || /[\s(]$/.test(v) ? "" : (/[.!?]$/.test(v) ? " " : ", ");
+      ta.value = v + sep + str;
+    }
+    ta.focus();
+    ta.setSelectionRange(ta.value.length, ta.value.length);
+    upd();
+  }
+
+  function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+  function render(key) {
+    var g = G[key];
+    subj.value = "Testimonial (" + document.querySelector('input[data-k="' + key + '"]').value + ") for review";
+    ctx.placeholder = g.ctx;
+    guide.innerHTML = "<h3>" + esc(g.t) + "</h3><p>" + esc(g.tip) + "</p>" +
+      "<p><b>Start with a prompt:</b></p><ol>" +
+      g.p.map(function (x) { return '<li><button type="button" data-o="' + esc(x) + '">' + esc(x) + "</button></li>"; }).join("") +
+      "</ol><p><b>Words that may fit:</b></p><div class=\"kw\">" +
+      g.k.map(function (x) { return '<button type="button" data-w="' + esc(x) + '">' + esc(x) + "</button>"; }).join("") +
+      "</div>";
+  }
+
+  guide.addEventListener("click", function (e) {
+    var b = e.target.closest("button");
+    if (!b) return;
+    if (b.dataset.o) insert(b.dataset.o.replace(/…$/, ""), true);
+    if (b.dataset.w) { insert(b.dataset.w, false); b.classList.add("used"); }
+  });
+
+  document.querySelectorAll('input[name="relationship"]').forEach(function (r) {
+    r.addEventListener("change", function () { render(r.dataset.k); });
+  });
+
+  function upd() { count.textContent = ta.value.length + " / 1200"; }
+  ta.addEventListener("input", upd);
+
+  // Filter + empty state for the published wall
+  var wall = document.getElementById("t-wall");
+  var cards = wall.querySelectorAll(".t-card");
+  document.getElementById("t-empty").hidden = cards.length > 0;
+  document.querySelectorAll(".t-filter button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.querySelectorAll(".t-filter button").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      var f = b.dataset.f, shown = 0;
+      cards.forEach(function (c) {
+        var on = f === "all" || c.dataset.rel === f;
+        c.parentNode.hidden = !on;
+        if (on) shown++;
+      });
+      var em = document.getElementById("t-empty");
+      em.hidden = shown > 0;
+      if (cards.length) em.textContent = "None in this group yet.";
+    });
+  });
+
+  if (/[?&]sent=1/.test(location.search)) document.getElementById("t-sent").hidden = false;
+})();
+</script>
+<script src="/assets/counter.js" defer></script>
+<script data-goatcounter="https://prasunchaturvedi.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
